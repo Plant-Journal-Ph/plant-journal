@@ -428,6 +428,40 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .progress .done span{border:1.5px solid var(--accent);background:var(--accent);color:#fff}
 .progress .done span::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--accent);animation:ring 2.2s ease-out infinite}
 @keyframes ring{from{transform:scale(1);opacity:.7}to{transform:scale(1.55);opacity:0}}
+/* click a week circle -> that week's details slide open underneath */
+.progress [role="button"]{cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:color .2s ease}
+.progress [role="button"] span{transition:transform .35s cubic-bezier(.3,1.6,.5,1),box-shadow .25s ease}
+.progress [role="button"]:hover span{transform:translateY(-3px) scale(1.07)}
+.progress [role="button"]:active span{transform:scale(.92)}
+.progress [role="button"]:focus-visible span{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--accent-deep)}
+.progress .sel{color:var(--accent-deep);font-weight:700}
+.progress .sel span{transform:translateY(-3px) scale(1.14);background:var(--accent-deep);border-color:var(--accent-deep);box-shadow:0 4px 0 rgba(0,0,0,.12)}
+.progress .sel:hover span{transform:translateY(-4px) scale(1.16)}
+.week-detail{display:grid;grid-template-rows:0fr;opacity:0;margin-top:-10px;transition:grid-template-rows .5s cubic-bezier(.2,.9,.3,1),opacity .35s ease,margin .5s cubic-bezier(.2,.9,.3,1)}
+.week-detail.open{grid-template-rows:1fr;opacity:1;margin-top:-6px;margin-bottom:18px}
+.week-detail>.wd-clip{overflow:hidden;min-height:0}
+.wd-card{position:relative;margin-top:12px;padding:16px 18px 18px;background:#fff;border:1.5px solid var(--accent);border-radius:var(--hand);box-shadow:0 6px 0 var(--accent-soft)}
+.wd-card::before{content:"";position:absolute;top:-9px;left:var(--x,40px);width:16px;height:16px;margin-left:-8px;background:#fff;border-left:1.5px solid var(--accent);border-top:1.5px solid var(--accent);transform:rotate(45deg);border-radius:4px 0 0 0;transition:left .45s cubic-bezier(.3,1.4,.5,1)}
+.wd-head{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.wd-head h4{margin:0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:21px;color:var(--accent-deep)}
+.wd-head .wd-date{font-family:"Caveat",cursive;font-size:21px;color:var(--muted)}
+.wd-close{margin-left:auto;border:0;background:var(--accent-soft);color:var(--accent-deep);width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.wd-close:hover{transform:rotate(90deg) scale(1.08)}
+.wd-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.wd-stat{background:var(--accent-soft);border-radius:14px;padding:9px 12px}
+.wd-stat small,.wd-note small{display:block;font-family:"Caveat",cursive;font-weight:700;font-size:18px;line-height:1.1;color:var(--accent-deep)}
+.wd-stat b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:16px;color:var(--ink)}
+.wd-notes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wd-note{border:1.5px dashed var(--line);border-radius:14px;padding:10px 13px;font-size:15px}
+.wd-card.anim .wd-head,.wd-card.anim .wd-stat,.wd-card.anim .wd-note{animation:wdIn .5s cubic-bezier(.2,.9,.3,1.2) both}
+.wd-card.anim .wd-stat:nth-child(2){animation-delay:.05s}
+.wd-card.anim .wd-stat:nth-child(3){animation-delay:.1s}
+.wd-card.anim .wd-stat:nth-child(4){animation-delay:.15s}
+.wd-card.anim .wd-note:nth-child(1){animation-delay:.2s}
+.wd-card.anim .wd-note:nth-child(2){animation-delay:.26s}
+@keyframes wdIn{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.log tr.flash td{animation:rowflash 1.4s ease}
+@keyframes rowflash{0%,30%{background:var(--accent-soft)}100%{background:#fff}}
 .log-wrap{border:1.5px solid var(--line);border-radius:var(--hand);overflow:hidden;background:#fff}
 .log td:first-child{font-family:"Fredoka",sans-serif;font-weight:500;white-space:nowrap}
 .log tr.empty td{color:#bcaea4;padding-top:7px;padding-bottom:7px;background:repeating-linear-gradient(135deg,#fff 0 8px,#fcf9f4 8px 16px)}
@@ -553,6 +587,8 @@ footer .hand{font-size:21px;color:var(--ink)}
   .subtabs{border-radius:20px}
   .subtabs button{flex:1 1 30%;padding:8px 6px;font-size:14px}
   .progress{grid-template-columns:repeat(5,1fr)}
+  .wd-stats{grid-template-columns:1fr 1fr}
+  .wd-notes{grid-template-columns:1fr}
   .log thead{display:none}
   .log tr{display:block;border-bottom:1.5px dashed var(--line)}
   .log tr:last-child{border-bottom:0}
@@ -1239,7 +1275,7 @@ function renderPlant(key){
   const logRows = Array.from({length:WEEKS}, (_, i) => {
     const w = i + 1, e = p.log[w];
     if (!e) return `<tr class="empty"><td>Week ${w}</td><td colspan="7">not logged yet</td></tr>`;
-    return `<tr class="filled">
+    return `<tr class="filled" data-week="${w}">
       <td>Week ${w}</td>
       <td data-label="date">${e.date}</td>
       <td data-label="light (hrs/day)">${e.light}</td>
@@ -1331,9 +1367,12 @@ function renderPlant(key){
     </div>
 
     <div class="panel" role="tabpanel" id="${key}-panel-log" aria-labelledby="${key}-tab-log">
-      <div class="progress" aria-label="Weeks logged">
-        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; return `<div class="${e ? "done" : ""}"><span>${i+1}</span>week ${i+1}</div>`; }).join("")}
+      <div class="progress" aria-label="Weeks logged — click a week to see its details" data-plant="${key}">
+        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; return e
+          ? `<div class="done" data-week="${i+1}" role="button" tabindex="0" aria-expanded="false" aria-controls="${key}-week-detail"><span>${i+1}</span>week ${i+1}</div>`
+          : `<div><span>${i+1}</span>week ${i+1}</div>`; }).join("")}
       </div>
+      <div class="week-detail" id="${key}-week-detail" aria-live="polite"><div class="wd-clip"></div></div>
       <div class="log-wrap">
         <table class="log">
           <thead><tr><th>Week</th><th>Date</th><th>Light (hrs/day)</th><th>Temp min/max</th><th>Watering</th><th>Soil pH</th><th>What we saw</th><th>Problems &amp; what we did</th></tr></thead>
@@ -1487,7 +1526,31 @@ const SFX = {
     keyPress({delay:1.35, body:70, click:900, bodyLen:.18, vol:1.3, release:false});
   }
 };
-function play(name){ if (soundOn && SFX[name]) { try { SFX[name](); } catch (e) {} } }
+/* soft "pling" for the week circles: each week is one note higher, like climbing a little xylophone */
+const WEEK_NOTES = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66, 1318.51, 1567.98];
+function pling(freq, delay, vol){
+  const a = audio(); if (!a) return;
+  const t = a.currentTime + (delay || 0);
+  const out = a.createGain(); out.connect(a.destination);
+  out.gain.setValueAtTime(.0001, t);
+  out.gain.exponentialRampToValueAtTime(vol || .14, t + .008);
+  out.gain.exponentialRampToValueAtTime(.0001, t + .5);
+  [[1, 1], [2.76, .25], [5.4, .08]].forEach(([mult, lvl]) => {   // wooden-bar overtones
+    const o = a.createOscillator(), g = a.createGain();
+    o.type = "sine"; o.frequency.value = freq * mult; g.gain.value = lvl;
+    o.connect(g); g.connect(out); o.start(t); o.stop(t + .55);
+  });
+}
+SFX.week = w => {
+  keyPress({click:3800, body:220, vol:.5, release:false});
+  const f = WEEK_NOTES[(w - 1) % WEEK_NOTES.length];
+  pling(f, .015); pling(f * 1.5, .09, .07);
+};
+SFX.weekClose = () => {
+  keyPress({click:3200, body:200, vol:.45, release:false});
+  pling(659.25, .01, .08); pling(523.25, .08, .07);
+};
+function play(name, arg){ if (soundOn && SFX[name]) { try { SFX[name](arg); } catch (e) {} } }
 
 const soundBtn = document.getElementById("sound-toggle");
 function paintSound(){
@@ -1508,9 +1571,93 @@ document.addEventListener("click", e => {
   if ((el = t.closest(".tabs button"))) kind = "nav";
   else if ((el = t.closest(".spec-card"))) kind = "card";
   else if ((el = t.closest(".subtabs button"))) kind = "pop";
-  else if ((el = t.closest(".chip, .members li, .gallery figure, .param, .pest, .timeline li, .fact, .progress div, .polaroid, .swap, .sticky"))) kind = "tick";
+  else if ((el = t.closest(".chip, .members li, .gallery figure, .param, .pest, .timeline li, .fact, .progress div:not([role]), .polaroid, .swap, .sticky"))) kind = "tick";
   if (!kind) return;
   play(kind);
+});
+
+/* ---------------- weekly log: click a week circle to slide its details open ---------------- */
+function showWeek(btn){
+  const prog = btn.closest(".progress");
+  const key = prog.dataset.plant, w = +btn.dataset.week;
+  const e = PLANTS[key] && PLANTS[key].log[w];
+  const box = document.getElementById(key + "-week-detail");
+  if (!e || !box) return;
+  const clip = box.firstElementChild;
+  const wasOpen = box.classList.contains("open");
+
+  // clicking the week that's already open closes it again
+  if (btn.classList.contains("sel")){
+    closeWeek(prog, box);
+    play("weekClose");
+    return;
+  }
+  prog.querySelectorAll(".sel").forEach(b => { b.classList.remove("sel"); b.setAttribute("aria-expanded", "false"); });
+  btn.classList.add("sel"); btn.setAttribute("aria-expanded", "true");
+
+  const stat = (label, val) => `<div class="wd-stat"><small>${label}</small><b>${val}</b></div>`;
+  const arrowX = () => {
+    const c = btn.querySelector("span").getBoundingClientRect(), b = box.getBoundingClientRect();
+    return (c.left + c.width / 2 - b.left) + "px";
+  };
+  const oldCard = clip.querySelector(".wd-card");
+  const card = document.createElement("div");
+  card.className = "wd-card anim";
+  card.innerHTML = `
+    <div class="wd-head"><h4>Week ${w}</h4><span class="wd-date">${e.date}</span>
+      <button type="button" class="wd-close" aria-label="Close week ${w} details">✕</button></div>
+    <div class="wd-stats">
+      ${stat("light (hrs/day)", e.light)}${stat("temp min/max", e.temp)}${stat("watering", e.water)}${stat("soil pH", e.ph)}
+    </div>
+    <div class="wd-notes">
+      <div class="wd-note"><small>what we saw</small>${e.obs}</div>
+      <div class="wd-note"><small>problems &amp; what we did</small>${e.issue}</div>
+    </div>`;
+  // keep the little pointer's old spot so it can glide over to the new week
+  card.style.setProperty("--x", oldCard ? oldCard.style.getPropertyValue("--x") : arrowX());
+  clip.replaceChildren(card);
+  requestAnimationFrame(() => {
+    box.classList.add("open");
+    card.style.setProperty("--x", arrowX());
+  });
+
+  play("week", w);
+
+  // flash the matching row in the table
+  const row = prog.closest(".panel").querySelector(`.log tr[data-week="${w}"]`);
+  if (row){ row.classList.remove("flash"); void row.offsetWidth; row.classList.add("flash"); }
+
+  // on first open, make sure the panel is in view
+  if (!wasOpen){
+    setTimeout(() => {
+      const r = box.getBoundingClientRect();
+      if (r.bottom > innerHeight) box.scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "nearest"});
+    }, 380);
+  }
+}
+function closeWeek(prog, box){
+  prog.querySelectorAll(".sel").forEach(b => { b.classList.remove("sel"); b.setAttribute("aria-expanded", "false"); });
+  box.classList.remove("open");
+}
+document.addEventListener("click", e => {
+  const btn = e.target.closest(".progress [data-week][role='button']");
+  if (btn) return showWeek(btn);
+  const x = e.target.closest(".wd-close");
+  if (x){
+    const box = x.closest(".week-detail");
+    const prog = box.previousElementSibling;
+    const sel = prog.querySelector(".sel");
+    closeWeek(prog, box);
+    play("weekClose");
+    if (sel) sel.focus();
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const btn = e.target.closest && e.target.closest(".progress [data-week][role='button']");
+  if (!btn) return;
+  e.preventDefault();
+  showWeek(btn);
 });
 
 /* ---------------- pot buddy: poke it too many times and it cries and falls off ---------------- */
