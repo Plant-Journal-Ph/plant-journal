@@ -710,7 +710,6 @@ footer .hand{font-size:21px;color:var(--ink)}
             <h2>hi there! <span>✿</span></h2>
             <p>This is our little plant journal for the <b>Philippine Native Plant Conservation Initiative</b>. For this project our group took care of two legumes, <b>blue ternate</b> (butterfly pea) and <b>ipil-ipil</b>, and wrote down how they were doing week by week.</p>
             <p>Pick a plant below to see how we grew it, our weekly log, the growth stages to expect, the pests we kept an eye on, and what each plant is used for.</p>
-            <span class="sig">~ from the five of us</span>
           </div>
           <div class="swap taped" aria-label="Photos of butterfly pea and ipil-ipil">
             <div class="stage">
@@ -722,7 +721,7 @@ footer .hand{font-size:21px;color:var(--ink)}
         </div>
 
         <div class="box leafy rise">
-          <div class="box-title"><span class="fl">✿</span>our plants<span class="tag">tap one!</span></div>
+          <div class="box-title"><span class="fl">✿</span>our plants</div>
           <div class="box-body">
             <div class="specimens">
               <button type="button" class="spec-card taped blue" data-goto="butterfly-pea">
@@ -743,7 +742,7 @@ footer .hand{font-size:21px;color:var(--ink)}
 
         <div class="row rise">
           <div class="box blush">
-            <div class="box-title"><span class="fl">✿</span>the group<span class="tag">group 5 · botany lec 8:30</span></div>
+            <div class="box-title"><span class="fl">✿</span>the group</div>
             <div class="box-body">
               <ul class="members" id="members"></ul>
             </div>
@@ -1277,7 +1276,7 @@ function renderPlant(key){
 
     <div class="panel active" role="tabpanel" id="${key}-panel-overview" aria-labelledby="${key}-tab-overview">
       <div class="box">
-        <div class="box-title"><span class="fl">✿</span>photos<span class="tag">from Wikimedia Commons</span></div>
+        <div class="box-title"><span class="fl">✿</span>photos</div>
         <div class="box-body">
           <div class="gallery">
             ${p.photos.map(ph => `<figure>
@@ -1321,7 +1320,6 @@ function renderPlant(key){
             ${phChart(p)}
             <div class="legend"><span><i style="background:var(--accent-soft)"></i>best range ${p.phGauge.opt[0].toFixed(1)}–${p.phGauge.opt[1].toFixed(1)}</span><span><i style="background:var(--accent);height:3px;width:16px;vertical-align:3px"></i>weekly pH</span><span>tolerates ${p.phGauge.tol[0].toFixed(1)}–${p.phGauge.tol[1].toFixed(1)}</span></div>
             <p class="small" style="margin-top:12px">${p.phNote}</p>
-            <div class="scrawl">${p.phScrawl}</div>
           </div>
         </div>
         <div class="box">
@@ -1329,7 +1327,6 @@ function renderPlant(key){
           <div class="box-body">
             ${tempBars(p.tempGauge.opt, tempWeeks(p))}
             <p class="small" style="margin-top:12px">${tempNote(p.tempGauge.opt, tempWeeks(p)).note}</p>
-            <div class="scrawl">${tempNote(p.tempGauge.opt, tempWeeks(p)).scrawl}</div>
           </div>
         </div>
       </div>
@@ -1351,7 +1348,7 @@ function renderPlant(key){
 
     <div class="panel" role="tabpanel" id="${key}-panel-timeline" aria-labelledby="${key}-tab-timeline">
       <div class="box">
-        <div class="box-title"><span class="fl">✿</span>growth timeline<span class="tag">what to expect</span></div>
+        <div class="box-title"><span class="fl">✿</span>growth timeline</div>
         <div class="box-body">
           <ol class="timeline">
             ${p.timeline.map((t,i) => `<li><span class="dot">${i+1}</span><h4>${t[0]}</h4><span class="when">${t[1]}</span></li>`).join("")}
