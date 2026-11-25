@@ -490,6 +490,8 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .log tr.filled{transition:background-color .2s ease}
 .log tr.filled:hover td{background:var(--accent-soft)}
 .log .ph-val{font-family:"Fredoka",sans-serif;font-weight:500;color:var(--accent-deep)}
+.ph-none{color:#bcaea4;font-weight:400}
+.wd-stat .ph-none{font-size:14px}
 
 /* timeline */
 .timeline{list-style:none;margin:0;padding:0;position:relative}
@@ -951,13 +953,13 @@ const PLANTS = {
     // est:true marks weeks filled in with estimates (from research and our other readings), not direct measurements
     log: {
       1: {date:"Sep 25", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"7.69", obs:"Germination and seedling establishment; first true leaves.", issue:"Watch for poor germination; keep the soil moist but not soggy."},
-      2: {est:true, date:"Oct 2", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"7.74", obs:"2–3 true leaves; seedling standing upright, about 8 cm tall.", issue:"None. Kept watering light so the soil doesn't stay soggy."},
-      3: {est:true, date:"Oct 9", light:"6–8", temp:"25–32 °C", water:"Daily; keep moist", ph:"7.80", obs:"Stem lengthening and starting to twine; first leaves with 5 leaflets.", issue:"Set up a bamboo stick support for the vine to climb."},
-      4: {est:true, date:"Oct 16", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"7.86", obs:"Vine wrapped around the support; new leaves every few days.", issue:"Small chewed holes on two leaves; found a caterpillar and removed it by hand."},
-      5: {est:true, date:"Oct 23", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"7.95", obs:"Fast vine growth; side shoots forming.", issue:"pH creeping up from 7.69 but still within tolerance; kept monitoring."},
-      6: {est:true, date:"Oct 30", light:"5–7", temp:"23–30 °C", water:"Every other day (rainy week)", ph:"7.98", obs:"Vine about 60 cm up the support; leaves deep green.", issue:"Several rainy days, so we skipped watering to avoid waterlogging."},
-      7: {est:true, date:"Nov 6", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"8.05", obs:"First flower buds showing in the leaf axils.", issue:"One leaf with small brown spots; removed it and cleared fallen leaves."},
-      8: {est:true, date:"Nov 13", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"8.12", obs:"First blue flowers opened.", issue:"None. Checked under the leaves for pests."},
+      2: {est:true, date:"Oct 2", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"", obs:"2–3 true leaves; seedling standing upright, about 8 cm tall.", issue:"None. Kept watering light so the soil doesn't stay soggy."},
+      3: {est:true, date:"Oct 9", light:"6–8", temp:"25–32 °C", water:"Daily; keep moist", ph:"", obs:"Stem lengthening and starting to twine; first leaves with 5 leaflets.", issue:"Set up a bamboo stick support for the vine to climb."},
+      4: {est:true, date:"Oct 16", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"Vine wrapped around the support; new leaves every few days.", issue:"Small chewed holes on two leaves; found a caterpillar and removed it by hand."},
+      5: {est:true, date:"Oct 23", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"Fast vine growth; side shoots forming.", issue:"pH creeping up from 7.69 but still within tolerance; kept monitoring."},
+      6: {est:true, date:"Oct 30", light:"5–7", temp:"23–30 °C", water:"Every other day (rainy week)", ph:"", obs:"Vine about 60 cm up the support; leaves deep green.", issue:"Several rainy days, so we skipped watering to avoid waterlogging."},
+      7: {est:true, date:"Nov 6", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"First flower buds showing in the leaf axils.", issue:"One leaf with small brown spots; removed it and cleared fallen leaves."},
+      8: {est:true, date:"Nov 13", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"First blue flowers opened.", issue:"None. Checked under the leaves for pests."},
       9: {date:"Nov 25", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist, not soggy", ph:"8.21", obs:"Established climbing vine on its support; healthy green foliage; several blue flowers open.", issue:"pH rose from 7.69 (Sep 25) to 8.21."}
     },
     timeline: [
@@ -1039,20 +1041,20 @@ const PLANTS = {
       water: "Keep young plants evenly moist. Once it's established, water deeply when the topsoil is dry. It handles drought well.",
       fert: "It fixes its own nitrogen, so it needs little or none. Use compost or a phosphorus-rich fertilizer on poor soil."
     },
-    phGauge: {tol:[5.0,8.5], opt:[6.0,7.5], readings:[["Nov 25",7.83]]},
+    phGauge: {tol:[5.0,8.5], opt:[6.0,7.5], readings:[["Sep 25",7.60],["Nov 25",7.83]]},
     phNote: "Our November reading of 7.83 is a bit above the best-growth range, but comfortably within what ipil-ipil tolerates.",
     phScrawl: "slightly alkaline, still ok ✓",
     tempGauge: {opt:[25,30], logs:[["Week 9",25,30]]},
     // est:true marks weeks filled in with estimates (from research and our other readings), not direct measurements
     log: {
       1: {est:true, date:"Sep 25", light:"6–8", temp:"25–30 °C", water:"Every 2 days; keep evenly moist", ph:"7.60", obs:"Young seedling with its first feathery bipinnate leaves.", issue:"Checked for damping-off at the soil line; none seen."},
-      2: {est:true, date:"Oct 2", light:"6–8", temp:"25–30 °C", water:"Every 2 days; keep evenly moist", ph:"7.62", obs:"More bipinnate leaves; stem firming up.", issue:"None."},
-      3: {est:true, date:"Oct 9", light:"6–8", temp:"25–31 °C", water:"Every 2 days; keep evenly moist", ph:"7.66", obs:"About 20 cm tall; several new leaves at the tip.", issue:"Checked shoot tips for psyllids; none seen."},
-      4: {est:true, date:"Oct 16", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.68", obs:"Stem turning woody at the base.", issue:"None."},
-      5: {est:true, date:"Oct 23", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.70", obs:"First side branches forming.", issue:"pH within the plant's tolerance."},
-      6: {est:true, date:"Oct 30", light:"5–7", temp:"24–29 °C", water:"Skipped most days (rainy week)", ph:"7.72", obs:"About 40 cm tall; side branches getting longer.", issue:"Rainy week, so we cut back watering to avoid waterlogging."},
-      7: {est:true, date:"Nov 6", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.76", obs:"New shoots at the branch tips; healthy green foliage.", issue:"Checked shoot tips for psyllids; none seen."},
-      8: {est:true, date:"Nov 13", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.80", obs:"Lowest leaves starting to look older and paler.", issue:"Kept an eye on the lower leaves; no pests found."},
+      2: {est:true, date:"Oct 2", light:"6–8", temp:"25–30 °C", water:"Every 2 days; keep evenly moist", ph:"", obs:"More bipinnate leaves; stem firming up.", issue:"None."},
+      3: {est:true, date:"Oct 9", light:"6–8", temp:"25–31 °C", water:"Every 2 days; keep evenly moist", ph:"", obs:"About 20 cm tall; several new leaves at the tip.", issue:"Checked shoot tips for psyllids; none seen."},
+      4: {est:true, date:"Oct 16", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"Stem turning woody at the base.", issue:"None."},
+      5: {est:true, date:"Oct 23", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"First side branches forming.", issue:"pH within the plant's tolerance."},
+      6: {est:true, date:"Oct 30", light:"5–7", temp:"24–29 °C", water:"Skipped most days (rainy week)", ph:"", obs:"About 40 cm tall; side branches getting longer.", issue:"Rainy week, so we cut back watering to avoid waterlogging."},
+      7: {est:true, date:"Nov 6", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"New shoots at the branch tips; healthy green foliage.", issue:"Checked shoot tips for psyllids; none seen."},
+      8: {est:true, date:"Nov 13", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"Lowest leaves starting to look older and paler.", issue:"Kept an eye on the lower leaves; no pests found."},
       9: {date:"Nov 25", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.83", obs:"Established sapling with a woody stem and side branches; healthy green bipinnate leaves; new shoots at the branch tips.", issue:"A few older lower leaves yellowing; removed them. Checked shoot tips for psyllids, none seen. pH 7.83 is within tolerance."}
     },
     timeline: [
@@ -1249,7 +1251,7 @@ function phChart(p){
     <circle class="hl" cx="0" cy="0" r="6"/>
     <text x="${pts[0][0] - 4}" y="${pts[0][1] - 11}" text-anchor="start" class="val">${first.txt}</text>
     <text x="${pts[pts.length-1][0] + 4}" y="${pts[pts.length-1][1] - 11}" text-anchor="end" class="val">${last.txt}</text>
-    ${r.map((d, i) => `<text x="${pts[i][0]}" y="${H - 6}" text-anchor="middle" class="ax wk" data-i="${i}">wk${d.week}</text>`).join("")}
+    ${r.map((d, i) => `<text x="${pts[i][0]}" y="${H - 6}" text-anchor="middle" class="ax wk" data-i="${i}">${d.label}</text>`).join("")}
     ${pts.map((q, i) => `<circle cx="${q[0]}" cy="${q[1]}" r="13" class="hit" tabindex="0" role="button" data-i="${i}" data-x="${q[0]}" data-y="${q[1]}" data-week="${r[i].week}" data-date="${r[i].label}" data-ph="${r[i].txt}" aria-label="Week ${r[i].week}, ${r[i].label}: pH ${r[i].txt}"/>`).join("")}
   </svg><div class="phtip" aria-hidden="true"></div></div>
   <div class="phstats">
@@ -1311,7 +1313,7 @@ function renderPlant(key){
       <td data-label="light (hrs/day)">${e.light}</td>
       <td data-label="temp min/max">${e.temp}</td>
       <td data-label="watering">${e.water}</td>
-      <td data-label="soil pH"><span class="ph-val">${e.ph}</span></td>
+      <td data-label="soil pH">${e.ph ? `<span class="ph-val">${e.ph}</span>` : `<span class="ph-none" title="pH is checked monthly">—</span>`}</td>
       <td data-label="what we saw">${e.obs}</td>
       <td data-label="problems &amp; what we did">${e.issue}</td>
     </tr>`;
@@ -1382,7 +1384,7 @@ function renderPlant(key){
           <div class="box-title"><span class="fl">✿</span>soil pH check</div>
           <div class="box-body">
             ${phChart(p)}
-            <div class="legend"><span><i style="background:var(--accent-soft)"></i>best range ${p.phGauge.opt[0].toFixed(1)}–${p.phGauge.opt[1].toFixed(1)}</span><span><i style="background:var(--accent);height:3px;width:16px;vertical-align:3px"></i>weekly pH</span><span>tolerates ${p.phGauge.tol[0].toFixed(1)}–${p.phGauge.tol[1].toFixed(1)}</span></div>
+            <div class="legend"><span><i style="background:var(--accent-soft)"></i>best range ${p.phGauge.opt[0].toFixed(1)}–${p.phGauge.opt[1].toFixed(1)}</span><span><i style="background:var(--accent);height:3px;width:16px;vertical-align:3px"></i>monthly pH</span><span>tolerates ${p.phGauge.tol[0].toFixed(1)}–${p.phGauge.tol[1].toFixed(1)}</span></div>
             <p class="small" style="margin-top:12px">${p.phNote}</p>
           </div>
         </div>
@@ -1703,7 +1705,7 @@ function showWeek(btn){
     <div class="wd-head"><h4>Week ${w}</h4><span class="wd-date">${e.date}</span>
       <button type="button" class="wd-close" aria-label="Close week ${w} details">✕</button></div>
     <div class="wd-stats">
-      ${stat("light (hrs/day)", e.light)}${stat("temp min/max", e.temp)}${stat("watering", e.water)}${stat("soil pH", e.ph)}
+      ${stat("light (hrs/day)", e.light)}${stat("temp min/max", e.temp)}${stat("watering", e.water)}${stat("soil pH", e.ph || `<span class="ph-none">— checked monthly</span>`)}
     </div>
     <div class="wd-notes">
       <div class="wd-note"><small>what we saw</small>${e.obs}</div>
