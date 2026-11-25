@@ -421,7 +421,6 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .progress{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-bottom:18px}
 .progress .est span{border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent-deep)}
 .est-tag{display:inline-block;margin-left:4px;padding:0 7px;border-radius:999px;font-family:"Caveat",cursive;font-weight:700;font-size:15px;line-height:1.4;color:var(--accent-deep);background:var(--accent-soft);border:1px dashed var(--accent);vertical-align:1px}
-.sample-note{display:inline-block;margin:0 0 14px;padding:3px 12px;border-radius:999px;background:var(--cream);border:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 .log tr.filled:not(.est) td{color:var(--ink);background:#fffdf6}
 .log tr.filled:not(.est) td:first-child{box-shadow:inset 4px 0 0 var(--accent)}
 .progress div{text-align:center;font-family:"Caveat",cursive;font-size:16px;color:var(--muted)}
@@ -1333,7 +1332,6 @@ function renderPlant(key){
     </div>
 
     <div class="panel" role="tabpanel" id="${key}-panel-log" aria-labelledby="${key}-tab-log">
-      <div class="sample-note">sample data for demonstration</div>
       <div class="progress" aria-label="Weeks logged">
         ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; return `<div class="${e ? "done" : ""}"><span>${i+1}</span>week ${i+1}</div>`; }).join("")}
       </div>
