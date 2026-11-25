@@ -375,7 +375,9 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .progress{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-bottom:18px}
 .progress .est span{border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent-deep)}
 .est-tag{display:inline-block;margin-left:4px;padding:0 7px;border-radius:999px;font-family:"Caveat",cursive;font-weight:700;font-size:15px;line-height:1.4;color:var(--accent-deep);background:var(--accent-soft);border:1px dashed var(--accent);vertical-align:1px}
-.log tr.filled.est td{color:#6d5f56}
+.log tr.filled.est td{color:var(--muted)}
+.log tr.filled:not(.est) td{color:var(--ink);background:#fffdf6}
+.log tr.filled:not(.est) td:first-child{box-shadow:inset 4px 0 0 var(--accent)}
 .progress div{text-align:center;font-family:"Caveat",cursive;font-size:16px;color:var(--muted)}
 .progress span{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1;max-width:40px;margin:0 auto 2px;border-radius:50%;border:1.5px dashed var(--line);font-family:"Fredoka",sans-serif;font-size:14px;color:#bcaea4;background:#fff}
 .progress .done span{border:1.5px solid var(--accent);background:var(--accent);color:#fff}
@@ -989,7 +991,7 @@ function gauge(min, max, bands, marks){
       ${marks.map(m => `<div class="mark${m.est ? " est" : ""}" style="left:${pct(m.v)}" title="Week ${m.week}: ${m.v}"></div>`).join("")}
     </div>
     <div class="scale" style="margin-top:6px">${ticks.join("")}</div>
-    <div class="readings">${marks.map(m => `<span class="reading${m.est ? " est" : ""}"><small>wk ${m.week} · ${m.label}</small><b>${m.txt}</b>${m.est ? `<span class="est-tag">est.</span>` : ""}</span>`).join("")}</div>
+    <div class="readings">${marks.map(m => `<span class="reading${m.est ? " est" : ""}"><small>wk ${m.week} · ${m.label}</small><b>${m.txt}</b></span>`).join("")}</div>
   </div>`;
 }
 
@@ -1013,7 +1015,7 @@ function tempBars(opt, weeks){
       <div class="t"><div class="${cls}" style="left:${pct(a)};width:calc(${pct(b)} - ${pct(a)})"></div></div>
       <b>${a}–${b} °C</b></div>`;
   return row("ideal", opt[0], opt[1], "opt") +
-    weeks.map(w => row(`week ${w.week}${w.est ? ` <span class="est-tag">est.</span>` : ""}`, w.lo, w.hi, "", w.est)).join("") +
+    weeks.map(w => row(`week ${w.week}`, w.lo, w.hi, "", w.est)).join("") +
     `<div class="scale" style="margin-left:96px;margin-right:82px"><span>${min} °C</span><span>${(min+max)/2} °C</span><span>${max} °C</span></div>`;
 }
 function tempNote(opt, weeks){
@@ -1039,7 +1041,7 @@ function renderPlant(key){
     const w = i + 1, e = p.log[w];
     if (!e) return `<tr class="empty"><td>Week ${w}</td><td colspan="7">not logged yet</td></tr>`;
     return `<tr class="filled${e.est ? " est" : ""}">
-      <td>Week ${w}${e.est ? ` <span class="est-tag" title="Estimated, not measured directly">est.</span>` : ""}</td>
+      <td>Week ${w}</td>
       <td data-label="date">${e.date}</td>
       <td data-label="light (hrs/day)">${e.light}</td>
       <td data-label="temp min/max">${e.temp}</td>
@@ -1126,7 +1128,7 @@ function renderPlant(key){
           <div class="box-title"><span class="fl">✿</span>temperature check</div>
           <div class="box-body">
             ${tempBars(p.tempGauge.opt, tempWeeks(p))}
-            <p class="small" style="margin-top:12px">${tempNote(p.tempGauge.opt, tempWeeks(p)).note}</p>
+            <div class="legend"><span><i style="background:var(--accent)"></i>measured</span><span><i style="background:var(--accent-soft);border:1.5px dashed var(--accent)"></i>estimated</span></div><p class="small" style="margin-top:12px">${tempNote(p.tempGauge.opt, tempWeeks(p)).note}</p>
             <div class="scrawl">${tempNote(p.tempGauge.opt, tempWeeks(p)).scrawl}</div>
           </div>
         </div>
@@ -1135,7 +1137,7 @@ function renderPlant(key){
 
     <div class="panel" role="tabpanel" id="${key}-panel-log" aria-labelledby="${key}-tab-log">
       <div class="progress" aria-label="Weeks logged">
-        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; const cls = !e ? "" : e.est ? "est" : "done"; return `<div class="${cls}"><span>${i+1}</span>${!e ? "…" : e.est ? "est." : "measured"}</div>`; }).join("")}
+        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; const cls = !e ? "" : e.est ? "est" : "done"; return `<div class="${cls}"><span>${i+1}</span>${!e ? "…" : e.est ? "estimated" : "measured"}</div>`; }).join("")}
       </div>
       <div class="log-wrap">
         <table class="log">
@@ -1143,7 +1145,7 @@ function renderPlant(key){
           <tbody>${logRows}</tbody>
         </table>
       </div>
-      <div class="foot">year 1, after planting · <b>est.</b> = estimated from research and our other readings, not measured directly</div>
+      <div class="foot">year 1, after planting · rows in grey are estimated from research and our other readings; only the rows in dark text were actually measured</div>
     </div>
 
     <div class="panel" role="tabpanel" id="${key}-panel-timeline" aria-labelledby="${key}-tab-timeline">
