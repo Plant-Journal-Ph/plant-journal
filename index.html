@@ -4,30 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plant Journal · Philippine Native Plant Conservation Initiative</title>
-<meta name="description" content="Cultivation journal for Butterfly Pea (Clitoria ternatea) and Ipil-Ipil (Leucaena leucocephala): growing conditions, weekly logs, growth timeline, pests, and uses.">
+<meta name="description" content="Our group's cultivation journal for butterfly pea (Clitoria ternatea) and ipil-ipil (Leucaena leucocephala): how we grew them, weekly logs, growth stages, pests, and uses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f1edf9;
-  --card:#fffdf7;
-  --cream:#fff8e8;
+  --bg:#f3eefa;
+  --card:#fffdf8;
+  --cream:#fff8ea;
   --ink:#4a3b33;
-  --muted:#85766c;
-  --line:#e3d6c9;
+  --muted:#8a7a70;
+  --line:#e6d9cc;
   --frame:#9a7b69;
-  --pea:#7d8fe0;
-  --pea-soft:#e6e9fb;
-  --pea-deep:#3e4ea6;
-  --leaf:#86bf93;
-  --leaf-soft:#e2f2e4;
-  --leaf-deep:#3b7548;
-  --blush:#f7d9e3;
-  --butter:#fff1c7;
+  --pea:#7486dd;
+  --pea-soft:#e7eafc;
+  --pea-deep:#3d4ca3;
+  --leaf:#7fb98c;
+  --leaf-soft:#e3f2e5;
+  --leaf-deep:#3a7347;
+  --bark:#a07a55;
+  --blush:#f8dbe5;
+  --blush-deep:#d97b9c;
+  --butter:#fff1c9;
   --warn:#b4513a;
-  --warn-soft:#fbe7df;
-  --radius:18px;
+  --warn-soft:#fce9e1;
+  --hand:20px 26px 18px 24px / 24px 18px 26px 20px;
   --accent:var(--pea);
   --accent-soft:var(--pea-soft);
   --accent-deep:var(--pea-deep);
@@ -36,12 +38,12 @@
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:"Nunito",system-ui,sans-serif;
-  font-size:16px;line-height:1.6;color:var(--ink);
+  font-family:"Nunito",system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--ink);
   background-color:var(--bg);
   background-image:
-    radial-gradient(circle at 20px 20px, rgba(255,255,255,.85) 5px, transparent 6px),
-    radial-gradient(circle at 60px 60px, rgba(125,143,224,.14) 4px, transparent 5px);
+    radial-gradient(circle at 20px 20px,rgba(255,255,255,.9) 5px,transparent 6px),
+    radial-gradient(circle at 60px 60px,rgba(127,185,140,.16) 4px,transparent 5px),
+    radial-gradient(circle at 60px 20px,rgba(116,134,221,.12) 3px,transparent 4px);
   background-size:80px 80px;
 }
 img{max-width:100%;display:block}
@@ -49,56 +51,95 @@ a{color:var(--accent-deep)}
 h1,h2,h3,h4{font-family:"Fredoka",sans-serif;font-weight:500;line-height:1.25;margin:0}
 p{margin:0 0 .8em}
 p:last-child{margin-bottom:0}
-em.sci,.sci{font-style:italic}
+.hand{font-family:"Caveat",cursive;font-weight:700}
+button{font:inherit;color:inherit}
 
 /* ---------- frame ---------- */
-.page{padding:32px 16px 48px}
+.page{padding:30px 16px 46px}
 .frame{
   max-width:1040px;margin:0 auto;background:var(--card);
-  border:2px solid var(--frame);border-radius:28px;overflow:hidden;
-  box-shadow:0 18px 40px -18px rgba(74,59,51,.35);
+  border:2px solid var(--frame);border-radius:30px;overflow:hidden;
+  box-shadow:0 6px 0 -1px #e2d3c4, 0 22px 44px -22px rgba(74,59,51,.4);
 }
 .awning{
   position:relative;height:30px;
-  background:repeating-linear-gradient(90deg,var(--pea-soft) 0 28px,var(--butter) 28px 56px);
-  border-bottom:0;
+  background:repeating-linear-gradient(90deg,var(--pea-soft) 0 28px,var(--butter) 28px 56px,var(--leaf-soft) 56px 84px);
 }
 .awning::after{
-  content:"";position:absolute;left:0;right:0;top:100%;height:13px;z-index:2;
+  content:"";position:absolute;left:0;right:0;top:100%;height:13px;z-index:3;
   background:
     radial-gradient(circle at 14px 0,var(--pea-soft) 12.5px,transparent 13px),
-    radial-gradient(circle at 42px 0,var(--butter) 12.5px,transparent 13px);
-  background-size:56px 13px;background-repeat:repeat-x;
+    radial-gradient(circle at 42px 0,var(--butter) 12.5px,transparent 13px),
+    radial-gradient(circle at 70px 0,var(--leaf-soft) 12.5px,transparent 13px);
+  background-size:84px 13px;background-repeat:repeat-x;
 }
+
+/* ---------- banner ---------- */
 .banner{
-  position:relative;display:grid;grid-template-columns:150px 1fr 190px;align-items:center;gap:8px;
-  padding:34px 28px 20px;min-height:210px;
-  background-color:#f3f5fe;
-  background-image:
-    linear-gradient(90deg,rgba(125,143,224,.13) 50%,transparent 50%),
-    linear-gradient(rgba(125,143,224,.13) 50%,transparent 50%);
-  background-size:26px 26px;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:200px 1fr 210px;align-items:center;gap:6px;
+  padding:30px 22px 18px;min-height:230px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.55) 50%,transparent 50%) 0 0/26px 26px,
+    linear-gradient(rgba(255,255,255,.55) 50%,transparent 50%) 0 0/26px 26px,
+    linear-gradient(90deg,#dfe4fb 0%,#eef0fb 45%,#eef6ee 55%,#dcefdf 100%);
   border-bottom:2px solid var(--line);
 }
-.banner svg{width:100%;height:auto}
-.title{text-align:center}
+.banner svg{width:100%;height:auto;position:relative;z-index:2}
+.sway-l{transform-origin:12% 100%;animation:swayL 6s ease-in-out infinite}
+.sway-r{transform-origin:100% 4%;animation:swayR 7.5s ease-in-out infinite}
+@keyframes swayL{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(2deg)}}
+@keyframes swayR{0%,100%{transform:rotate(1.4deg)}50%{transform:rotate(-2deg)}}
+.pompom{transform-box:fill-box;transform-origin:center;animation:puff 3.2s ease-in-out infinite}
+.pompom.b{animation-delay:-1.4s}
+@keyframes puff{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.pod{transform-box:fill-box;transform-origin:50% 0;animation:dangle 4.5s ease-in-out infinite}
+.pod.b{animation-delay:-1.2s}.pod.c{animation-delay:-2.6s}
+@keyframes dangle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.bloom{transform-box:fill-box;transform-origin:50% 90%;animation:nod 5s ease-in-out infinite}
+.bloom.b{animation-delay:-2s}.bloom.c{animation-delay:-3.3s}
+@keyframes nod{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+
+.title{text-align:center;position:relative;z-index:2}
 .title .script{
-  font-family:"Pacifico",cursive;font-size:clamp(40px,7vw,68px);line-height:1.15;color:#fff;
+  font-family:"Pacifico",cursive;font-size:clamp(42px,7vw,70px);line-height:1.15;color:#fff;
   text-shadow:
     3px 0 var(--pea),-3px 0 var(--pea),0 3px var(--pea),0 -3px var(--pea),
     2px 2px var(--pea),-2px -2px var(--pea),2px -2px var(--pea),-2px 2px var(--pea),
-    0 6px 0 rgba(62,78,166,.25);
-  letter-spacing:.5px;
+    0 7px 0 rgba(58,115,71,.28);
+  animation:bob 4s ease-in-out infinite;
 }
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .title .sub{
   display:inline-block;margin-top:10px;padding:5px 16px;border-radius:999px;
   background:#fff;border:1.5px solid var(--line);
-  font-family:"Fredoka",sans-serif;font-size:15px;color:var(--ink);letter-spacing:.2px;
+  font-family:"Fredoka",sans-serif;font-size:15px;
 }
-.ticker{
-  text-align:center;padding:7px 12px;background:#eaf6fb;border-bottom:2px solid var(--line);
-  font-family:"Fredoka",sans-serif;font-size:14px;color:var(--muted);letter-spacing:.4px;
+.title .scribble{display:block;margin-top:6px;font-size:22px;color:var(--leaf-deep);transform:rotate(-2deg)}
+.title .scribble b{color:var(--pea-deep);font-weight:700}
+
+/* falling petals & puffs */
+.fall{position:absolute;inset:0;pointer-events:none;z-index:1}
+.fall i{
+  position:absolute;top:-20px;display:block;
+  animation:fall linear infinite;
 }
+.fall i.petal{width:12px;height:16px;background:var(--pea);border-radius:70% 70% 70% 70% / 90% 90% 40% 40%;opacity:.75}
+.fall i.puff{width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #f3e7bd inset;opacity:.95}
+.fall i.leaflet{width:6px;height:13px;background:var(--leaf);border-radius:50%;opacity:.7}
+@keyframes fall{
+  0%{transform:translate(0,-20px) rotate(0)}
+  50%{transform:translate(24px,140px) rotate(180deg)}
+  100%{transform:translate(-10px,300px) rotate(360deg)}
+}
+
+/* ---------- ticker ---------- */
+.ticker{overflow:hidden;white-space:nowrap;background:#eaf6fb;border-bottom:2px solid var(--line)}
+.ticker .track{display:inline-block;padding:7px 0;animation:marquee 32s linear infinite;font-family:"Fredoka",sans-serif;font-size:14px;color:var(--muted);letter-spacing:.3px}
+.ticker:hover .track{animation-play-state:paused}
+.ticker span{margin:0 18px}
+.ticker .f1{color:var(--pea)}.ticker .f2{color:var(--leaf)}.ticker .f3{color:var(--blush-deep)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ---------- nav ---------- */
 .tabs{
@@ -106,261 +147,349 @@ em.sci,.sci{font-style:italic}
   padding:16px 22px;background:var(--cream);border-bottom:2px solid var(--line);
 }
 .tabs button{
-  font-family:"Fredoka",sans-serif;font-size:16px;color:var(--ink);cursor:pointer;
-  padding:11px 10px;border-radius:16px;
+  position:relative;cursor:pointer;
+  font-family:"Fredoka",sans-serif;font-size:16px;
+  padding:11px 10px;border-radius:var(--hand);
   border:1.5px dashed var(--frame);
-  background:#fff;
-  background-image:radial-gradient(circle at 6px 6px,var(--blush) 1.6px,transparent 2px);
-  background-size:12px 12px;
-  transition:transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+  background:#fff radial-gradient(circle at 6px 6px,var(--blush) 1.6px,transparent 2px) 0 0/12px 12px;
+  transition:transform .18s cubic-bezier(.3,1.6,.5,1), box-shadow .18s ease, background-color .2s ease;
 }
-.tabs button:hover{transform:translateY(-2px);box-shadow:0 4px 0 var(--line)}
+.tabs button:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:0 5px 0 var(--line)}
+.tabs button:active{transform:translateY(1px) scale(.93);box-shadow:0 1px 0 var(--line)}
 .tabs button[aria-current="page"]{
   background-color:var(--pea-soft);border-style:solid;border-color:var(--pea);color:var(--pea-deep);
-  box-shadow:0 3px 0 var(--pea);
+  box-shadow:0 4px 0 var(--pea);animation:boing .5s cubic-bezier(.3,1.6,.5,1);
 }
-.tabs button[data-page="ipil-ipil"][aria-current="page"]{background-color:var(--leaf-soft);border-color:var(--leaf);color:var(--leaf-deep);box-shadow:0 3px 0 var(--leaf)}
-.tabs button:focus-visible,.subtabs button:focus-visible{outline:3px solid var(--pea);outline-offset:2px}
+.tabs button[data-page="ipil-ipil"][aria-current="page"]{background-color:var(--leaf-soft);border-color:var(--leaf);color:var(--leaf-deep);box-shadow:0 4px 0 var(--leaf)}
+.tabs button[data-page="references"][aria-current="page"]{background-color:var(--butter);border-color:#d9b44f;color:#7d5a0c;box-shadow:0 4px 0 #d9b44f}
+@keyframes boing{0%{transform:scale(.9)}55%{transform:scale(1.06)}100%{transform:scale(1)}}
+.tabs button:focus-visible,.subtabs button:focus-visible,.spec-card:focus-visible{outline:3px solid var(--pea);outline-offset:3px}
 
-main{padding:26px 24px 30px}
-.view{display:none;animation:fade .35s ease}
+main{padding:28px 24px 34px}
+.view{display:none}
 .view.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.view.active .rise{animation:rise .55s cubic-bezier(.2,.9,.3,1.15) both}
+.view.active .rise:nth-of-type(2){animation-delay:.07s}
+.view.active .rise:nth-of-type(3){animation-delay:.14s}
+.view.active .rise:nth-of-type(4){animation-delay:.21s}
+.view.active .rise:nth-of-type(5){animation-delay:.28s}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 
 /* ---------- boxes ---------- */
-.box{
-  background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;
-}
-.box + .box{margin-top:18px}
+.box{background:#fff;border:1.5px solid var(--line);border-radius:var(--hand);overflow:hidden;transition:transform .25s ease}
 .box-title{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 16px;background:var(--accent-soft);border-bottom:1.5px solid var(--line);
-  font-family:"Fredoka",sans-serif;font-size:18px;font-weight:500;color:var(--ink);
+  display:flex;align-items:center;gap:9px;
+  padding:9px 16px;background:var(--accent-soft);border-bottom:1.5px dashed var(--line);
+  font-family:"Fredoka",sans-serif;font-size:18px;
 }
-.box-title .tag{
-  margin-left:auto;font-family:"Nunito",sans-serif;font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
-  color:var(--accent-deep);background:#fff;border-radius:999px;padding:2px 10px;border:1px solid var(--line);
-}
+.box-title .fl{color:var(--accent);font-size:17px;display:inline-block;transition:transform .6s ease}
+.box:hover .box-title .fl{transform:rotate(180deg) scale(1.15)}
+.box-title .tag{margin-left:auto;font-family:"Caveat",cursive;font-weight:700;font-size:18px;color:var(--accent-deep);transform:rotate(-3deg)}
 .box-body{padding:16px 18px}
-.box.leafy .box-title{background:var(--leaf-soft)}
-.box.butter .box-title{background:var(--butter)}
-.box.blush .box-title{background:var(--blush)}
-.bullet{width:10px;height:10px;border-radius:50%;background:var(--accent);flex:none;box-shadow:0 0 0 3px #fff}
-.box.leafy .bullet{background:var(--leaf)}
-.box.butter .bullet{background:#e7c25a}
-.box.blush .bullet{background:#e79ab3}
+.box.leafy .box-title{background:var(--leaf-soft)} .box.leafy .fl{color:var(--leaf)}
+.box.butter .box-title{background:var(--butter)} .box.butter .fl{color:#d9a92c}
+.box.blush .box-title{background:var(--blush)} .box.blush .fl{color:var(--blush-deep)}
+.box.pea .box-title{background:var(--pea-soft)} .box.pea .fl{color:var(--pea)}
 
-.cols{display:grid;grid-template-columns:290px 1fr;gap:22px;align-items:start}
-.stack > * + *{margin-top:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.row + .row,.box + .box,.row + .box,.box + .row,.note + .box,.box + .note,.row + .note{margin-top:20px}
+.stack > * + *{margin-top:20px}
+
+/* tape */
+.taped{position:relative}
+.taped::before{
+  content:"";position:absolute;z-index:3;top:-11px;left:50%;width:86px;height:24px;margin-left:-43px;
+  background:rgba(248,219,229,.82);transform:rotate(-4deg);
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 6px,transparent 6px 12px);
+  clip-path:polygon(3% 0,97% 4%,100% 50%,96% 100%,2% 96%,0 45%);
+}
+.taped.mint::before{background-color:rgba(200,232,206,.85);transform:rotate(3deg)}
+.taped.blue::before{background-color:rgba(206,214,248,.85)}
 
 /* ---------- home ---------- */
-.featured img{aspect-ratio:4/3;object-fit:cover;width:100%;border-radius:12px;border:1.5px solid var(--line)}
-.featured figcaption{font-size:14px;color:var(--muted);margin-top:8px;text-align:center}
-.updates{list-style:none;margin:0;padding:0}
-.updates li{position:relative;padding:0 0 14px 22px;font-size:14.5px}
-.updates li:last-child{padding-bottom:0}
-.updates li::before{content:"";position:absolute;left:3px;top:7px;width:9px;height:9px;border-radius:50%;background:#e79ab3}
-.updates li::after{content:"";position:absolute;left:7px;top:18px;bottom:-2px;width:1.5px;background:var(--line)}
-.updates li:last-child::after{display:none}
-.updates b{display:block;font-family:"Fredoka",sans-serif;font-weight:500;color:var(--ink)}
+.hello{padding:22px 24px}
+.hello h2{font-family:"Caveat",cursive;font-weight:700;font-size:40px;line-height:1;color:var(--pea-deep);margin-bottom:10px}
+.hello h2 span{color:var(--leaf-deep)}
+.hello p{font-size:16.5px}
+.hello .sig{font-family:"Caveat",cursive;font-size:22px;color:var(--muted);margin-top:8px;transform:rotate(-1.5deg);display:inline-block}
 
-.lead{font-size:17px}
-.specimens{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.swap{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 10px 12px;transform:rotate(1.6deg);box-shadow:0 6px 0 -2px var(--line);margin-top:10px}
+.swap .stage{position:relative;aspect-ratio:4/3;border-radius:9px;overflow:hidden;background:var(--pea-soft)}
+.swap .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kenburns 12s ease-in-out infinite}
+.swap .stage img.two{opacity:0;animation:kenburns 12s ease-in-out infinite,xfade 12s ease-in-out infinite}
+@keyframes xfade{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
+@keyframes kenburns{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.swap .caps{position:relative;height:30px;margin-top:6px}
+.swap .caps span{position:absolute;inset:0;text-align:center;font-family:"Caveat",cursive;font-weight:700;font-size:22px}
+.swap .caps .c1{color:var(--pea-deep);animation:capA 12s ease-in-out infinite}
+.swap .caps .c2{color:var(--leaf-deep);opacity:0;animation:xfade 12s ease-in-out infinite}
+@keyframes capA{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
+
+.specimens{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:8px 4px 4px}
 .spec-card{
-  display:flex;flex-direction:column;text-align:left;cursor:pointer;
-  border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;padding:0;
-  font:inherit;color:inherit;transition:transform .18s ease, box-shadow .18s ease;
+  display:flex;flex-direction:column;text-align:left;cursor:pointer;padding:10px 10px 14px;
+  border:1.5px solid var(--line);border-radius:16px;background:#fff;
+  transform:rotate(-1.4deg);box-shadow:0 6px 0 -2px var(--line);
+  transition:transform .3s cubic-bezier(.3,1.5,.5,1), box-shadow .3s ease;
 }
-.spec-card:hover{transform:translateY(-3px);box-shadow:0 8px 0 -2px var(--line)}
-.spec-card img{aspect-ratio:16/10;object-fit:cover;width:100%;background:var(--pea-soft)}
-.spec-card .sc-body{padding:12px 14px 14px}
-.spec-card h3{font-size:19px}
-.spec-card .sci{color:var(--muted);font-size:14.5px}
-.spec-card .go{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--pea-deep)}
+.spec-card.leaf{transform:rotate(1.4deg)}
+.spec-card:hover{transform:rotate(0) translateY(-5px);box-shadow:0 12px 0 -3px var(--line)}
+.spec-card:active{transform:scale(.96)}
+.spec-card .ph{border-radius:10px;overflow:hidden;aspect-ratio:16/10;background:var(--pea-soft)}
+.spec-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.spec-card:hover img{transform:scale(1.06)}
+.spec-card h3{font-size:21px;margin-top:10px}
+.spec-card .sci{color:var(--muted);font-size:14.5px;font-style:italic}
+.spec-card .go{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-family:"Caveat",cursive;font-weight:700;font-size:21px;color:var(--pea-deep)}
 .spec-card.leaf .go{color:var(--leaf-deep)}
+.spec-card .go i{font-style:normal;display:inline-block;transition:transform .25s ease}
+.spec-card:hover .go i{transform:translateX(5px)}
 
-.members{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;list-style:none;margin:0;padding:0}
-.members li{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--cream);font-weight:600;font-size:14.5px;line-height:1.3}
-.avatar{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:"Fredoka",sans-serif;font-size:13px;color:#fff;background:var(--pea)}
-.members li:nth-child(2n) .avatar{background:var(--leaf)}
-.members li:nth-child(3n) .avatar{background:#e79ab3}
+.members{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.members li{display:flex;align-items:center;gap:9px;padding:6px 14px 6px 6px;border:1.5px solid var(--line);border-radius:999px;background:var(--cream);font-weight:600;font-size:14.5px;line-height:1.3;transition:transform .2s ease}
+.members li:hover{animation:wiggle .45s ease}
+@keyframes wiggle{25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+.avatar{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-family:"Fredoka",sans-serif;font-size:12.5px;color:#fff;background:var(--pea)}
+.members li:nth-child(2) .avatar{background:var(--leaf)}
+.members li:nth-child(3) .avatar{background:var(--blush-deep)}
+.members li:nth-child(4) .avatar{background:#d9a92c}
+.members li:nth-child(5) .avatar{background:#9b86d6}
 
-.note{
-  display:flex;gap:12px;padding:14px 16px;border-radius:14px;background:var(--butter);border:1.5px dashed #e2c46e;font-size:15px;
+.sticky{
+  position:relative;padding:18px 20px 16px;background:#fff6c6;border-radius:4px 4px 18px 4px;
+  transform:rotate(-1deg);box-shadow:0 10px 16px -12px rgba(74,59,51,.45);font-size:15.5px;
 }
-.note.warn{background:var(--warn-soft);border-color:#e6a891}
-.note .ico{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#fff;font-family:"Fredoka",sans-serif;font-weight:600;color:#c49422;border:1.5px solid #e2c46e}
-.note.warn .ico{color:var(--warn);border-color:#e6a891}
+.sticky h3{font-family:"Caveat",cursive;font-weight:700;font-size:27px;line-height:1;margin-bottom:6px;color:#8a6512}
+
+.note{display:flex;gap:12px;padding:14px 16px;border-radius:var(--hand);background:var(--warn-soft);border:1.5px dashed #e6a891;font-size:15px}
+.note .ico{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#fff;font-family:"Fredoka",sans-serif;font-weight:600;color:var(--warn);border:1.5px solid #e6a891;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(180,81,58,.25)}50%{box-shadow:0 0 0 7px rgba(180,81,58,0)}}
 
 /* ---------- plant pages ---------- */
-.plant-hero{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
-.polaroid{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:10px 10px 12px;transform:rotate(-1.2deg);box-shadow:0 6px 0 -2px var(--line)}
-.polaroid img{aspect-ratio:1/1;object-fit:cover;width:100%;border-radius:10px;background:var(--accent-soft)}
-.polaroid figcaption{text-align:center;font-family:"Pacifico",cursive;font-size:17px;color:var(--accent-deep);margin-top:6px}
-.plant-hero h2{font-size:clamp(28px,4vw,38px);color:var(--ink)}
+.plant-hero{display:grid;grid-template-columns:290px 1fr;gap:28px;align-items:start}
+.polaroid{margin:8px 0 0;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 10px 8px;transform:rotate(-2deg);box-shadow:0 8px 0 -2px var(--line);transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.polaroid:hover{transform:rotate(1deg) scale(1.02)}
+.polaroid img{aspect-ratio:1/1;object-fit:cover;width:100%;border-radius:9px;background:var(--accent-soft)}
+.polaroid figcaption{text-align:center;font-family:"Caveat",cursive;font-weight:700;font-size:25px;color:var(--accent-deep);margin-top:2px}
+.plant-hero h2{font-size:clamp(30px,4vw,40px)}
+.plant-hero h2 small{font-family:"Caveat",cursive;font-weight:700;font-size:.62em;color:var(--accent);margin-left:6px}
 .plant-hero .sciname{font-size:19px;color:var(--muted);margin-top:2px}
 .badges{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
-.badge{font-size:12.5px;font-weight:700;letter-spacing:.3px;padding:4px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--line)}
+.badge{font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--line)}
 .badge.alt{background:var(--butter);color:#8a6512}
 .badge.red{background:var(--warn-soft);color:var(--warn)}
+.label{font-family:"Caveat",cursive;font-weight:700;font-size:21px;color:var(--accent-deep);margin-top:12px;line-height:1.1}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.chip{font-size:13.5px;padding:3px 10px;border-radius:999px;background:var(--cream);border:1px solid var(--line)}
-.chip small{color:var(--muted);font-size:11.5px;margin-left:3px}
-.label{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-top:14px}
-.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
-.fact{background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px}
-.fact span{display:block;font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.chip{font-size:13.5px;padding:3px 10px;border-radius:999px;background:var(--cream);border:1px solid var(--line);transition:transform .2s ease}
+.chip:hover{transform:translateY(-2px) rotate(-2deg)}
+.chip small{color:var(--muted);font-size:11.5px;margin-left:4px}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:8px}
+.fact{background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:8px 12px}
+.fact span{display:block;font-size:11.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
 .fact b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:15.5px}
-.fact b.blank{color:#b9aca2;font-family:"Nunito",sans-serif;font-weight:400;font-style:italic;font-size:14px}
+.fact b.blank{color:#bcaea4;font-family:"Caveat",cursive;font-weight:500;font-size:19px}
 
-.subtabs{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 18px;padding:8px;border-radius:999px;background:var(--cream);border:1.5px solid var(--line)}
+.subtabs{display:flex;flex-wrap:wrap;gap:6px;margin:28px 0 20px;padding:7px;border-radius:999px;background:var(--cream);border:1.5px solid var(--line)}
 .subtabs button{
-  flex:1 1 auto;font-family:"Fredoka",sans-serif;font-size:15px;color:var(--ink);background:transparent;border:0;cursor:pointer;
-  padding:8px 14px;border-radius:999px;transition:background-color .15s ease;
+  flex:1 1 auto;font-family:"Fredoka",sans-serif;font-size:15px;background:transparent;border:0;cursor:pointer;
+  padding:8px 14px;border-radius:999px;transition:background-color .2s ease, transform .15s ease;
 }
 .subtabs button:hover{background:#fff}
-.subtabs button[aria-selected="true"]{background:var(--accent);color:#fff}
-.panel{display:none;animation:fade .3s ease}
+.subtabs button:active{transform:scale(.9)}
+.subtabs button[aria-selected="true"]{background:var(--accent);color:#fff;animation:boing .45s cubic-bezier(.3,1.6,.5,1);box-shadow:0 3px 0 var(--accent-deep)}
+.panel{display:none}
 .panel.active{display:block}
-
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
-.grid2 > .box + .box{margin-top:0}
+.panel.active > *{animation:rise .5s cubic-bezier(.2,.9,.3,1.15) both}
+.panel.active > *:nth-child(2){animation-delay:.08s}
+.panel.active > *:nth-child(3){animation-delay:.16s}
+.panel.active > *:nth-child(4){animation-delay:.24s}
 
 table{width:100%;border-collapse:collapse;font-size:15px}
-th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
-tr:last-child > td{border-bottom:0}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px dashed var(--line)}
+tr:last-child > td,tr:last-child > th{border-bottom:0}
 th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--muted);background:var(--cream)}
-.kv th{width:34%;background:transparent;color:var(--ink);font-size:15px}
-.src{font-size:12.5px;color:var(--muted)}
+.kv th{width:30%;background:transparent;color:var(--accent-deep);font-size:15.5px}
 .taxo{list-style:none;margin:0;padding:0}
 .taxo li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:15px}
 .taxo li:last-child{border-bottom:0}
 .taxo li span:first-child{color:var(--muted)}
 .taxo li span:last-child{text-align:right;font-weight:600}
+.small{font-size:14.5px}
 
 /* gallery */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.gallery figure{margin:0;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:8px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:6px 2px}
+.gallery figure{margin:0;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 8px 6px;box-shadow:0 5px 0 -2px var(--line);transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.gallery figure:nth-child(odd){transform:rotate(-1.2deg)}
+.gallery figure:nth-child(even){transform:rotate(1.3deg)}
+.gallery figure:hover{transform:rotate(0) scale(1.03);z-index:2}
 .gallery figure:first-child{grid-column:span 2;grid-row:span 2}
-.gallery .ph{position:relative;border-radius:9px;overflow:hidden;background:var(--accent-soft);aspect-ratio:4/3}
-.gallery figure:first-child .ph{aspect-ratio:auto;height:calc(100% - 52px);min-height:240px}
+.gallery .ph{position:relative;border-radius:8px;overflow:hidden;background:var(--accent-soft);aspect-ratio:4/3}
+.gallery figure:first-child .ph{aspect-ratio:auto;height:calc(100% - 58px);min-height:240px}
 .gallery img{width:100%;height:100%;object-fit:cover}
-.gallery figcaption{padding:7px 4px 2px;font-size:13.5px;line-height:1.35}
-.gallery figcaption b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14.5px;display:block}
-.gallery figcaption a{color:var(--muted);font-size:12px;text-decoration:none}
+.gallery figcaption{padding:6px 4px 0;font-size:13.5px;line-height:1.35}
+.gallery figcaption b{font-family:"Caveat",cursive;font-weight:700;font-size:21px;color:var(--accent-deep);display:block;line-height:1.1}
+.gallery figcaption a{color:var(--muted);font-size:11.5px;text-decoration:none}
 .gallery figcaption a:hover{text-decoration:underline}
-.ph.missing::after{content:"Photo unavailable";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px}
+.ph.missing::after{content:"photo unavailable";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-family:"Caveat",cursive;font-size:20px}
 
-/* cultivation cards */
+/* cultivation */
 .params{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.param{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px}
+.param{background:#fff;border:1.5px solid var(--line);border-radius:var(--hand);padding:14px 16px;transition:transform .25s cubic-bezier(.3,1.5,.5,1), box-shadow .25s ease}
+.param:hover{transform:translateY(-4px);box-shadow:0 6px 0 -1px var(--line)}
 .param h4{display:flex;align-items:center;gap:10px;font-size:16.5px;margin-bottom:8px}
-.param .ic{flex:none;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft)}
-.param .ic svg{width:20px;height:20px;stroke:var(--accent-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.param .ic{flex:none;width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:var(--accent-soft);transition:transform .4s ease}
+.param:hover .ic{transform:rotate(-12deg) scale(1.1)}
+.param .ic svg{width:21px;height:21px;stroke:var(--accent-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .param p{font-size:14.5px}
 
-/* gauges */
-.gauge{margin:6px 0 4px}
-.gauge .track{position:relative;height:16px;border-radius:999px;background:#f1ebe4;border:1px solid var(--line)}
+.gauge .track{position:relative;height:16px;border-radius:999px;background:#f2ece5;border:1px solid var(--line)}
 .gauge .band{position:absolute;top:0;bottom:0;border-radius:999px}
 .gauge .band.tol{background:var(--accent-soft)}
-.gauge .band.opt{background:var(--accent);opacity:.55}
-.gauge .mark{position:absolute;top:-5px;width:4px;height:26px;margin-left:-2px;border-radius:3px;background:var(--ink)}
+.gauge .band.opt{background:var(--accent);opacity:.5}
+.gauge .mark{position:absolute;top:-6px;width:5px;height:28px;margin-left:-2.5px;border-radius:3px;background:var(--ink)}
+.panel.active .gauge .mark{animation:drop .6s cubic-bezier(.3,1.6,.5,1) both}
+.panel.active .gauge .mark:nth-of-type(4){animation-delay:.15s}
+@keyframes drop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
 .gauge .mlabels{position:relative;height:40px;margin-top:6px}
 .gauge .mlabel{position:absolute;transform:translateX(-50%);text-align:center;font-size:12.5px;line-height:1.2;white-space:nowrap}
 .gauge .mlabel b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;display:block}
-.gauge .scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:2px}
+.scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:2px}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin-top:8px}
 .legend i{display:inline-block;width:14px;height:10px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+.tbar{display:grid;grid-template-columns:76px 1fr 72px;gap:10px;align-items:center;margin:8px 0;font-size:13.5px}
+.tbar .t{position:relative;height:12px;border-radius:999px;background:#f2ece5;border:1px solid var(--line)}
+.tbar .t div{position:absolute;top:0;bottom:0;border-radius:999px;background:var(--accent);transform-origin:left;}
+.panel.active .tbar .t div{animation:grow .8s cubic-bezier(.2,.9,.3,1) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tbar .t div.opt{background:var(--accent-soft);outline:1.5px dashed var(--accent)}
+.tbar b{font-family:"Fredoka",sans-serif;font-weight:500}
+.scrawl{font-family:"Caveat",cursive;font-weight:700;font-size:21px;color:var(--accent-deep);margin-top:10px;transform:rotate(-1deg);line-height:1.2}
 
 /* weekly log */
-.progress{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-bottom:16px}
-.progress div{text-align:center;font-size:11.5px;color:var(--muted)}
-.progress span{display:grid;place-items:center;width:100%;aspect-ratio:1;max-width:40px;margin:0 auto 3px;border-radius:50%;border:1.5px dashed var(--line);font-family:"Fredoka",sans-serif;font-size:14px;color:#b9aca2;background:#fff}
+.progress{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-bottom:18px}
+.progress div{text-align:center;font-family:"Caveat",cursive;font-size:16px;color:var(--muted)}
+.progress span{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1;max-width:40px;margin:0 auto 2px;border-radius:50%;border:1.5px dashed var(--line);font-family:"Fredoka",sans-serif;font-size:14px;color:#bcaea4;background:#fff}
 .progress .done span{border:1.5px solid var(--accent);background:var(--accent);color:#fff}
-.log-wrap{border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.progress .done span::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--accent);animation:ring 2.2s ease-out infinite}
+@keyframes ring{from{transform:scale(1);opacity:.7}to{transform:scale(1.55);opacity:0}}
+.log-wrap{border:1.5px solid var(--line);border-radius:var(--hand);overflow:hidden;background:#fff}
 .log td:first-child{font-family:"Fredoka",sans-serif;font-weight:500;white-space:nowrap}
-.log tr.empty td{color:#b9aca2;font-style:italic;padding-top:7px;padding-bottom:7px;background:repeating-linear-gradient(135deg,#fff 0 8px,#fcf9f4 8px 16px)}
-.log tr.empty td:first-child{font-style:normal;color:var(--muted)}
-.log tr.filled td{background:#fff}
+.log tr.empty td{color:#bcaea4;padding-top:7px;padding-bottom:7px;background:repeating-linear-gradient(135deg,#fff 0 8px,#fcf9f4 8px 16px)}
+.log tr.empty td:last-child{font-family:"Caveat",cursive;font-size:18px}
+.log tr.empty td:first-child{color:var(--muted)}
+.log tr.filled{transition:background-color .2s ease}
+.log tr.filled:hover td{background:var(--accent-soft)}
 .log .ph-val{font-family:"Fredoka",sans-serif;font-weight:500;color:var(--accent-deep)}
+.foot{font-family:"Caveat",cursive;font-size:19px;color:var(--muted);margin-top:10px}
 
 /* timeline */
 .timeline{list-style:none;margin:0;padding:0;position:relative}
 .timeline::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(var(--accent) 0 6px,transparent 6px 11px)}
-.timeline li{position:relative;padding:0 0 18px 48px}
+.timeline li{position:relative;padding:0 0 20px 50px}
 .timeline li:last-child{padding-bottom:0}
-.timeline .dot{position:absolute;left:4px;top:0;width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid var(--accent);display:grid;place-items:center;font-family:"Fredoka",sans-serif;font-size:12px;color:var(--accent-deep)}
-.timeline h4{font-size:16.5px}
-.timeline p{font-size:14.5px;color:var(--ink);margin-top:2px}
-.timeline .when{display:inline-block;margin-top:4px;font-size:12.5px;font-weight:700;color:var(--accent-deep);background:var(--accent-soft);border-radius:999px;padding:2px 10px}
+.timeline .dot{position:absolute;left:3px;top:-1px;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--accent);display:grid;place-items:center;font-family:"Fredoka",sans-serif;font-size:12.5px;color:var(--accent-deep);transition:background-color .2s ease, color .2s ease, transform .3s cubic-bezier(.3,1.6,.5,1)}
+.timeline li:hover .dot{background:var(--accent);color:#fff;transform:scale(1.18)}
+.timeline h4{font-size:17px}
+.timeline .when{display:inline-block;margin-top:4px;font-size:14px;color:var(--ink);background:var(--accent-soft);border-radius:10px;padding:3px 10px}
 
 /* pests */
-.pests{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.pest{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px}
-.pest h4{font-size:16.5px;margin-bottom:8px}
+.pests{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.pest{background:#fff;border:1.5px solid var(--line);border-radius:var(--hand);padding:14px 16px;transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.pest:nth-child(odd){transform:rotate(-.5deg)}.pest:nth-child(even){transform:rotate(.5deg)}
+.pest:hover{transform:rotate(0) translateY(-3px)}
+.pest h4{font-size:16.5px;margin-bottom:6px}
 .pest dl{margin:0;font-size:14.5px}
-.pest dt{font-size:11.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.pest dt{font-family:"Caveat",cursive;font-weight:700;font-size:19px;color:var(--warn);margin-top:6px;line-height:1.1}
 .pest dt:first-child{margin-top:0}
-.pest dd{margin:2px 0 0}
+.pest dd{margin:1px 0 0}
 .pest dt.fix{color:var(--leaf-deep)}
 
-.compounds{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.compounds{display:flex;flex-wrap:wrap;gap:6px}
 ul.clean{margin:0;padding-left:20px}
-ul.clean li{margin-bottom:6px}
+ul.clean li{margin-bottom:7px}
+ul.clean li::marker{content:"✿  ";color:var(--accent)}
 ul.clean li:last-child{margin-bottom:0}
 
 /* references */
-.refs{margin:0;padding-left:22px}
+.refs{margin:0;padding-left:24px}
 .refs li{margin-bottom:10px;font-size:15px;padding-left:4px}
 .refs li::marker{color:var(--pea-deep);font-family:"Fredoka",sans-serif}
 .credits td a{word-break:break-word}
 
+/* footer + mascot */
 footer{
-  text-align:center;padding:18px 16px 22px;border-top:2px solid var(--line);background:var(--cream);
-  font-size:14px;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  padding:16px 18px 18px;border-top:2px solid var(--line);background:var(--cream);
+  font-size:14px;color:var(--muted);text-align:center;
 }
-footer .heart{color:#e79ab3}
+footer .mascot{width:58px;flex:none;animation:hop 2.6s ease-in-out infinite;cursor:pointer}
+footer .mascot .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
+@keyframes hop{0%,100%{transform:translateY(0)}45%{transform:translateY(-6px) rotate(-3deg)}55%{transform:translateY(-6px) rotate(3deg)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+footer .hand{font-size:21px;color:var(--ink)}
 
-/* theme per plant */
+/* sound toggle */
+.sound{
+  position:fixed;right:16px;bottom:16px;z-index:50;cursor:pointer;
+  display:flex;align-items:center;gap:8px;padding:8px 14px 8px 10px;border-radius:999px;
+  background:#fff;border:1.5px solid var(--frame);box-shadow:0 4px 0 var(--line);
+  font-family:"Fredoka",sans-serif;font-size:14px;
+  transition:transform .18s cubic-bezier(.3,1.6,.5,1);
+}
+.sound:hover{transform:translateY(-2px)}
+.sound:active{transform:scale(.92)}
+.sound svg{width:20px;height:20px;stroke:var(--pea-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sound .waves{transition:opacity .2s ease}
+.sound[aria-pressed="false"] .waves{opacity:0}
+.sound[aria-pressed="false"]{color:var(--muted)}
+.sound[aria-pressed="true"] .waves{animation:waves 1.6s ease-in-out infinite}
+@keyframes waves{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* click burst */
+.burst{position:fixed;left:0;top:0;pointer-events:none;z-index:999;width:10px;height:13px;border-radius:70% 70% 70% 70% / 90% 90% 40% 40%}
+
 .theme-leaf{--accent:var(--leaf);--accent-soft:var(--leaf-soft);--accent-deep:var(--leaf-deep)}
 
 /* ---------- responsive ---------- */
-@media (max-width:900px){
-  .banner{grid-template-columns:110px 1fr}
-  .banner .deco-right{display:none}
+@media (max-width:920px){
+  .banner{grid-template-columns:140px 1fr 150px;padding:28px 12px 16px}
   .params{grid-template-columns:1fr 1fr}
 }
 @media (max-width:760px){
-  .page{padding:16px 10px 32px}
+  .page{padding:14px 10px 30px}
   .frame{border-radius:22px}
-  .banner{grid-template-columns:1fr;padding:30px 16px 18px;min-height:0}
-  .banner .deco-left{width:86px;margin:0 auto}
+  .banner{grid-template-columns:1fr 1fr;grid-template-areas:"t t" "l r";padding:26px 12px 6px;min-height:0;row-gap:0}
+  .banner .title{grid-area:t}
+  .banner .deco-l{grid-area:l;max-width:150px}
+  .banner .deco-r{grid-area:r;max-width:150px;justify-self:end}
   .tabs{grid-template-columns:1fr 1fr;gap:10px;padding:14px}
-  main{padding:20px 14px 24px}
-  .cols,.plant-hero,.grid2,.specimens,.pests,.params{grid-template-columns:1fr}
-  .plant-hero .polaroid{max-width:300px;margin:0 auto}
+  main{padding:22px 14px 26px}
+  .row,.plant-hero,.specimens,.pests,.params{grid-template-columns:1fr}
+  .plant-hero .polaroid{max-width:280px;margin:8px auto 0}
   .gallery{grid-template-columns:1fr 1fr}
   .gallery figure:first-child{grid-column:span 2;grid-row:auto}
   .gallery figure:first-child .ph{height:auto;aspect-ratio:4/3;min-height:0}
-  .subtabs{border-radius:18px}
+  .subtabs{border-radius:20px}
   .subtabs button{flex:1 1 30%;padding:8px 6px;font-size:14px}
   .progress{grid-template-columns:repeat(6,1fr)}
-  /* log table becomes cards */
   .log thead{display:none}
-  .log tr{display:block;border-bottom:1.5px solid var(--line)}
+  .log tr{display:block;border-bottom:1.5px dashed var(--line)}
   .log tr:last-child{border-bottom:0}
   .log td{display:block;border:0;padding:4px 14px}
   .log tr.filled td{padding:5px 14px}
   .log tr.filled td:first-child{padding-top:12px;font-size:17px}
   .log tr.filled td:last-child{padding-bottom:14px}
-  .log tr.filled td[data-label]::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);font-style:normal}
+  .log tr.filled td[data-label]::before{content:attr(data-label);display:block;font-family:"Caveat",cursive;font-weight:700;font-size:18px;color:var(--accent-deep);line-height:1.1}
   .log tr.empty{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .log tr.empty td{padding:9px 14px;background:none}
-  .kv th{width:40%}
+  .kv th{width:36%}
+  .hello h2{font-size:34px}
 }
 @media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .swap .stage img.two,.swap .caps .c2{display:none}
+  .swap .caps .c1{opacity:1}
+  .fall{display:none}
   html{scroll-behavior:auto}
 }
 </style>
@@ -371,72 +500,120 @@ footer .heart{color:#e79ab3}
     <div class="awning" aria-hidden="true"></div>
 
     <header class="banner">
-      <!-- left decoration: a happy sprout in a pot (original drawing) -->
-      <svg class="deco-left" viewBox="0 0 140 160" aria-hidden="true">
-        <path d="M70 70 C70 52 70 44 70 34" stroke="#5f9e6c" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <path d="M70 46 C52 28 30 30 24 40 C36 54 56 56 70 46Z" fill="#86bf93" stroke="#5f9e6c" stroke-width="2.5"/>
-        <path d="M70 38 C86 16 110 16 118 26 C106 44 84 48 70 38Z" fill="#a6d4ad" stroke="#5f9e6c" stroke-width="2.5"/>
-        <circle cx="104" cy="12" r="9" fill="#7d8fe0" stroke="#3e4ea6" stroke-width="2"/>
-        <circle cx="104" cy="12" r="3.2" fill="#fff1c7"/>
-        <path d="M30 78 H110 L100 146 Q99 152 92 152 H48 Q41 152 40 146Z" fill="#f2c2a8" stroke="#9a7b69" stroke-width="3" stroke-linejoin="round"/>
-        <rect x="24" y="66" width="92" height="18" rx="7" fill="#f7d3bf" stroke="#9a7b69" stroke-width="3"/>
-        <circle cx="56" cy="110" r="4.2" fill="#4a3b33"/>
-        <circle cx="84" cy="110" r="4.2" fill="#4a3b33"/>
-        <circle cx="57.5" cy="108.5" r="1.3" fill="#fff"/>
-        <circle cx="85.5" cy="108.5" r="1.3" fill="#fff"/>
-        <path d="M64 118 Q70 124 76 118" stroke="#4a3b33" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="46" cy="120" rx="7" ry="4" fill="#ee9fb6" opacity=".75"/>
-        <ellipse cx="94" cy="120" rx="7" ry="4" fill="#ee9fb6" opacity=".75"/>
-        <path d="M14 30 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fff" stroke="#c9b3e8" stroke-width="1.2"/>
-        <path d="M126 64 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="#fff" stroke="#c9b3e8" stroke-width="1.2"/>
+      <div class="fall" aria-hidden="true">
+        <i class="petal" style="left:8%;animation-duration:11s;animation-delay:-2s"></i>
+        <i class="puff" style="left:88%;animation-duration:13s;animation-delay:-6s"></i>
+        <i class="leaflet" style="left:22%;animation-duration:12s;animation-delay:-9s"></i>
+        <i class="petal" style="left:36%;animation-duration:14s;animation-delay:-4s"></i>
+        <i class="puff" style="left:62%;animation-duration:10s;animation-delay:-1s"></i>
+        <i class="leaflet" style="left:76%;animation-duration:12.5s;animation-delay:-3s"></i>
+        <i class="petal" style="left:52%;animation-duration:15s;animation-delay:-11s"></i>
+        <i class="puff" style="left:16%;animation-duration:12s;animation-delay:-7s"></i>
+        <i class="leaflet" style="left:94%;animation-duration:11s;animation-delay:-5s"></i>
+      </div>
+
+      <!-- left: butterfly pea vine (original drawing) -->
+      <svg class="deco-l" viewBox="0 0 200 210" aria-hidden="true">
+        <g class="sway-l">
+          <path d="M20 210 C14 176 52 166 48 136 C44 104 86 100 92 72 C98 44 126 38 140 22" fill="none" stroke="#5e9a6b" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M140 22 c10 -8 22 0 16 10 c-4 6 -12 2 -8 -3" fill="none" stroke="#5e9a6b" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M70 116 c-10 8 -6 22 4 18" fill="none" stroke="#5e9a6b" stroke-width="2" stroke-linecap="round"/>
+          <!-- leaves: 5 leaflets each -->
+          <g fill="#9bd0a6" stroke="#5e9a6b" stroke-width="1.6">
+            <g transform="translate(46 150) rotate(-35)"><path d="M0 0 L-34 0" stroke-width="1.8"/><ellipse cx="-36" cy="0" rx="8" ry="4.5"/><ellipse cx="-24" cy="-6" rx="7" ry="4" transform="rotate(-50 -24 -6)"/><ellipse cx="-24" cy="6" rx="7" ry="4" transform="rotate(50 -24 6)"/><ellipse cx="-12" cy="-6" rx="7" ry="4" transform="rotate(-50 -12 -6)"/><ellipse cx="-12" cy="6" rx="7" ry="4" transform="rotate(50 -12 6)"/></g>
+            <g transform="translate(88 86) rotate(200)"><path d="M0 0 L-34 0" stroke-width="1.8"/><ellipse cx="-36" cy="0" rx="8" ry="4.5"/><ellipse cx="-24" cy="-6" rx="7" ry="4" transform="rotate(-50 -24 -6)"/><ellipse cx="-24" cy="6" rx="7" ry="4" transform="rotate(50 -24 6)"/><ellipse cx="-12" cy="-6" rx="7" ry="4" transform="rotate(-50 -12 -6)"/><ellipse cx="-12" cy="6" rx="7" ry="4" transform="rotate(50 -12 6)"/></g>
+            <g transform="translate(124 40) rotate(-60)"><path d="M0 0 L-30 0" stroke-width="1.8"/><ellipse cx="-32" cy="0" rx="7" ry="4"/><ellipse cx="-21" cy="-5" rx="6" ry="3.6" transform="rotate(-50 -21 -5)"/><ellipse cx="-21" cy="5" rx="6" ry="3.6" transform="rotate(50 -21 5)"/><ellipse cx="-10" cy="-5" rx="6" ry="3.6" transform="rotate(-50 -10 -5)"/><ellipse cx="-10" cy="5" rx="6" ry="3.6" transform="rotate(50 -10 5)"/></g>
+          </g>
+          <!-- flowers -->
+          <g transform="translate(64 112) rotate(-14)"><g class="bloom">
+            <path d="M0 -26 C22 -26 27 -4 20 11 C13 23 -13 23 -20 11 C-27 -4 -22 -26 0 -26Z" fill="#6c80dc" stroke="#3d4ca3" stroke-width="2.2"/>
+            <path d="M0 -17 C8 -17 10 -5 7 4 C4 9 -4 9 -7 4 C-10 -5 -8 -17 0 -17Z" fill="#dde3ff"/>
+            <ellipse cx="0" cy="1" rx="3.4" ry="6" fill="#ffd970"/>
+            <path d="M-5 21 Q0 30 5 21" fill="#8fd09b" stroke="#5e9a6b" stroke-width="1.6"/>
+          </g></g>
+          <g transform="translate(108 62) rotate(12) scale(.82)"><g class="bloom b">
+            <path d="M0 -26 C22 -26 27 -4 20 11 C13 23 -13 23 -20 11 C-27 -4 -22 -26 0 -26Z" fill="#8295e6" stroke="#3d4ca3" stroke-width="2.4"/>
+            <path d="M0 -17 C8 -17 10 -5 7 4 C4 9 -4 9 -7 4 C-10 -5 -8 -17 0 -17Z" fill="#eef1ff"/>
+            <ellipse cx="0" cy="1" rx="3.4" ry="6" fill="#ffd970"/>
+          </g></g>
+          <g transform="translate(30 176) rotate(-28) scale(.7)"><g class="bloom c">
+            <path d="M0 -26 C22 -26 27 -4 20 11 C13 23 -13 23 -20 11 C-27 -4 -22 -26 0 -26Z" fill="#6c80dc" stroke="#3d4ca3" stroke-width="2.6"/>
+            <path d="M0 -17 C8 -17 10 -5 7 4 C4 9 -4 9 -7 4 C-10 -5 -8 -17 0 -17Z" fill="#dde3ff"/>
+            <ellipse cx="0" cy="1" rx="3.4" ry="6" fill="#ffd970"/>
+          </g></g>
+          <!-- bud -->
+          <g transform="translate(150 50) rotate(30)"><g class="bloom b">
+            <ellipse cx="0" cy="0" rx="5" ry="9" fill="#8295e6" stroke="#3d4ca3" stroke-width="1.8"/>
+            <path d="M-4 6 Q0 13 4 6" fill="#8fd09b" stroke="#5e9a6b" stroke-width="1.4"/>
+          </g></g>
+        </g>
+        <path d="M170 150 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fff" stroke="#c4b5e6" stroke-width="1.2"/>
       </svg>
 
       <div class="title">
         <div class="script">Plant Journal</div>
         <div class="sub">Philippine Native Plant Conservation Initiative</div>
+        <span class="scribble hand"><b>blue ternate</b> &amp; ipil-ipil ✿</span>
       </div>
 
-      <!-- right decoration: butterfly pea blossoms and an ipil-ipil flower head (original drawing) -->
-      <svg class="deco-right" viewBox="0 0 190 170" aria-hidden="true">
-        <path d="M10 150 C40 120 50 80 90 70 C130 60 150 30 182 20" stroke="#5f9e6c" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M150 34 c-4 -8 2 -14 8 -12" stroke="#5f9e6c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="44" cy="118" rx="14" ry="7" transform="rotate(-40 44 118)" fill="#a6d4ad" stroke="#5f9e6c" stroke-width="2"/>
-        <ellipse cx="118" cy="56" rx="14" ry="7" transform="rotate(-20 118 56)" fill="#86bf93" stroke="#5f9e6c" stroke-width="2"/>
-        <ellipse cx="70" cy="92" rx="12" ry="6" transform="rotate(30 70 92)" fill="#a6d4ad" stroke="#5f9e6c" stroke-width="2"/>
-        <!-- butterfly pea flower 1 -->
-        <g transform="translate(92 98) rotate(-12)">
-          <path d="M0 -30 C24 -30 30 -6 22 12 C14 26 -14 26 -22 12 C-30 -6 -24 -30 0 -30Z" fill="#6f82dc" stroke="#3e4ea6" stroke-width="2.4"/>
-          <path d="M0 -20 C9 -20 11 -6 8 4 C5 10 -5 10 -8 4 C-11 -6 -9 -20 0 -20Z" fill="#dfe5ff"/>
-          <ellipse cx="0" cy="0" rx="4" ry="7" fill="#ffe08a"/>
-          <path d="M-6 24 Q0 34 6 24" fill="#8fd09b" stroke="#5f9e6c" stroke-width="1.8"/>
-        </g>
-        <!-- butterfly pea flower 2 (small) -->
-        <g transform="translate(152 108) rotate(14) scale(.7)">
-          <path d="M0 -30 C24 -30 30 -6 22 12 C14 26 -14 26 -22 12 C-30 -6 -24 -30 0 -30Z" fill="#8a9bea" stroke="#3e4ea6" stroke-width="2.6"/>
-          <path d="M0 -20 C9 -20 11 -6 8 4 C5 10 -5 10 -8 4 C-11 -6 -9 -20 0 -20Z" fill="#eef1ff"/>
-          <ellipse cx="0" cy="0" rx="4" ry="7" fill="#ffe08a"/>
-        </g>
-        <!-- ipil-ipil pompom -->
-        <g transform="translate(156 46)">
-          <g stroke="#e9e2cf" stroke-width="2" stroke-linecap="round">
-            <path d="M0 0 L0 -20"/><path d="M0 0 L14 -14"/><path d="M0 0 L20 0"/><path d="M0 0 L14 14"/>
-            <path d="M0 0 L0 20"/><path d="M0 0 L-14 14"/><path d="M0 0 L-20 0"/><path d="M0 0 L-14 -14"/>
-            <path d="M0 0 L8 -18"/><path d="M0 0 L18 -8"/><path d="M0 0 L18 8"/><path d="M0 0 L8 18"/>
-            <path d="M0 0 L-8 18"/><path d="M0 0 L-18 8"/><path d="M0 0 L-18 -8"/><path d="M0 0 L-8 -18"/>
+      <!-- right: ipil-ipil branch with feathery leaves, flower heads and pods (original drawing) -->
+      <svg class="deco-r" viewBox="0 0 210 210" aria-hidden="true">
+        <g class="sway-r">
+          <path d="M214 8 C176 14 150 26 118 50 C96 66 78 72 52 74" fill="none" stroke="#a07a55" stroke-width="5" stroke-linecap="round"/>
+          <!-- bipinnate leaves: a dashed thick stroke reads as rows of tiny leaflets -->
+          <g fill="none" stroke-linecap="round">
+            <path d="M170 18 C160 44 162 70 172 96" stroke="#9bd0a6" stroke-width="16" stroke-dasharray="2.4 3.6" stroke-linecap="butt"/>
+            <path d="M170 18 C160 44 162 70 172 96" stroke="#5e9a6b" stroke-width="1.6"/>
+            <path d="M132 40 C112 54 104 80 108 106" stroke="#86c393" stroke-width="16" stroke-dasharray="2.4 3.6" stroke-linecap="butt"/>
+            <path d="M132 40 C112 54 104 80 108 106" stroke="#5e9a6b" stroke-width="1.6"/>
+            <path d="M92 64 C70 60 52 46 44 26" stroke="#9bd0a6" stroke-width="14" stroke-dasharray="2.4 3.6" stroke-linecap="butt"/>
+            <path d="M92 64 C70 60 52 46 44 26" stroke="#5e9a6b" stroke-width="1.6"/>
+            <path d="M196 12 C204 36 200 54 190 70" stroke="#86c393" stroke-width="14" stroke-dasharray="2.4 3.6" stroke-linecap="butt"/>
+            <path d="M196 12 C204 36 200 54 190 70" stroke="#5e9a6b" stroke-width="1.6"/>
           </g>
-          <circle r="11" fill="#fffdf3" stroke="#d8cdb2" stroke-width="2"/>
-          <g fill="#f5e9b8"><circle cx="0" cy="-20" r="3"/><circle cx="14" cy="-14" r="3"/><circle cx="20" cy="0" r="3"/><circle cx="14" cy="14" r="3"/><circle cx="0" cy="20" r="3"/><circle cx="-14" cy="14" r="3"/><circle cx="-20" cy="0" r="3"/><circle cx="-14" cy="-14" r="3"/></g>
+          <!-- pods -->
+          <g transform="translate(146 34)"><g class="pod">
+            <path d="M0 0 C6 26 8 60 2 92 C0 100 -8 100 -8 92 C-4 60 -5 26 -6 0Z" fill="#c49a68" stroke="#8a6440" stroke-width="1.8"/>
+            <path d="M-2 14 v4 M-1 30 v4 M0 46 v4 M0 62 v4 M-1 78 v4" stroke="#8a6440" stroke-width="1.6" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(124 50)"><g class="pod b">
+            <path d="M0 0 C5 22 6 52 1 78 C-1 85 -8 85 -8 78 C-4 52 -5 22 -6 0Z" fill="#b2895a" stroke="#8a6440" stroke-width="1.8"/>
+            <path d="M-2 14 v4 M-1 30 v4 M-1 46 v4 M-1 62 v4" stroke="#8a6440" stroke-width="1.6" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(84 70)"><g class="pod c">
+            <path d="M0 0 C4 18 5 42 1 64 C-1 70 -7 70 -7 64 C-4 42 -4 18 -5 0Z" fill="#a9c97f" stroke="#6f8f4a" stroke-width="1.8"/>
+          </g></g>
+          <!-- flower heads -->
+          <g transform="translate(62 82)"><g class="pompom">
+            <g stroke="#e8dfc6" stroke-width="2" stroke-linecap="round">
+              <path d="M0 0 L0 -18M0 0 L13 -13M0 0 L18 0M0 0 L13 13M0 0 L0 18M0 0 L-13 13M0 0 L-18 0M0 0 L-13 -13M0 0 L7 -16M0 0 L16 -7M0 0 L16 7M0 0 L7 16M0 0 L-7 16M0 0 L-16 7M0 0 L-16 -7M0 0 L-7 -16"/>
+            </g>
+            <circle r="10" fill="#fffdf2" stroke="#d6cbae" stroke-width="1.8"/>
+            <g fill="#f7ecbf"><circle cy="-18" r="2.8"/><circle cx="13" cy="-13" r="2.8"/><circle cx="18" r="2.8"/><circle cx="13" cy="13" r="2.8"/><circle cy="18" r="2.8"/><circle cx="-13" cy="13" r="2.8"/><circle cx="-18" r="2.8"/><circle cx="-13" cy="-13" r="2.8"/></g>
+          </g></g>
+          <g transform="translate(186 82) scale(.8)"><g class="pompom b">
+            <g stroke="#e8dfc6" stroke-width="2.2" stroke-linecap="round">
+              <path d="M0 0 L0 -18M0 0 L13 -13M0 0 L18 0M0 0 L13 13M0 0 L0 18M0 0 L-13 13M0 0 L-18 0M0 0 L-13 -13M0 0 L7 -16M0 0 L16 -7M0 0 L16 7M0 0 L7 16M0 0 L-7 16M0 0 L-16 7M0 0 L-16 -7M0 0 L-7 -16"/>
+            </g>
+            <circle r="10" fill="#fffdf2" stroke="#d6cbae" stroke-width="2"/>
+            <g fill="#f7ecbf"><circle cy="-18" r="3"/><circle cx="13" cy="-13" r="3"/><circle cx="18" r="3"/><circle cx="13" cy="13" r="3"/><circle cy="18" r="3"/><circle cx="-13" cy="13" r="3"/><circle cx="-18" r="3"/><circle cx="-13" cy="-13" r="3"/></g>
+          </g></g>
         </g>
-        <path d="M30 30 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fff" stroke="#c9b3e8" stroke-width="1.2"/>
-        <path d="M24 72 c-3 -5 -10 -3 -8 3 c1 4 8 8 8 8 s7 -4 8 -8 c2 -6 -5 -8 -8 -3z" fill="#f7c1d2"/>
+        <path d="M30 150 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fff" stroke="#b9dcc0" stroke-width="1.2"/>
+        <path d="M188 160 c-3 -5 -10 -3 -8 3 c1 4 8 8 8 8 s7 -4 8 -8 c2 -6 -5 -8 -8 -3z" fill="#f7c1d2"/>
       </svg>
     </header>
 
-    <div class="ticker">˚ ✿ welcome to our plant journal ✿ ˚</div>
+    <div class="ticker" aria-hidden="true">
+      <div class="track">
+        <span><b class="f1">✿</b> welcome to our plant journal</span><span><b class="f2">✿</b> blue ternate &amp; ipil-ipil</span><span><b class="f3">✿</b> 12 weeks of watering, measuring &amp; checking leaves</span><span><b class="f1">✿</b> click a plant to see our logs</span><span><b class="f2">✿</b> made by 5 tired but proud plant parents</span>
+        <span><b class="f1">✿</b> welcome to our plant journal</span><span><b class="f2">✿</b> blue ternate &amp; ipil-ipil</span><span><b class="f3">✿</b> 12 weeks of watering, measuring &amp; checking leaves</span><span><b class="f1">✿</b> click a plant to see our logs</span><span><b class="f2">✿</b> made by 5 tired but proud plant parents</span>
+      </div>
+    </div>
 
     <nav class="tabs" aria-label="Main">
       <button type="button" data-page="home">home</button>
-      <button type="button" data-page="butterfly-pea">butterfly pea</button>
+      <button type="button" data-page="butterfly-pea">blue ternate</button>
       <button type="button" data-page="ipil-ipil">ipil-ipil</button>
       <button type="button" data-page="references">references</button>
     </nav>
@@ -444,86 +621,64 @@ footer .heart{color:#e79ab3}
     <main>
       <!-- ================= HOME ================= -->
       <section class="view" id="view-home" aria-label="Home">
-        <div class="cols">
-          <aside class="stack">
-            <div class="box blush">
-              <div class="box-title"><span class="bullet"></span>Featured bloom</div>
-              <div class="box-body">
-                <figure class="featured" style="margin:0">
-                  <img id="featured-img" alt="Close-up of a deep blue butterfly pea flower" loading="lazy">
-                  <figcaption>Butterfly pea in bloom. Our own vine had several flowers open by week 9.</figcaption>
-                </figure>
-              </div>
+        <div class="row rise">
+          <div class="box pea hello">
+            <h2>hi there! <span>✿</span></h2>
+            <p>This is our little plant journal for the <b>Philippine Native Plant Conservation Initiative</b>. For this project our group took care of two legumes, <b>blue ternate</b> (butterfly pea) and <b>ipil-ipil</b>, and wrote down how they were doing week by week.</p>
+            <p>Pick a plant below to see how we grew it, our weekly log, the growth stages to expect, the pests we kept an eye on, and what each plant is used for.</p>
+            <span class="sig">~ from the five of us</span>
+          </div>
+          <div class="swap taped" aria-label="Photos of butterfly pea and ipil-ipil">
+            <div class="stage">
+              <img class="one" id="swap-1" alt="Blue butterfly pea flowers on the vine">
+              <img class="two" id="swap-2" alt="White pompom flower head of ipil-ipil">
             </div>
-            <div class="box butter">
-              <div class="box-title"><span class="bullet"></span>Update log</div>
-              <div class="box-body">
-                <ul class="updates">
-                  <li><b>Nov 25</b>Website published.</li>
-                  <li><b>Nov 25</b>Week 9 entry for Butterfly Pea: climbing vine in flower, soil pH 8.21.</li>
-                  <li><b>Nov 25</b>Week 1 entry for Ipil-Ipil: healthy sapling, soil pH 7.83.</li>
-                  <li><b>Sep 25</b>Week 1 entry for Butterfly Pea: seedling with first true leaves, soil pH 7.69.</li>
-                </ul>
-              </div>
-            </div>
-          </aside>
+            <div class="caps"><span class="c1">blue ternate in bloom</span><span class="c2">ipil-ipil in flower</span></div>
+          </div>
+        </div>
 
-          <div class="stack">
-            <div class="box">
-              <div class="box-title"><span class="bullet"></span>Welcome!</div>
-              <div class="box-body">
-                <p class="lead">This is our group's cultivation journal for the <b>Philippine Native Plant Conservation Initiative</b>. We grew two legumes and kept a record of how they did.</p>
-                <p>Each plant page covers its growing conditions, a 12-week observation log (light, temperature, watering, soil pH, growth stage, and problems we fixed), its expected growth timeline, pests to watch for, and what the plant is used for.</p>
-              </div>
+        <div class="box leafy rise">
+          <div class="box-title"><span class="fl">✿</span>our plants<span class="tag">tap one!</span></div>
+          <div class="box-body">
+            <div class="specimens">
+              <button type="button" class="spec-card taped blue" data-goto="butterfly-pea">
+                <div class="ph"><img id="card-img-pea" alt="Butterfly pea flower" loading="lazy"></div>
+                <h3>Blue Ternate</h3>
+                <div class="sci">Clitoria ternatea</div>
+                <span class="go">open its journal <i>→</i></span>
+              </button>
+              <button type="button" class="spec-card leaf taped mint" data-goto="ipil-ipil">
+                <div class="ph"><img id="card-img-ipil" alt="Ipil-ipil plant" loading="lazy"></div>
+                <h3>Ipil-Ipil</h3>
+                <div class="sci">Leucaena leucocephala</div>
+                <span class="go">open its journal <i>→</i></span>
+              </button>
             </div>
+          </div>
+        </div>
 
-            <div class="box leafy">
-              <div class="box-title"><span class="bullet"></span>Our specimens</div>
-              <div class="box-body">
-                <div class="specimens">
-                  <button type="button" class="spec-card" data-goto="butterfly-pea">
-                    <img id="card-img-pea" alt="Butterfly pea vine" loading="lazy">
-                    <div class="sc-body">
-                      <h3>Butterfly Pea</h3>
-                      <div class="sci">Clitoria ternatea · Kolokanting</div>
-                      <span class="go">Open journal →</span>
-                    </div>
-                  </button>
-                  <button type="button" class="spec-card leaf" data-goto="ipil-ipil">
-                    <img id="card-img-ipil" alt="Ipil-ipil plant" loading="lazy">
-                    <div class="sc-body">
-                      <h3>Ipil-Ipil</h3>
-                      <div class="sci">Leucaena leucocephala · Lead tree</div>
-                      <span class="go">Open journal →</span>
-                    </div>
-                  </button>
-                </div>
-              </div>
+        <div class="row rise">
+          <div class="box blush">
+            <div class="box-title"><span class="fl">✿</span>the group</div>
+            <div class="box-body">
+              <ul class="members" id="members"></ul>
             </div>
-
-            <div class="box blush">
-              <div class="box-title"><span class="bullet"></span>Meet the group</div>
-              <div class="box-body">
-                <ul class="members" id="members"></ul>
-              </div>
-            </div>
-
-            <div class="note">
-              <div class="ico">i</div>
-              <div><b>A note on origins.</b> Both plants grow throughout the Philippines, but neither started here. Butterfly pea is a tropical Asian vine recorded as introduced to the country, and ipil-ipil came from Mexico and Central America and is now naturalized and invasive. Each plant page gives the details.</div>
-            </div>
+          </div>
+          <div class="sticky">
+            <h3>wait, are they native?</h3>
+            Not quite! Both grow all over the Philippines, but neither started here. Blue ternate is a tropical Asian vine that was brought in, and ipil-ipil came from Mexico and Central America. It spread so well that it's now considered invasive. More on each plant's page.
           </div>
         </div>
       </section>
 
       <!-- ================= PLANT PAGES (filled by script) ================= -->
-      <section class="view" id="view-butterfly-pea" aria-label="Butterfly Pea"></section>
-      <section class="view theme-leaf" id="view-ipil-ipil" aria-label="Ipil-Ipil"></section>
+      <section class="view" id="view-butterfly-pea" aria-label="Blue ternate"></section>
+      <section class="view theme-leaf" id="view-ipil-ipil" aria-label="Ipil-ipil"></section>
 
       <!-- ================= REFERENCES ================= -->
       <section class="view" id="view-references" aria-label="References">
-        <div class="box">
-          <div class="box-title"><span class="bullet"></span>References</div>
+        <div class="box butter rise">
+          <div class="box-title"><span class="fl">✿</span>references</div>
           <div class="box-body">
             <ol class="refs">
               <li>Stuart, G. U., Jr. (n.d.). <i>Pukingan: Clitoria ternatea Linn.</i> Philippine Medicinal Plants, StuartXchange. <a href="https://www.stuartxchange.org/Pukingan.html" target="_blank" rel="noopener">stuartxchange.org/Pukingan.html</a></li>
@@ -540,10 +695,10 @@ footer .heart{color:#e79ab3}
           </div>
         </div>
 
-        <div class="box leafy">
-          <div class="box-title"><span class="bullet"></span>Photo credits</div>
+        <div class="box leafy rise">
+          <div class="box-title"><span class="fl">✿</span>photo credits</div>
           <div class="box-body">
-            <p class="src" style="margin-bottom:12px">All photos are from Wikimedia Commons and are used under the licenses listed. Click a title to see the original file page.</p>
+            <p class="small" style="color:var(--muted);margin-bottom:12px">All photos are from Wikimedia Commons and used under the licenses below. Click a title to see the original.</p>
             <div style="overflow-x:auto">
               <table class="credits">
                 <thead><tr><th>Photo</th><th>Author</th><th>License</th></tr></thead>
@@ -556,16 +711,39 @@ footer .heart{color:#e79ab3}
     </main>
 
     <footer>
-      made with <span class="heart">♥</span> by Angel Faith Canizares, Chell Lañojan, Christer Sia, Jacob Yap Codilla &amp; Mary Angelique Ruiz
+      <!-- little pot buddy (original drawing) -->
+      <svg class="mascot" viewBox="0 0 140 160" aria-hidden="true">
+        <path d="M70 70 C70 52 70 44 70 34" stroke="#5e9a6b" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M70 46 C52 28 30 30 24 40 C36 54 56 56 70 46Z" fill="#7fb98c" stroke="#5e9a6b" stroke-width="2.5"/>
+        <path d="M70 38 C86 16 110 16 118 26 C106 44 84 48 70 38Z" fill="#a6d4ad" stroke="#5e9a6b" stroke-width="2.5"/>
+        <circle cx="104" cy="12" r="9" fill="#7486dd" stroke="#3d4ca3" stroke-width="2"/>
+        <circle cx="104" cy="12" r="3.2" fill="#fff1c9"/>
+        <path d="M30 78 H110 L100 146 Q99 152 92 152 H48 Q41 152 40 146Z" fill="#f2c2a8" stroke="#9a7b69" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="24" y="66" width="92" height="18" rx="7" fill="#f7d3bf" stroke="#9a7b69" stroke-width="3"/>
+        <ellipse class="eye" cx="56" cy="110" rx="4.2" ry="4.6" fill="#4a3b33"/>
+        <ellipse class="eye" cx="84" cy="110" rx="4.2" ry="4.6" fill="#4a3b33"/>
+        <path d="M64 118 Q70 124 76 118" stroke="#4a3b33" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <ellipse cx="46" cy="120" rx="7" ry="4" fill="#ee9fb6" opacity=".75"/>
+        <ellipse cx="94" cy="120" rx="7" ry="4" fill="#ee9fb6" opacity=".75"/>
+      </svg>
+      <div>
+        <div class="hand">made with love (and a lot of watering) by</div>
+        Angel Faith Canizares · Chell Lañojan · Christer Sia · Jacob Yap Codilla · Mary Angelique Ruiz
+      </div>
     </footer>
   </div>
 </div>
 
+<button type="button" class="sound" id="sound-toggle" aria-pressed="true" aria-label="Toggle sound effects">
+  <svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><g class="waves"><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></g></svg>
+  <span>sound on</span>
+</button>
+
 <script>
 /* =====================================================================
    EDIT HERE: all plant content lives in this PLANTS object.
-   To add a new weekly log entry, find the plant's "log" list and fill
-   in the week (date, light, temp, water, ph, obs, issue).
+   To add a weekly log entry, find the plant's "log" section and add a
+   line for that week (date, light, temp, water, ph, obs, issue).
    ===================================================================== */
 
 const MEMBERS = [
@@ -578,15 +756,15 @@ const MEMBERS = [
 
 const PLANTS = {
   "butterfly-pea": {
-    common: "Butterfly Pea",
-    aka: "Blue Ternate",
+    common: "Blue Ternate",
+    aka: "butterfly pea",
     sci: "Clitoria ternatea",
     authority: "L.",
-    badges: [["Fabaceae · legume", ""], ["Introduced to the Philippines", "alt"], ["Perennial vine", ""]],
+    badges: [["Fabaceae · legume", ""], ["introduced to the Philippines", "alt"], ["perennial vine", ""]],
     localNames: [["Kolokanting","Tagalog"],["Pukingan","Tagalog"],["Pukinggan","Tagalog"],["Puki-reyna","Tagalog"],["Samsamping","Ilocano"],["Kalompagi","Ilocano"],["Samsampin","Pangasinan"],["Balog-balog","Cebuano"],["Giting-princesa","Bikol"]],
     englishNames: "Butterfly pea, blue ternate, Asian pigeonwings, blue pea, bluebell vine",
     synonyms: "Clitoria philippensis Perr., Clitoria albiflora Mattei, Clitoria spectabilis Salisb., Ternatea vulgaris Kunth",
-    origin: "Native to tropical Asia. Stuart Xchange records it as introduced to the Philippines, where it now grows throughout the country in thickets and settled areas at low to medium altitudes. It is now found across the tropics.",
+    origin: "It's native to tropical Asia. Stuart Xchange lists it as introduced to the Philippines, but it's been here long enough that you'll find it all over the country, climbing fences and thickets in towns at low to medium altitudes. Today it grows across the tropics.",
     facts: {
       "Plant ID / Accession No.": "",
       "Cultivar / Variety": "Common variety",
@@ -598,30 +776,32 @@ const PLANTS = {
     },
     taxonomy: [["Kingdom","Plantae"],["Clade","Angiosperms · Eudicots · Rosids"],["Order","Fabales"],["Family","Fabaceae"],["Subfamily","Faboideae"],["Genus","Clitoria"],["Species","C. ternatea L."]],
     morphology: [
-      ["Habit","Perennial, herbaceous twining vine that climbs on supports."],
+      ["Habit","Perennial, herbaceous twining vine that climbs whatever support it can find."],
       ["Stem","Slender and twining, up to about 1 cm thick."],
       ["Leaves","Pinnately compound with 5–7 elliptic to oblong leaflets, each 3–7 cm long."],
-      ["Flowers","Solitary in the leaf axils; a large deep-blue standard petal with a white to yellowish centre, about 3.5–4 cm long. White and pink forms also exist."],
-      ["Fruit","Flat pod, 5–10 cm long (Stuart Xchange; Wikipedia gives 5–7 cm), with 6–10 seeds."],
-      ["Seeds","Small, smooth, dark seeds; not edible."]
+      ["Flowers","Solitary in the leaf axils. One big deep-blue petal (the standard) with a white to yellowish centre, about 3.5–4 cm long. White and pink forms exist too."],
+      ["Fruit","Flat pod, 5–10 cm long (Stuart Xchange; Wikipedia says 5–7 cm), holding 6–10 seeds."],
+      ["Seeds","Small, smooth and dark. Not edible."]
     ],
     photos: [
-      {f:"Butterfly pea plant (Clitoria ternatea).jpg", title:"Habit", cap:"Flowers and leaves on the vine", author:"Mokkie", lic:"CC BY-SA 3.0"},
-      {f:"Clitoria ternatea leaves.jpg", title:"Leaves", cap:"Compound leaves with oval leaflets", author:"Vis M", lic:"CC BY-SA 4.0"},
-      {f:"Clitoria ternatea flower 1.jpg", title:"Flower", cap:"A double-petalled flower form", author:"Microrao", lic:"CC BY-SA 4.0"},
-      {f:"Clitoria ternatea beans.jpg", title:"Pods", cap:"Pods from young (green) to dry, beside a flower", author:"Tux the penguin", lic:"CC BY-SA 3.0"},
-      {f:"Seeds of Asian pigeonwings.jpg", title:"Seeds", cap:"Seeds in an opened pod", author:"Billjones94", lic:"CC BY-SA 4.0"}
+      {f:"Butterfly pea plant (Clitoria ternatea).jpg", title:"habit", cap:"Flowers and leaves on the vine", author:"Mokkie", lic:"CC BY-SA 3.0"},
+      {f:"Asian pigeonwings in Bhopal 04.jpg", title:"flower", cap:"The big blue standard petal up close", author:"Suyash Dwivedi", lic:"CC BY-SA 4.0"},
+      {f:"Clitoria ternatea(white).jpg", title:"white form", cap:"Same species, white-flowered form", author:"Aadhipkesavan", lic:"CC BY-SA 4.0"},
+      {f:"Clitoria ternatea beans.jpg", title:"pods", cap:"Pods from young (green) to dry, beside a flower", author:"Tux the penguin", lic:"CC BY-SA 3.0"},
+      {f:"Seeds of Asian pigeonwings (Clitoria ternatea).jpg", title:"seeds", cap:"Dry seeds", author:"Billjones94", lic:"CC BY-SA 4.0"}
     ],
+    hero: 0, homeCard: 1,
     params: {
-      soil: "Well-drained, fertile loam. Tolerates a wide range of soils. Avoid waterlogging.",
-      ph: "About 5.5–8.9; roughly 6.0–8.0 is a practical garden target.",
-      temp: "About 24–32 °C for establishment. Prefers warm, tropical conditions.",
+      soil: "Well-drained, fertile loam. It handles a wide range of soils, just don't let it get waterlogged.",
+      ph: "About 5.5–8.9. Roughly 6.0–8.0 is a practical garden target.",
+      temp: "About 24–32 °C for establishment. It likes it warm and tropical.",
       light: "Full sun, at least 6 hours of direct sunlight a day.",
-      water: "Water thoroughly when the surface begins to dry. Keep evenly moist but not soggy.",
-      fert: "Compost or a balanced fertilizer when the soil is poor. Avoid too much nitrogen."
+      water: "Water thoroughly once the surface starts to dry. Keep it evenly moist but never soggy.",
+      fert: "Compost or a balanced fertilizer if the soil is poor. Go easy on nitrogen."
     },
     phGauge: {tol:[5.5,8.9], opt:[6.0,8.0], readings:[["Sep 25",7.69],["Nov 25",8.21]]},
-    phNote: "The pH rose from 7.69 to 8.21 between September and November. That is above the 6.0–8.0 garden target but still inside the range the plant tolerates.",
+    phNote: "pH went up from 7.69 to 8.21 between September and November. That's a little above the 6.0–8.0 target, but still inside what the plant can handle.",
+    phScrawl: "creeping up! keep an eye on it ↑",
     tempGauge: {opt:[24,32], logs:[["Week 1",24,32],["Week 9",24,31]]},
     log: {
       1: {date:"Sep 25", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"7.69", obs:"Germination and seedling establishment; first true leaves.", issue:"Watch for poor germination; keep the soil moist but not soggy."},
@@ -629,9 +809,9 @@ const PLANTS = {
     },
     timeline: [
       ["Germination / seedling emergence","About 1–2 weeks after sowing"],
-      ["Early vegetative growth","Weeks 2–5; rapid vine and leaf development"],
-      ["First flowering","Commonly about 4–11 weeks after sowing, depending on conditions"],
-      ["Flowering period","Can flower repeatedly through the year in warm, moist, frost-free conditions"],
+      ["Early vegetative growth","Weeks 2–5: the vine and leaves grow fast"],
+      ["First flowering","Usually about 4–11 weeks after sowing, depending on conditions"],
+      ["Flowering period","Can keep flowering through the year when it's warm, moist and frost-free"],
       ["Pod development / seed maturation","Pods form after flowering; let them dry on the plant to collect mature seed"]
     ],
     pests: [
@@ -642,35 +822,35 @@ const PLANTS = {
       ["Waterlogging / root stress","Poor growth, yellowing, and wilting despite wet soil.","Improve drainage and water less often."]
     ],
     ecology: [
-      "As a legume, its roots form nodules with rhizobia bacteria that fix nitrogen, which enriches the soil.",
-      "Used as a forage and cover crop and for revegetating disturbed land.",
-      "Its tissues contain cyclotides, small proteins with insecticidal activity that help defend the plant against herbivores (Oguis et al., 2019).",
-      "Grown widely as an ornamental climber on fences and trellises."
+      "It's a legume, so its roots form nodules with rhizobia bacteria that fix nitrogen and enrich the soil.",
+      "Farmers use it as forage, as a cover crop, and to re-green damaged land.",
+      "It makes cyclotides, small proteins that are toxic to insects and help protect it from being eaten (Oguis et al., 2019).",
+      "People love it as a climber on fences and trellises."
     ],
     food: [
-      "Young shoots, leaves, flowers, and tender pods are cooked as vegetables in the Philippines (Stuart Xchange).",
-      "The flowers give a natural blue colour to rice, drinks, and desserts. The colour turns purple when something acidic, like calamansi, is added."
+      "Young shoots, leaves, flowers and tender pods are cooked as vegetables in the Philippines (Stuart Xchange).",
+      "The flowers turn rice, drinks and desserts a natural blue. Squeeze in some calamansi and it turns purple!"
     ],
     traditional: [
-      "Leaves pounded into a poultice for swollen joints.",
-      "Leaf infusion used for skin eruptions.",
+      "Pounded leaves used as a poultice on swollen joints.",
+      "A leaf infusion used for skin eruptions.",
       "Warmed leaf juice with salt dropped into the ear for earache."
     ],
     compounds: ["Ternatins (anthocyanins)","Kaempferol","Quercetin","Myricetin glycosides","Taraxerol","Cyclotides"],
-    bioNote: "Studies, mostly in animals or in the lab, report antioxidant, anthelmintic, antipyretic, nootropic, blood-sugar-lowering, and wound-healing activity (Mukherjee et al., 2008). These results are preliminary.",
-    caution: "The seeds are not edible. The roots, traditionally used as a purgative, are reported to be toxic in large doses. Only young pods, flowers, and leaves are eaten."
+    bioNote: "Lab and animal studies report antioxidant, anthelmintic, fever-lowering, memory-related, blood-sugar-lowering and wound-healing effects (Mukherjee et al., 2008). Most of this is still early research.",
+    caution: "The seeds are not edible. The roots, used traditionally as a purgative, are reported to be toxic in large doses. Only the young pods, flowers and leaves are eaten."
   },
 
   "ipil-ipil": {
     common: "Ipil-Ipil",
-    aka: "White Lead Tree",
+    aka: "white lead tree",
     sci: "Leucaena leucocephala",
     authority: "(Lam.) de Wit",
-    badges: [["Fabaceae · legume", ""], ["Introduced · invasive", "red"], ["Fast-growing tree", ""]],
+    badges: [["Fabaceae · legume", ""], ["introduced · invasive", "red"], ["fast-growing tree", ""]],
     localNames: [["Ipil-ipil","Tagalog"],["Ipel","Tagalog"],["Kariskis","Ilocano"],["Komkompitis","Ilocano"],["Agho","Bisaya"],["Aghog","Bisaya"],["San Pedro","Bisaya"],["Loyloi","Bisaya"]],
     englishNames: "White lead tree, lead tree, horse tamarind, white popinac, jumbie bean, wild tamarind",
     synonyms: "Leucaena glauca (L.) Benth., Mimosa leucocephala Lam., Acacia leucocephala (Lam.) Link, Leucaena glabrata Rose",
-    origin: "Native to southern Mexico and northern Central America (Belize, Guatemala). It was probably brought to the Philippines during the Spanish period and is now naturalized throughout the country at low to medium altitudes. It forms dense thickets and is considered invasive; it is on the IUCN list of 100 of the world's worst invasive species.",
+    origin: "It comes from southern Mexico and northern Central America (Belize and Guatemala). It was probably brought to the Philippines during the Spanish period, and now it grows wild all over the country at low to medium altitudes. It forms thick stands that crowd out other plants, which is why it's on the IUCN list of 100 of the world's worst invasive species.",
     facts: {
       "Plant ID / Accession No.": "",
       "Cultivar / Variety": "Common variety",
@@ -682,53 +862,56 @@ const PLANTS = {
     },
     taxonomy: [["Kingdom","Plantae"],["Clade","Angiosperms · Eudicots · Rosids"],["Order","Fabales"],["Family","Fabaceae"],["Subfamily","Caesalpinioideae (mimosoid clade)"],["Genus","Leucaena"],["Species","L. leucocephala (Lam.) de Wit"]],
     morphology: [
-      ["Habit","Shrub or small tree, up to about 8 m (Stuart Xchange); heights of 7–18 m are reported elsewhere."],
+      ["Habit","Shrub or small tree, up to about 8 m (Stuart Xchange). Some sources report 7–18 m."],
       ["Stem","Woody, branching trunk with greyish bark."],
-      ["Leaves","Bipinnate and feathery, 15–25 cm long, with 8–16 pinnae each holding 20–30 small leaflets (7–12 mm)."],
-      ["Flowers","Whitish to cream, round, pompom-like heads, 2–5 cm across, borne singly in the leaf axils."],
-      ["Fruit","Flat, thin pods, 12–18 cm long and 1.4–2 cm wide, turning brown when ripe; 15–25 seeds each (Stuart Xchange; up to 30 per Wikipedia)."],
-      ["Seeds","Flat, glossy brown seeds 5–8 mm long with a hard coat, which is why they are soaked in hot water before sowing."]
+      ["Leaves","Bipinnate and feathery, 15–25 cm long, with 8–16 pinnae that each hold 20–30 tiny leaflets (7–12 mm)."],
+      ["Flowers","Whitish to cream, round pompom heads 2–5 cm across, one per leaf axil."],
+      ["Fruit","Flat, thin pods 12–18 cm long and 1.4–2 cm wide that turn brown when ripe, with 15–25 seeds each (Stuart Xchange; Wikipedia says up to 30)."],
+      ["Seeds","Flat, glossy brown, 5–8 mm long, with a hard coat. That's why you soak them in hot water before sowing."]
     ],
     photos: [
-      {f:"JfSapladDavid214Macabebefvf.JPG", title:"Habit", cap:"Ipil-ipil in Macabebe, Pampanga, Philippines", author:"Judgefloro", lic:"CC BY-SA 4.0"},
-      {f:"Leucaena leucocephala di Paninggahan, Kabupaten Solok 073514.jpg", title:"Tree form", cap:"Young shrubby tree, West Sumatra", author:"Abdul Hanif Arromy", lic:"CC BY 4.0"},
-      {f:"Daun pohon lamtoro.jpg", title:"Leaves", cap:"Feathery bipinnate leaves", author:"Davita Ivana", lic:"CC BY-SA 4.0"},
-      {f:"White leadtree flower.jpg", title:"Flower head", cap:"Round, pale cream flower heads", author:"Gilbasolutions", lic:"CC0"},
-      {f:"Leucaena leucocephala pods.jpg", title:"Pods", cap:"Flat pods ripening to reddish-brown", author:"Krish Dulal", lic:"CC BY-SA 3.0"}
+      {f:"Subabul tree, Mira-Bhayander.jpg", title:"habit", cap:"Ipil-ipil trees growing wild by the road", author:"Sanfy", lic:"CC BY-SA 4.0"},
+      {f:"Folhas de leucena (Leucaena leucocephala) em Bagé, RS, Brasil.jpg", title:"leaves", cap:"Feathery bipinnate leaves", author:"O Tupinólogo", lic:"CC BY 4.0"},
+      {f:"Leucena (Leucaena leucocephala) em Bagé, RS, Brasil - 55223237062.jpg", title:"flower head", cap:"A white pompom flower head", author:"O Tupinólogo", lic:"CC BY 4.0"},
+      {f:"Leucaena leucocephala.jpg", title:"flower buds", cap:"Round green buds and one open flower", author:"unknown (public domain)", lic:"Public domain"},
+      {f:"Leucaena leucocephala00.jpg", title:"pod & seeds", cap:"A ripe brown pod and its seeds", author:"Paul venter", lic:"CC BY-SA 4.0"},
+      {f:"Sapling of Leucaena leucocephala.jpg", title:"seedling", cap:"Young seedling, cotyledons still showing", author:"Plague", lic:"CC BY-SA 4.0"}
     ],
+    hero: 2, homeCard: 1,
     params: {
-      soil: "Well-drained loam to clay. Tolerates poor, rocky, and limestone soils. Avoid waterlogging.",
-      ph: "Best at about 6.0–7.5; tolerates roughly 5.0–8.5. Does poorly in very acidic soil.",
-      temp: "About 25–30 °C, growing well up to about 33 °C. No cold tolerance.",
+      soil: "Well-drained loam to clay. It copes with poor, rocky and limestone soils, but not waterlogging.",
+      ph: "Best at about 6.0–7.5; tolerates roughly 5.0–8.5. It struggles in very acidic soil.",
+      temp: "About 25–30 °C, and fine up to about 33 °C. No cold tolerance at all.",
       light: "Full sun, at least 6 hours of direct sunlight a day.",
-      water: "Keep young plants evenly moist. Once established, water deeply when the topsoil is dry; it is drought-tolerant.",
-      fert: "A nitrogen-fixing legume, so it needs little or no nitrogen. Use compost or a phosphorus-rich fertilizer on poor soil."
+      water: "Keep young plants evenly moist. Once it's established, water deeply when the topsoil is dry. It handles drought well.",
+      fert: "It fixes its own nitrogen, so it needs little or none. Use compost or a phosphorus-rich fertilizer on poor soil."
     },
     phGauge: {tol:[5.0,8.5], opt:[6.0,7.5], readings:[["Nov 25",7.83]]},
-    phNote: "The November reading of 7.83 is slightly above the best-growth range but well within what the plant tolerates.",
+    phNote: "Our November reading of 7.83 is a bit above the best-growth range, but comfortably within what ipil-ipil tolerates.",
+    phScrawl: "slightly alkaline, still ok ✓",
     tempGauge: {opt:[25,30], logs:[["Week 1",25,30]]},
     log: {
       1: {date:"Nov 25", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.83", obs:"Established sapling with a woody stem and side branches; healthy green bipinnate leaves; new shoots at the branch tips.", issue:"A few older lower leaves yellowing; removed them. Checked shoot tips for psyllids, none seen. pH 7.83 is within tolerance."}
     },
     timeline: [
-      ["Germination","About 6–10 days after sowing (seeds soaked in hot water first)"],
-      ["Seedling stage","Weeks 2–6; feathery bipinnate true leaves develop"],
-      ["Ready to transplant","About 2–4 months after sowing (30–50 cm tall)"],
-      ["First flowering","From about 4–6 months; can flower year-round in warm, moist conditions"],
+      ["Germination","About 6–10 days after sowing (soak the seeds in hot water first)"],
+      ["Seedling stage","Weeks 2–6: the feathery bipinnate true leaves come in"],
+      ["Ready to transplant","About 2–4 months after sowing, at 30–50 cm tall"],
+      ["First flowering","From about 4–6 months; can flower all year in warm, moist conditions"],
       ["Pod development / seed maturation","Pods turn brown and ripen about 2–3 months after flowering"]
     ],
     pests: [
-      ["Leucaena psyllid (Heteropsylla cubana)","Sticky honeydew, sooty mould, curled or yellow shoot tips, leaf drop.","Inspect young shoots weekly; prune heavily infested tips; encourage natural enemies such as ladybird beetles; use a soap spray on seedlings if needed."],
+      ["Leucaena psyllid (Heteropsylla cubana)","Sticky honeydew, sooty mould, curled or yellow shoot tips, leaf drop.","Inspect young shoots weekly; prune heavily infested tips; encourage natural enemies like ladybird beetles; use a soap spray on seedlings if needed."],
       ["Seed beetles","Small holes in pods and seeds; poor seed viability.","Collect pods as they ripen; remove and destroy infested pods."],
       ["Damping-off (Pythium / Rhizoctonia)","Seedlings wilt or collapse at the soil line.","Use a well-drained medium, avoid overwatering, and remove affected seedlings."],
       ["Waterlogging / root rot","Yellowing, wilting, and stunted growth in wet soil.","Improve drainage and water less often."],
       ["Acid-soil stress (pH below 5.5)","Slow growth, pale leaves, weak root nodules.","Test pH monthly; add agricultural lime if pH falls below 5.5."]
     ],
     ecology: [
-      "Fixes large amounts of nitrogen through root nodules; over 500 kg of nitrogen per hectare per year has been reported.",
-      "Grows fast and has long been planted for fodder, green manure, firewood, and reforestation. A 1914 Philippine Bureau of Forestry bulletin promoted it for exactly this (Matthews, 1914).",
-      "Releases mimosine and other compounds that suppress nearby plants (allelopathy), which helps it form dense single-species thickets.",
-      "In the 1980s the leucaena psyllid spread through Southeast Asia and defoliated large stands, which is why it appears in our pest list."
+      "Its root nodules fix a lot of nitrogen; over 500 kg per hectare per year has been reported.",
+      "It grows fast, so it's been planted for fodder, green manure, firewood and reforestation. A 1914 bulletin from the Philippine Bureau of Forestry was already promoting it for this (Matthews, 1914).",
+      "It releases mimosine and other compounds that hold back nearby plants (allelopathy). That's part of how it forms dense thickets.",
+      "In the 1980s the leucaena psyllid swept through Southeast Asia and stripped huge stands of their leaves. That's why it's first on our pest list."
     ],
     food: [
       "In some provinces the young pods and seeds are cooked as vegetables, and young leaves and flowers go into soups and salads.",
@@ -739,20 +922,20 @@ const PLANTS = {
       "The seeds have also been studied as a treatment for intestinal worms."
     ],
     compounds: ["Mimosine","Condensed tannins","Quercetin glycosides","Lupeol","Galactomannan gum"],
-    bioNote: "Most reported activities, such as anthelmintic and antioxidant effects, come from lab and animal studies and are preliminary.",
-    caution: "Mimosine is toxic. Eaten in large amounts it causes hair loss in horses, donkeys, pigs, and young cattle, and it affected fertility in lab mice. Cooking is thought to remove much of it, so eat it only cooked and in moderation, and limit it in livestock feed."
+    bioNote: "Most of the reported effects, like anti-worm and antioxidant activity, come from lab and animal studies, so they're still early findings.",
+    caution: "Mimosine is toxic. In large amounts it makes horses, donkeys, pigs and young cattle lose hair, and it affected fertility in lab mice. Cooking is thought to remove much of it, so only eat it cooked and in small amounts, and limit it in animal feed."
   }
 };
 
 /* ---------------- helpers ---------------- */
-const $ = (s, el=document) => el.querySelector(s);
 const imgURL = (f, w=900) => "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(f.replace(/ /g,"_")) + "?width=" + w;
 const pageURL = f => "https://commons.wikimedia.org/wiki/File:" + encodeURIComponent(f.replace(/ /g,"_"));
 const LICENSES = {
   "CC BY-SA 3.0":"https://creativecommons.org/licenses/by-sa/3.0/",
   "CC BY-SA 4.0":"https://creativecommons.org/licenses/by-sa/4.0/",
   "CC BY 4.0":"https://creativecommons.org/licenses/by/4.0/",
-  "CC0":"https://creativecommons.org/publicdomain/zero/1.0/"
+  "CC0":"https://creativecommons.org/publicdomain/zero/1.0/",
+  "Public domain":"https://commons.wikimedia.org/wiki/Help:Public_domain"
 };
 const ICONS = {
   soil:'<svg viewBox="0 0 24 24"><path d="M3 15h18"/><path d="M5 19h14"/><path d="M12 15V9"/><path d="M12 11c-3 0-5-2-5-5 3 0 5 2 5 5z"/><path d="M12 9c0-3 2-5 5-5 0 3-2 5-5 5z"/></svg>',
@@ -762,17 +945,18 @@ const ICONS = {
   water:'<svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>',
   fert:'<svg viewBox="0 0 24 24"><path d="M6 21h12"/><path d="M8 21l-1-9h10l-1 9"/><path d="M12 12c0-4 2-7 6-8-1 4-3 7-6 8z"/><path d="M12 12c0-3-2-5-5-6 0 3 2 5 5 6z"/></svg>'
 };
-const blank = v => v ? `<b>${v}</b>` : `<b class="blank">(blank)</b>`;
+const blank = v => v ? `<b>${v}</b>` : `<b class="blank">left blank</b>`;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function onImgError(img){
   img.style.visibility = "hidden";
   if (img.parentElement) img.parentElement.classList.add("missing");
 }
 
-function gauge(min, max, bands, marks, unit){
+function gauge(min, max, bands, marks){
   const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
   const ticks = [];
-  for (let v = min; v <= max + 1e-9; v += (max - min) / 5) ticks.push(`<span>${+v.toFixed(1)}${unit||""}</span>`);
+  for (let v = min; v <= max + 1e-9; v += (max - min) / 5) ticks.push(`<span>${+v.toFixed(1)}</span>`);
   return `<div class="gauge">
     <div class="track">
       ${bands.map(b => `<div class="band ${b.cls}" style="left:${pct(b.from)};width:calc(${pct(b.to)} - ${pct(b.from)})"></div>`).join("")}
@@ -786,143 +970,135 @@ function gauge(min, max, bands, marks, unit){
 function tempBars(t){
   const min = 18, max = 36;
   const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
-  const row = (label, a, b, cls) => `<div style="display:grid;grid-template-columns:80px 1fr 70px;gap:10px;align-items:center;margin:8px 0;font-size:13.5px">
-      <span style="color:var(--muted)">${label}</span>
-      <div class="track" style="position:relative;height:12px;border-radius:999px;background:#f1ebe4;border:1px solid var(--line)">
-        <div style="position:absolute;top:0;bottom:0;left:${pct(a)};width:calc(${pct(b)} - ${pct(a)});border-radius:999px;background:${cls}"></div>
-      </div>
-      <b style="font-family:Fredoka,sans-serif;font-weight:500">${a}–${b} °C</b>
-    </div>`;
-  return `<div>
-    ${row("Optimal", t.opt[0], t.opt[1], "var(--accent-soft);outline:1.5px dashed var(--accent)")}
-    ${t.logs.map(l => row(l[0] + " log", l[1], l[2], "var(--accent)")).join("")}
-    <div class="scale" style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-left:90px;margin-right:80px"><span>${min} °C</span><span>${(min+max)/2} °C</span><span>${max} °C</span></div>
-  </div>`;
+  const row = (label, a, b, cls) => `<div class="tbar"><span style="color:var(--muted)">${label}</span>
+      <div class="t"><div class="${cls}" style="left:${pct(a)};width:calc(${pct(b)} - ${pct(a)})"></div></div>
+      <b>${a}–${b} °C</b></div>`;
+  return row("ideal", t.opt[0], t.opt[1], "opt") +
+    t.logs.map(l => row(l[0].toLowerCase(), l[1], l[2], "")).join("") +
+    `<div class="scale" style="margin-left:86px;margin-right:82px"><span>${min} °C</span><span>${(min+max)/2} °C</span><span>${max} °C</span></div>`;
 }
 
 /* ---------------- plant page renderer ---------------- */
 function renderPlant(key){
   const p = PLANTS[key];
   const el = document.getElementById("view-" + key);
-  const tabs = [["overview","Overview"],["cultivation","Cultivation"],["log","Weekly log"],["timeline","Growth timeline"],["pests","Pests & diseases"],["uses","Ecology & uses"]];
+  const tabs = [["overview","overview"],["cultivation","how we grew it"],["log","weekly log"],["timeline","growth timeline"],["pests","pests"],["uses","uses"]];
   const loggedWeeks = Object.keys(p.log).map(Number);
 
   const logRows = Array.from({length:12}, (_, i) => {
     const w = i + 1, e = p.log[w];
-    if (!e) return `<tr class="empty"><td>Week ${w}</td><td colspan="7">Not yet logged</td></tr>`;
+    if (!e) return `<tr class="empty"><td>Week ${w}</td><td colspan="7">not logged yet</td></tr>`;
     return `<tr class="filled">
       <td>Week ${w}</td>
-      <td data-label="Date">${e.date}</td>
-      <td data-label="Light (hrs/day)">${e.light}</td>
-      <td data-label="Temp min/max">${e.temp}</td>
-      <td data-label="Watering">${e.water}</td>
-      <td data-label="Soil pH"><span class="ph-val">${e.ph}</span></td>
-      <td data-label="Phenology / observations">${e.obs}</td>
-      <td data-label="Issues & corrective action">${e.issue}</td>
+      <td data-label="date">${e.date}</td>
+      <td data-label="light (hrs/day)">${e.light}</td>
+      <td data-label="temp min/max">${e.temp}</td>
+      <td data-label="watering">${e.water}</td>
+      <td data-label="soil pH"><span class="ph-val">${e.ph}</span></td>
+      <td data-label="what we saw">${e.obs}</td>
+      <td data-label="problems &amp; what we did">${e.issue}</td>
     </tr>`;
   }).join("");
 
   el.innerHTML = `
-    <div class="plant-hero">
-      <figure class="polaroid" style="margin:0">
-        <img src="${imgURL(p.photos[0].f, 700)}" alt="${p.common} (${p.sci})" loading="lazy" onerror="onImgError(this)">
-        <figcaption>${p.common}</figcaption>
+    <div class="plant-hero rise">
+      <figure class="polaroid taped ${key === "ipil-ipil" ? "mint" : "blue"}">
+        <img src="${imgURL(p.photos[p.hero].f, 700)}" alt="${p.common} (${p.sci})" loading="lazy" onerror="onImgError(this)">
+        <figcaption>${p.common.toLowerCase()} ✿</figcaption>
       </figure>
       <div>
-        <h2>${p.common} <span style="color:var(--muted);font-size:.6em">/ ${p.aka}</span></h2>
+        <h2>${p.common}<small>a.k.a. ${p.aka}</small></h2>
         <div class="sciname"><i>${p.sci}</i> ${p.authority}</div>
         <div class="badges">${p.badges.map(b => `<span class="badge ${b[1]}">${b[0]}</span>`).join("")}</div>
-        <div class="label">Philippine local names</div>
+        <div class="label">local names</div>
         <div class="chips">${p.localNames.map(n => `<span class="chip">${n[0]}<small>${n[1]}</small></span>`).join("")}</div>
-        <div class="label">Specimen record</div>
+        <div class="label">our specimen</div>
         <div class="facts">${Object.entries(p.facts).map(([k,v]) => `<div class="fact"><span>${k}</span>${blank(v)}</div>`).join("")}</div>
       </div>
     </div>
 
-    <div class="subtabs" role="tablist" aria-label="${p.common} sections">
+    <div class="subtabs rise" role="tablist" aria-label="${p.common} sections">
       ${tabs.map((t,i) => `<button type="button" role="tab" id="${key}-tab-${t[0]}" aria-controls="${key}-panel-${t[0]}" aria-selected="${i===0}" data-panel="${t[0]}">${t[1]}</button>`).join("")}
     </div>
 
-    <!-- OVERVIEW -->
     <div class="panel active" role="tabpanel" id="${key}-panel-overview" aria-labelledby="${key}-tab-overview">
       <div class="box">
-        <div class="box-title"><span class="bullet"></span>Photo gallery</div>
+        <div class="box-title"><span class="fl">✿</span>photos<span class="tag">from Wikimedia Commons</span></div>
         <div class="box-body">
           <div class="gallery">
             ${p.photos.map(ph => `<figure>
               <div class="ph"><img src="${imgURL(ph.f)}" alt="${p.common}: ${ph.cap}" loading="lazy" onerror="onImgError(this)"></div>
-              <figcaption><b>${ph.title}</b>${ph.cap}<br><a href="${pageURL(ph.f)}" target="_blank" rel="noopener">Photo: ${ph.author} · ${ph.lic}</a></figcaption>
+              <figcaption><b>${ph.title}</b>${ph.cap}<br><a href="${pageURL(ph.f)}" target="_blank" rel="noopener">photo: ${ph.author} · ${ph.lic}</a></figcaption>
             </figure>`).join("")}
           </div>
         </div>
       </div>
-      <div class="grid2" style="margin-top:18px">
+      <div class="row">
         <div class="box">
-          <div class="box-title"><span class="bullet"></span>Classification</div>
+          <div class="box-title"><span class="fl">✿</span>classification</div>
           <div class="box-body">
             <ul class="taxo">${p.taxonomy.map(t => `<li><span>${t[0]}</span><span>${t[0]==="Genus"||t[0]==="Species" ? "<i>"+t[1]+"</i>" : t[1]}</span></li>`).join("")}</ul>
-            <div class="label">English names</div>
-            <p style="font-size:14.5px;margin-top:4px">${p.englishNames}</p>
-            <div class="label">Synonyms</div>
-            <p style="font-size:14.5px;margin-top:4px"><i>${p.synonyms}</i></p>
+            <div class="label">english names</div>
+            <p class="small" style="margin-top:2px">${p.englishNames}</p>
+            <div class="label">synonyms</div>
+            <p class="small" style="margin-top:2px"><i>${p.synonyms}</i></p>
           </div>
         </div>
-        <div class="box butter">
-          <div class="box-title"><span class="bullet"></span>Origin &amp; status</div>
-          <div class="box-body"><p>${p.origin}</p></div>
+        <div class="sticky" style="margin-top:6px">
+          <h3>where it's from</h3>
+          ${p.origin}
         </div>
       </div>
-      <div class="box" style="margin-top:18px">
-        <div class="box-title"><span class="bullet"></span>Morphology</div>
+      <div class="box">
+        <div class="box-title"><span class="fl">✿</span>what it looks like</div>
         <table class="kv"><tbody>${p.morphology.map(m => `<tr><th scope="row">${m[0]}</th><td>${m[1]}</td></tr>`).join("")}</tbody></table>
       </div>
     </div>
 
-    <!-- CULTIVATION -->
     <div class="panel" role="tabpanel" id="${key}-panel-cultivation" aria-labelledby="${key}-tab-cultivation">
       <div class="params">
-        ${[["soil","Soil composition"],["ph","Soil pH"],["temp","Optimal temperature"],["light","Light requirement"],["water","Watering method"],["fert","Fertilizer"]]
+        ${[["soil","Soil"],["ph","Soil pH"],["temp","Temperature"],["light","Light"],["water","Watering"],["fert","Fertilizer"]]
           .map(([k,t]) => `<div class="param"><h4><span class="ic">${ICONS[k]}</span>${t}</h4><p>${p.params[k]}</p></div>`).join("")}
       </div>
-      <div class="grid2" style="margin-top:18px">
+      <div class="row">
         <div class="box">
-          <div class="box-title"><span class="bullet"></span>Soil pH readings</div>
+          <div class="box-title"><span class="fl">✿</span>soil pH check</div>
           <div class="box-body">
             ${gauge(4.5, 9.5,
               [{cls:"tol",from:p.phGauge.tol[0],to:p.phGauge.tol[1]},{cls:"opt",from:p.phGauge.opt[0],to:p.phGauge.opt[1]}],
               p.phGauge.readings.map(r => ({v:r[1],label:r[0]})))}
-            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>Tolerated ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.55"></i>Best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:4px"></i>Measured</span></div>
-            <p style="margin-top:12px;font-size:14.5px">${p.phNote}</p>
+            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>tolerates ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.5"></i>best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:5px"></i>our readings</span></div>
+            <p class="small" style="margin-top:12px">${p.phNote}</p>
+            <div class="scrawl">${p.phScrawl}</div>
           </div>
         </div>
         <div class="box">
-          <div class="box-title"><span class="bullet"></span>Temperature vs. optimal</div>
+          <div class="box-title"><span class="fl">✿</span>temperature check</div>
           <div class="box-body">
             ${tempBars(p.tempGauge)}
-            <p style="margin-top:12px;font-size:14.5px">Logged daily minimum and maximum temperatures stayed inside the optimal range.</p>
+            <p class="small" style="margin-top:12px">The daily lows and highs we logged stayed inside the ideal range.</p>
+            <div class="scrawl">right where it likes it ✓</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- WEEKLY LOG -->
     <div class="panel" role="tabpanel" id="${key}-panel-log" aria-labelledby="${key}-tab-log">
       <div class="progress" aria-label="Weeks logged">
-        ${Array.from({length:12},(_,i)=>`<div class="${loggedWeeks.includes(i+1)?"done":""}"><span>${i+1}</span>${loggedWeeks.includes(i+1)?"logged":"—"}</div>`).join("")}
+        ${Array.from({length:12},(_,i)=>`<div class="${loggedWeeks.includes(i+1)?"done":""}"><span>${i+1}</span>${loggedWeeks.includes(i+1)?"logged!":"…"}</div>`).join("")}
       </div>
       <div class="log-wrap">
         <table class="log">
-          <thead><tr><th>Week</th><th>Date</th><th>Light (hrs/day)</th><th>Temp min/max</th><th>Watering</th><th>Soil pH</th><th>Phenology / observations</th><th>Issues &amp; corrective action</th></tr></thead>
+          <thead><tr><th>Week</th><th>Date</th><th>Light (hrs/day)</th><th>Temp min/max</th><th>Watering</th><th>Soil pH</th><th>What we saw</th><th>Problems &amp; what we did</th></tr></thead>
           <tbody>${logRows}</tbody>
         </table>
       </div>
-      <p class="src" style="margin-top:10px">Year 1, after planting. Soil pH is measured monthly.</p>
+      <div class="foot">year 1, after planting · soil pH is checked monthly</div>
     </div>
 
-    <!-- TIMELINE -->
     <div class="panel" role="tabpanel" id="${key}-panel-timeline" aria-labelledby="${key}-tab-timeline">
       <div class="box">
-        <div class="box-title"><span class="bullet"></span>Phenological timeline<span class="tag">from research</span></div>
+        <div class="box-title"><span class="fl">✿</span>growth timeline<span class="tag">what to expect</span></div>
         <div class="box-body">
           <ol class="timeline">
             ${p.timeline.map((t,i) => `<li><span class="dot">${i+1}</span><h4>${t[0]}</h4><span class="when">${t[1]}</span></li>`).join("")}
@@ -931,43 +1107,40 @@ function renderPlant(key){
       </div>
     </div>
 
-    <!-- PESTS -->
     <div class="panel" role="tabpanel" id="${key}-panel-pests" aria-labelledby="${key}-tab-pests">
       <div class="pests">
-        ${p.pests.map(x => `<div class="pest"><h4>${x[0]}</h4><dl><dt>Symptoms</dt><dd>${x[1]}</dd><dt class="fix">Management</dt><dd>${x[2]}</dd></dl></div>`).join("")}
+        ${p.pests.map(x => `<div class="pest"><h4>${x[0]}</h4><dl><dt>what you'll notice</dt><dd>${x[1]}</dd><dt class="fix">what to do</dt><dd>${x[2]}</dd></dl></div>`).join("")}
       </div>
     </div>
 
-    <!-- ECOLOGY & USES -->
     <div class="panel" role="tabpanel" id="${key}-panel-uses" aria-labelledby="${key}-tab-uses">
-      <div class="grid2">
+      <div class="row">
         <div class="box leafy">
-          <div class="box-title"><span class="bullet"></span>Ecological roles</div>
+          <div class="box-title"><span class="fl">✿</span>its role in nature</div>
           <div class="box-body"><ul class="clean">${p.ecology.map(x=>`<li>${x}</li>`).join("")}</ul></div>
         </div>
         <div class="stack">
           <div class="box butter">
-            <div class="box-title"><span class="bullet"></span>Food uses</div>
+            <div class="box-title"><span class="fl">✿</span>as food</div>
             <div class="box-body"><ul class="clean">${p.food.map(x=>`<li>${x}</li>`).join("")}</ul></div>
           </div>
           <div class="box blush">
-            <div class="box-title"><span class="bullet"></span>Traditional uses<span class="tag">folk medicine</span></div>
+            <div class="box-title"><span class="fl">✿</span>folk medicine</div>
             <div class="box-body"><ul class="clean">${p.traditional.map(x=>`<li>${x}</li>`).join("")}</ul></div>
           </div>
         </div>
       </div>
-      <div class="box" style="margin-top:18px">
-        <div class="box-title"><span class="bullet"></span>Key compounds &amp; bioactivity</div>
+      <div class="box">
+        <div class="box-title"><span class="fl">✿</span>what's inside it</div>
         <div class="box-body">
           <div class="compounds">${p.compounds.map(c=>`<span class="chip">${c}</span>`).join("")}</div>
-          <p style="margin-top:12px">${p.bioNote}</p>
+          <p class="small" style="margin-top:12px">${p.bioNote}</p>
         </div>
       </div>
-      <div class="note warn" style="margin-top:18px"><div class="ico">!</div><div><b>Caution.</b> ${p.caution} Traditional uses are listed for information only, not as medical advice.</div></div>
+      <div class="note"><div class="ico">!</div><div><b>Careful:</b> ${p.caution} The folk uses here are just for information, not medical advice.</div></div>
     </div>
   `;
 
-  // sub-tab behaviour
   const btns = el.querySelectorAll(".subtabs button");
   btns.forEach(b => b.addEventListener("click", () => {
     btns.forEach(x => x.setAttribute("aria-selected", x === b));
@@ -982,12 +1155,101 @@ function renderPlant(key){
   });
 }
 
+/* ---------------- click burst: little petals pop out of buttons ---------------- */
+const BURST_COLORS = ["#7486dd","#7fb98c","#f2a7c0","#f3d36b","#ffffff"];
+function burst(x, y){
+  if (reduceMotion) return;
+  for (let i = 0; i < 9; i++){
+    const s = document.createElement("span");
+    s.className = "burst";
+    const c = BURST_COLORS[i % BURST_COLORS.length];
+    s.style.background = c;
+    if (c === "#ffffff") s.style.boxShadow = "0 0 0 1.5px #e8dfc6 inset";
+    document.body.appendChild(s);
+    const ang = (Math.PI * 2 * i) / 9 + Math.random() * .5;
+    const dist = 34 + Math.random() * 30;
+    const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 10;
+    const rot = (Math.random() * 360) | 0;
+    s.animate([
+      {transform:`translate(${x-5}px,${y-6}px) rotate(0deg) scale(.4)`, opacity:1},
+      {transform:`translate(${x-5+dx}px,${y-6+dy}px) rotate(${rot}deg) scale(1)`, opacity:1, offset:.6},
+      {transform:`translate(${x-5+dx*1.15}px,${y-6+dy+26}px) rotate(${rot+90}deg) scale(.8)`, opacity:0}
+    ], {duration:750 + Math.random()*250, easing:"cubic-bezier(.2,.8,.3,1)"}).onfinish = () => s.remove();
+  }
+}
+/* ---------------- sound effects (made in the browser, no audio files) ---------------- */
+let actx = null;
+let soundOn = true;
+try { soundOn = localStorage.getItem("pj-sound") !== "off"; } catch (e) {}
+function audio(){
+  if (!actx){
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return null;
+    actx = new C();
+  }
+  if (actx.state === "suspended") actx.resume();
+  return actx;
+}
+function tone(freq, dur, type, vol, slideTo, delay){
+  const a = audio(); if (!a) return;
+  const t = a.currentTime + (delay || 0);
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = type || "sine";
+  o.frequency.setValueAtTime(freq, t);
+  if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(vol || .1, t + .012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(a.destination);
+  o.start(t); o.stop(t + dur + .03);
+}
+const SFX = {
+  nav:  () => { tone(660,.14,"triangle",.11); tone(990,.2,"triangle",.09,null,.07); },
+  pop:  () => tone(480,.13,"sine",.15,920),
+  card: () => { tone(523,.13,"sine",.1); tone(659,.13,"sine",.1,null,.07); tone(784,.24,"sine",.1,null,.14); },
+  tick: () => tone(1250,.06,"triangle",.07,1600),
+  boing:() => tone(200,.38,"sine",.18,720),
+  on:   () => { tone(784,.1,"sine",.1); tone(1046,.16,"sine",.1,null,.08); }
+};
+function play(name){ if (soundOn && SFX[name]) { try { SFX[name](); } catch (e) {} } }
+
+const soundBtn = document.getElementById("sound-toggle");
+function paintSound(){
+  soundBtn.setAttribute("aria-pressed", soundOn);
+  soundBtn.querySelector("span").textContent = soundOn ? "sound on" : "sound off";
+}
+soundBtn.addEventListener("click", () => {
+  soundOn = !soundOn;
+  try { localStorage.setItem("pj-sound", soundOn ? "on" : "off"); } catch (e) {}
+  paintSound();
+  if (soundOn) play("on");
+});
+paintSound();
+
+document.addEventListener("click", e => {
+  const t = e.target;
+  let kind = null, el = null;
+  if ((el = t.closest(".tabs button"))) kind = "nav";
+  else if ((el = t.closest(".spec-card"))) kind = "card";
+  else if ((el = t.closest(".subtabs button"))) kind = "pop";
+  else if ((el = t.closest(".mascot"))) kind = "boing";
+  else if ((el = t.closest(".chip, .members li, .gallery figure, .param, .pest, .timeline li, .fact, .progress div, .polaroid, .swap, .sticky"))) kind = "tick";
+  if (!kind) return;
+  play(kind);
+  if (kind !== "tick"){
+    const r = el.getBoundingClientRect();
+    burst(e.clientX || r.left + r.width/2, e.clientY || r.top + r.height/2);
+  }
+});
+
 /* ---------------- page routing ---------------- */
 const PAGES = ["home","butterfly-pea","ipil-ipil","references"];
 function show(page, push){
   if (!PAGES.includes(page)) page = "home";
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + page));
-  document.querySelectorAll(".tabs button").forEach(b => { if (b.dataset.page === page) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
+  document.querySelectorAll(".tabs button").forEach(b => {
+    if (b.dataset.page === page) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+  });
   if (push) history.pushState(null, "", "#" + page);
 }
 
@@ -998,11 +1260,14 @@ document.getElementById("members").innerHTML = MEMBERS.map(n => {
   return `<li><span class="avatar">${ini}</span>${n}</li>`;
 }).join("");
 
-const featured = document.getElementById("featured-img");
-featured.src = imgURL(PLANTS["butterfly-pea"].photos[0].f, 600);
-featured.onerror = () => onImgError(featured);
-document.getElementById("card-img-pea").src = imgURL(PLANTS["butterfly-pea"].photos[2].f, 600);
-document.getElementById("card-img-ipil").src = imgURL(PLANTS["ipil-ipil"].photos[0].f, 600);
+[["swap-1", PLANTS["butterfly-pea"].photos[0].f],
+ ["swap-2", PLANTS["ipil-ipil"].photos[2].f],
+ ["card-img-pea", PLANTS["butterfly-pea"].photos[PLANTS["butterfly-pea"].homeCard].f],
+ ["card-img-ipil", PLANTS["ipil-ipil"].photos[PLANTS["ipil-ipil"].homeCard].f]].forEach(([id, f]) => {
+  const img = document.getElementById(id);
+  img.onerror = () => onImgError(img);
+  img.src = imgURL(f, 700);
+});
 
 Object.keys(PLANTS).forEach(renderPlant);
 
@@ -1010,8 +1275,11 @@ document.getElementById("credits-body").innerHTML = Object.values(PLANTS).flatMa
   p.photos.map(ph => `<tr><td><a href="${pageURL(ph.f)}" target="_blank" rel="noopener">${p.common}: ${ph.title}</a></td><td>${ph.author}</td><td><a href="${LICENSES[ph.lic]}" target="_blank" rel="noopener">${ph.lic}</a></td></tr>`)
 ).join("");
 
-document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { show(b.dataset.page, true); window.scrollTo({top:0}); }));
-document.querySelectorAll("[data-goto]").forEach(b => b.addEventListener("click", () => { show(b.dataset.goto, true); window.scrollTo({top:0}); }));
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { show(b.dataset.page, true); }));
+document.querySelectorAll("[data-goto]").forEach(b => b.addEventListener("click", () => {
+  show(b.dataset.goto, true);
+  document.querySelector(".tabs").scrollIntoView({behavior: reduceMotion ? "auto" : "smooth"});
+}));
 window.addEventListener("popstate", () => show(location.hash.slice(1)));
 show(location.hash.slice(1) || "home");
 </script>
