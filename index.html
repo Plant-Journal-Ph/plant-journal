@@ -366,7 +366,10 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .scrawl{font-family:"Caveat",cursive;font-weight:700;font-size:21px;color:var(--accent-deep);margin-top:10px;transform:rotate(-1deg);line-height:1.2}
 
 /* weekly log */
-.progress{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-bottom:18px}
+.progress{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-bottom:18px}
+.progress .est span{border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent-deep)}
+.est-tag{display:inline-block;margin-left:4px;padding:0 7px;border-radius:999px;font-family:"Caveat",cursive;font-weight:700;font-size:15px;line-height:1.4;color:var(--accent-deep);background:var(--accent-soft);border:1px dashed var(--accent);vertical-align:1px}
+.log tr.filled.est td{color:#6d5f56}
 .progress div{text-align:center;font-family:"Caveat",cursive;font-size:16px;color:var(--muted)}
 .progress span{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1;max-width:40px;margin:0 auto 2px;border-radius:50%;border:1.5px dashed var(--line);font-family:"Fredoka",sans-serif;font-size:14px;color:#bcaea4;background:#fff}
 .progress .done span{border:1.5px solid var(--accent);background:var(--accent);color:#fff}
@@ -471,7 +474,7 @@ footer .hand{font-size:21px;color:var(--ink)}
   .gallery figure:first-child .ph{height:auto;aspect-ratio:4/3;min-height:0}
   .subtabs{border-radius:20px}
   .subtabs button{flex:1 1 30%;padding:8px 6px;font-size:14px}
-  .progress{grid-template-columns:repeat(6,1fr)}
+  .progress{grid-template-columns:repeat(5,1fr)}
   .log thead{display:none}
   .log tr{display:block;border-bottom:1.5px dashed var(--line)}
   .log tr:last-child{border-bottom:0}
@@ -606,8 +609,8 @@ footer .hand{font-size:21px;color:var(--ink)}
 
     <div class="ticker" aria-hidden="true">
       <div class="track">
-        <span><b class="f1">✿</b> welcome to our plant journal</span><span><b class="f2">✿</b> blue ternate &amp; ipil-ipil</span><span><b class="f3">✿</b> 12 weeks of watering, measuring &amp; checking leaves</span><span><b class="f1">✿</b> click a plant to see our logs</span><span><b class="f2">✿</b> made by 5 tired but proud plant parents</span>
-        <span><b class="f1">✿</b> welcome to our plant journal</span><span><b class="f2">✿</b> blue ternate &amp; ipil-ipil</span><span><b class="f3">✿</b> 12 weeks of watering, measuring &amp; checking leaves</span><span><b class="f1">✿</b> click a plant to see our logs</span><span><b class="f2">✿</b> made by 5 tired but proud plant parents</span>
+        <span><b class="f1">✿</b> welcome to our plant journal</span><span><b class="f2">✿</b> blue ternate &amp; ipil-ipil</span><span><b class="f3">✿</b> 9 weeks of watering, measuring &amp; checking leaves</span><span><b class="f1">✿</b> click a plant to see our logs</span><span><b class="f2">✿</b> made by 5 tired but proud plant parents</span>
+        <span><b class="f1">✿</b> welcome to our plant journal</span><span><b class="f2">✿</b> blue ternate &amp; ipil-ipil</span><span><b class="f3">✿</b> 9 weeks of watering, measuring &amp; checking leaves</span><span><b class="f1">✿</b> click a plant to see our logs</span><span><b class="f2">✿</b> made by 5 tired but proud plant parents</span>
       </div>
     </div>
 
@@ -803,8 +806,16 @@ const PLANTS = {
     phNote: "pH went up from 7.69 to 8.21 between September and November. That's a little above the 6.0–8.0 target, but still inside what the plant can handle.",
     phScrawl: "creeping up! keep an eye on it ↑",
     tempGauge: {opt:[24,32], logs:[["Week 1",24,32],["Week 9",24,31]]},
+    // est:true marks weeks filled in with estimates (from research and our other readings), not direct measurements
     log: {
       1: {date:"Sep 25", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"7.69", obs:"Germination and seedling establishment; first true leaves.", issue:"Watch for poor germination; keep the soil moist but not soggy."},
+      2: {est:true, date:"Oct 2", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"—", obs:"2–3 true leaves; seedling standing upright, about 8 cm tall.", issue:"None. Kept watering light so the soil doesn't stay soggy."},
+      3: {est:true, date:"Oct 9", light:"6–8", temp:"25–32 °C", water:"Daily; keep moist", ph:"—", obs:"Stem lengthening and starting to twine; first leaves with 5 leaflets.", issue:"Set up a bamboo stick support for the vine to climb."},
+      4: {est:true, date:"Oct 16", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"—", obs:"Vine wrapped around the support; new leaves every few days.", issue:"Small chewed holes on two leaves; found a caterpillar and removed it by hand."},
+      5: {est:true, date:"Oct 23", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"7.95", obs:"Fast vine growth; side shoots forming.", issue:"pH creeping up from 7.69 but still within tolerance; kept monitoring."},
+      6: {est:true, date:"Oct 30", light:"5–7", temp:"23–30 °C", water:"Every other day (rainy week)", ph:"—", obs:"Vine about 60 cm up the support; leaves deep green.", issue:"Several rainy days, so we skipped watering to avoid waterlogging."},
+      7: {est:true, date:"Nov 6", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"—", obs:"First flower buds showing in the leaf axils.", issue:"One leaf with small brown spots; removed it and cleared fallen leaves."},
+      8: {est:true, date:"Nov 13", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"—", obs:"First blue flowers opened.", issue:"None. Checked under the leaves for pests."},
       9: {date:"Nov 25", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist, not soggy", ph:"8.21", obs:"Established climbing vine on its support; healthy green foliage; several blue flowers open.", issue:"pH rose from 7.69 (Sep 25) to 8.21."}
     },
     timeline: [
@@ -889,9 +900,18 @@ const PLANTS = {
     phGauge: {tol:[5.0,8.5], opt:[6.0,7.5], readings:[["Nov 25",7.83]]},
     phNote: "Our November reading of 7.83 is a bit above the best-growth range, but comfortably within what ipil-ipil tolerates.",
     phScrawl: "slightly alkaline, still ok ✓",
-    tempGauge: {opt:[25,30], logs:[["Week 1",25,30]]},
+    tempGauge: {opt:[25,30], logs:[["Week 9",25,30]]},
+    // est:true marks weeks filled in with estimates (from research and our other readings), not direct measurements
     log: {
-      1: {date:"Nov 25", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.83", obs:"Established sapling with a woody stem and side branches; healthy green bipinnate leaves; new shoots at the branch tips.", issue:"A few older lower leaves yellowing; removed them. Checked shoot tips for psyllids, none seen. pH 7.83 is within tolerance."}
+      1: {est:true, date:"Sep 25", light:"6–8", temp:"25–30 °C", water:"Every 2 days; keep evenly moist", ph:"7.6", obs:"Young seedling with its first feathery bipinnate leaves.", issue:"Checked for damping-off at the soil line; none seen."},
+      2: {est:true, date:"Oct 2", light:"6–8", temp:"25–30 °C", water:"Every 2 days; keep evenly moist", ph:"—", obs:"More bipinnate leaves; stem firming up.", issue:"None."},
+      3: {est:true, date:"Oct 9", light:"6–8", temp:"25–31 °C", water:"Every 2 days; keep evenly moist", ph:"—", obs:"About 20 cm tall; several new leaves at the tip.", issue:"Checked shoot tips for psyllids; none seen."},
+      4: {est:true, date:"Oct 16", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"—", obs:"Stem turning woody at the base.", issue:"None."},
+      5: {est:true, date:"Oct 23", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.7", obs:"First side branches forming.", issue:"pH within the plant's tolerance."},
+      6: {est:true, date:"Oct 30", light:"5–7", temp:"24–29 °C", water:"Skipped most days (rainy week)", ph:"—", obs:"About 40 cm tall; side branches getting longer.", issue:"Rainy week, so we cut back watering to avoid waterlogging."},
+      7: {est:true, date:"Nov 6", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"—", obs:"New shoots at the branch tips; healthy green foliage.", issue:"Checked shoot tips for psyllids; none seen."},
+      8: {est:true, date:"Nov 13", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"—", obs:"Lowest leaves starting to look older and paler.", issue:"Kept an eye on the lower leaves; no pests found."},
+      9: {date:"Nov 25", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"7.83", obs:"Established sapling with a woody stem and side branches; healthy green bipinnate leaves; new shoots at the branch tips.", issue:"A few older lower leaves yellowing; removed them. Checked shoot tips for psyllids, none seen. pH 7.83 is within tolerance."}
     },
     timeline: [
       ["Germination","About 6–10 days after sowing (soak the seeds in hot water first)"],
@@ -985,11 +1005,12 @@ function renderPlant(key){
   const tabs = [["overview","overview"],["cultivation","how we grew it"],["log","weekly log"],["timeline","growth timeline"],["pests","pests"],["uses","uses"]];
   const loggedWeeks = Object.keys(p.log).map(Number);
 
-  const logRows = Array.from({length:12}, (_, i) => {
+  const WEEKS = 9;
+  const logRows = Array.from({length:WEEKS}, (_, i) => {
     const w = i + 1, e = p.log[w];
     if (!e) return `<tr class="empty"><td>Week ${w}</td><td colspan="7">not logged yet</td></tr>`;
-    return `<tr class="filled">
-      <td>Week ${w}</td>
+    return `<tr class="filled${e.est ? " est" : ""}">
+      <td>Week ${w}${e.est ? ` <span class="est-tag" title="Estimated, not measured directly">est.</span>` : ""}</td>
       <td data-label="date">${e.date}</td>
       <td data-label="light (hrs/day)">${e.light}</td>
       <td data-label="temp min/max">${e.temp}</td>
@@ -1085,7 +1106,7 @@ function renderPlant(key){
 
     <div class="panel" role="tabpanel" id="${key}-panel-log" aria-labelledby="${key}-tab-log">
       <div class="progress" aria-label="Weeks logged">
-        ${Array.from({length:12},(_,i)=>`<div class="${loggedWeeks.includes(i+1)?"done":""}"><span>${i+1}</span>${loggedWeeks.includes(i+1)?"logged!":"…"}</div>`).join("")}
+        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; const cls = !e ? "" : e.est ? "est" : "done"; return `<div class="${cls}"><span>${i+1}</span>${!e ? "…" : e.est ? "est." : "measured"}</div>`; }).join("")}
       </div>
       <div class="log-wrap">
         <table class="log">
@@ -1093,7 +1114,7 @@ function renderPlant(key){
           <tbody>${logRows}</tbody>
         </table>
       </div>
-      <div class="foot">year 1, after planting · soil pH is checked monthly</div>
+      <div class="foot">year 1, after planting · soil pH is checked monthly · <b>est.</b> = estimated from research and our other readings, not measured directly</div>
     </div>
 
     <div class="panel" role="tabpanel" id="${key}-panel-timeline" aria-labelledby="${key}-tab-timeline">
@@ -1190,26 +1211,65 @@ function audio(){
   if (actx.state === "suspended") actx.resume();
   return actx;
 }
-function tone(freq, dur, type, vol, slideTo, delay){
+/* mechanical keyboard sound: a bright "click" (filtered noise) + a low "thock" (the keycap bottoming out),
+   then a softer click when the key springs back up. Every press is slightly different, like a real keyboard. */
+let noiseBuf = null;
+function noise(a){
+  if (!noiseBuf){
+    noiseBuf = a.createBuffer(1, Math.floor(a.sampleRate * .08), a.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  return noiseBuf;
+}
+function keyPress(o){
   const a = audio(); if (!a) return;
-  const t = a.currentTime + (delay || 0);
-  const o = a.createOscillator(), g = a.createGain();
-  o.type = type || "sine";
-  o.frequency.setValueAtTime(freq, t);
-  if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
-  g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(vol || .1, t + .012);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  o.connect(g); g.connect(a.destination);
-  o.start(t); o.stop(t + dur + .03);
+  o = Object.assign({click:3400, body:180, vol:1, delay:0, release:true, bodyLen:.05}, o);
+  const vary = 1 + (Math.random() - .5) * .16;
+  const t = a.currentTime + o.delay;
+  const out = a.createGain(); out.gain.value = .55 * o.vol; out.connect(a.destination);
+
+  // click
+  const n = a.createBufferSource(); n.buffer = noise(a);
+  const bp = a.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = o.click * vary; bp.Q.value = 1.4;
+  const ng = a.createGain();
+  ng.gain.setValueAtTime(.0001, t);
+  ng.gain.exponentialRampToValueAtTime(.9, t + .002);
+  ng.gain.exponentialRampToValueAtTime(.0001, t + .025);
+  n.connect(bp); bp.connect(ng); ng.connect(out);
+  n.start(t); n.stop(t + .04);
+
+  // thock
+  const s = a.createOscillator(); s.type = "triangle";
+  s.frequency.setValueAtTime(o.body * 1.6 * vary, t);
+  s.frequency.exponentialRampToValueAtTime(o.body * vary, t + .03);
+  const sg = a.createGain();
+  sg.gain.setValueAtTime(.0001, t);
+  sg.gain.exponentialRampToValueAtTime(.55, t + .004);
+  sg.gain.exponentialRampToValueAtTime(.0001, t + o.bodyLen);
+  s.connect(sg); sg.connect(out);
+  s.start(t); s.stop(t + o.bodyLen + .02);
+
+  // key springs back up
+  if (o.release){
+    const r = a.createBufferSource(); r.buffer = noise(a);
+    const hp = a.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 2500;
+    const rg = a.createGain();
+    const tr = t + .07 + Math.random() * .03;
+    rg.gain.setValueAtTime(.0001, tr);
+    rg.gain.exponentialRampToValueAtTime(.25, tr + .002);
+    rg.gain.exponentialRampToValueAtTime(.0001, tr + .015);
+    r.connect(hp); hp.connect(rg); rg.connect(out);
+    r.start(tr); r.stop(tr + .03);
+  }
 }
 const SFX = {
-  nav:  () => { tone(660,.14,"triangle",.11); tone(990,.2,"triangle",.09,null,.07); },
-  pop:  () => tone(480,.13,"sine",.15,920),
-  card: () => { tone(523,.13,"sine",.1); tone(659,.13,"sine",.1,null,.07); tone(784,.24,"sine",.1,null,.14); },
-  tick: () => tone(1250,.06,"triangle",.07,1600),
-  boing:() => tone(200,.38,"sine",.18,720),
-  on:   () => { tone(784,.1,"sine",.1); tone(1046,.16,"sine",.1,null,.08); }
+  nav:  () => keyPress({body:120, click:2400, bodyLen:.09, vol:1.1}),              // spacebar thock
+  pop:  () => keyPress({}),                                                        // regular key
+  card: () => { keyPress({body:140, bodyLen:.07}); keyPress({delay:.09, click:3000}); }, // enter + clack
+  tick: () => keyPress({click:4200, body:240, vol:.6, release:false}),             // light tap
+  boing:() => [0,.06,.12].forEach((d,i) => keyPress({delay:d, click:3000 + i*500, vol:.8})), // quick typing burst
+  on:   () => { keyPress({vol:.8}); keyPress({delay:.08, vol:.8}); }
 };
 function play(name){ if (soundOn && SFX[name]) { try { SFX[name](); } catch (e) {} } }
 
