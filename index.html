@@ -378,6 +378,24 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .panel.active .gauge .mark{animation:drop .6s cubic-bezier(.3,1.6,.5,1) both}
 .panel.active .gauge .mark:nth-of-type(4){animation-delay:.15s}
 @keyframes drop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
+.phchart svg{width:100%;height:auto;display:block;overflow:visible}
+.phchart .band{fill:var(--accent-soft)}
+.phchart .g{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
+.phchart .ax{font-family:"Fredoka",sans-serif;font-size:9.5px;fill:var(--muted)}
+.phchart .area{fill:var(--accent);opacity:.08}
+.phchart .ln{fill:none;stroke:var(--accent-deep);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.phchart .dot{fill:#fff;stroke:var(--accent-deep);stroke-width:2;transform-box:fill-box;transform-origin:center}
+.phchart .val{font-family:"Fredoka",sans-serif;font-size:12px;font-weight:500;fill:var(--accent-deep)}
+.panel.active .phchart .ln{animation:drawln 1.1s cubic-bezier(.4,0,.2,1) both}
+.panel.active .phchart .dot{animation:dotpop .4s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes drawln{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes dotpop{from{transform:scale(0)}to{transform:scale(1)}}
+.phstats{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px}
+.phstats span{display:flex;flex-direction:column;padding:5px 12px;border-radius:12px;background:var(--accent-soft);line-height:1.15}
+.phstats small{font-size:11.5px;color:var(--muted)}
+.phstats b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:17px;color:var(--accent-deep)}
+.phstats i{font-style:normal;color:var(--muted)}
+.phstats .chg{margin-left:auto;background:var(--cream);border:1px solid var(--line)}
 .gauge .mark.est{background:#fff;border:1.5px dashed var(--ink);width:7px;margin-left:-3.5px}
 .readings{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .reading{display:flex;align-items:baseline;gap:6px;padding:4px 10px;border-radius:12px;background:#fff;border:1.5px solid var(--ink);font-size:13px}
@@ -1144,6 +1162,41 @@ function gauge(min, max, bands, marks){
   </div>`;
 }
 
+/* soil pH as a small line chart over the weeks, with the plant's best range shaded */
+function phChart(p){
+  const r = phReadings(p);
+  if (!r.length) return "";
+  const W = 340, H = 168, L = 30, R = 14, T = 22, B = 24;
+  const vals = r.map(d => d.v);
+  const lo = Math.floor((Math.min(p.phGauge.opt[0], ...vals) - .15) * 2) / 2;
+  const hi = Math.ceil((Math.max(p.phGauge.opt[1], ...vals) + .15) * 2) / 2;
+  const x = i => L + (W - L - R) * (r.length > 1 ? i / (r.length - 1) : .5);
+  const y = v => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  const grid = [];
+  for (let v = lo; v <= hi + 1e-9; v += .5) {
+    grid.push(`<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${L - 6}" y="${y(v) + 3}" text-anchor="end" class="ax">${v.toFixed(1)}</text>`);
+  }
+  const pts = r.map((d, i) => [x(i), y(d.v)]);
+  const line = "M" + pts.map(q => q[0].toFixed(1) + " " + q[1].toFixed(1)).join(" L");
+  const area = line + ` L${pts[pts.length-1][0].toFixed(1)} ${H - B} L${pts[0][0].toFixed(1)} ${H - B}Z`;
+  const first = r[0], last = r[r.length - 1];
+  return `<div class="phchart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Soil pH by week, from ${first.txt} in week ${first.week} to ${last.txt} in week ${last.week}">
+    <rect x="${L}" y="${y(p.phGauge.opt[1])}" width="${W - L - R}" height="${y(p.phGauge.opt[0]) - y(p.phGauge.opt[1])}" class="band" rx="4"/>
+    ${grid.join("")}
+    <path d="${line}" class="ln" pathLength="1"/>
+    ${pts.map((q, i) => `<circle cx="${q[0]}" cy="${q[1]}" r="${i === 0 || i === pts.length - 1 ? 4.6 : 3.4}" class="dot" style="animation-delay:${.15 + i * .07}s"><title>Week ${r[i].week} (${r[i].label}): pH ${r[i].txt}</title></circle>`).join("")}
+    <text x="${pts[0][0]}" y="${pts[0][1] - 10}" text-anchor="start" class="val">${first.txt}</text>
+    <text x="${pts[pts.length-1][0]}" y="${pts[pts.length-1][1] - 10}" text-anchor="end" class="val">${last.txt}</text>
+    ${r.map((d, i) => `<text x="${x(i)}" y="${H - 6}" text-anchor="middle" class="ax">wk${d.week}</text>`).join("")}
+  </svg></div>
+  <div class="phstats">
+    <span><small>${first.label}</small><b>${first.txt}</b></span>
+    <i>→</i>
+    <span><small>${last.label}</small><b>${last.txt}</b></span>
+    <span class="chg"><small>change</small><b>${(last.v - first.v >= 0 ? "+" : "") + (last.v - first.v).toFixed(2)}</b></span>
+  </div>`;
+}
+
 /* pull pH readings and temperatures straight out of the weekly log */
 function phReadings(p){
   return Object.entries(p.log)
@@ -1265,10 +1318,8 @@ function renderPlant(key){
         <div class="box">
           <div class="box-title"><span class="fl">✿</span>soil pH check</div>
           <div class="box-body">
-            ${gauge(4.5, 9.5,
-              [{cls:"tol",from:p.phGauge.tol[0],to:p.phGauge.tol[1]},{cls:"opt",from:p.phGauge.opt[0],to:p.phGauge.opt[1]}],
-              phReadings(p))}
-            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>tolerates ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.5"></i>best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:5px"></i>weekly readings</span></div>
+            ${phChart(p)}
+            <div class="legend"><span><i style="background:var(--accent-soft)"></i>best range ${p.phGauge.opt[0].toFixed(1)}–${p.phGauge.opt[1].toFixed(1)}</span><span><i style="background:var(--accent);height:3px;width:16px;vertical-align:3px"></i>weekly pH</span><span>tolerates ${p.phGauge.tol[0].toFixed(1)}–${p.phGauge.tol[1].toFixed(1)}</span></div>
             <p class="small" style="margin-top:12px">${p.phNote}</p>
             <div class="scrawl">${p.phScrawl}</div>
           </div>
