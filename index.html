@@ -956,7 +956,7 @@ const PLANTS = {
       2: {est:true, date:"Oct 2", light:"6–8", temp:"24–32 °C", water:"Daily, light; keep moist", ph:"", obs:"2–3 true leaves; seedling standing upright, about 8 cm tall.", issue:"None. Kept watering light so the soil doesn't stay soggy."},
       3: {est:true, date:"Oct 9", light:"6–8", temp:"25–32 °C", water:"Daily; keep moist", ph:"", obs:"Stem lengthening and starting to twine; first leaves with 5 leaflets.", issue:"Set up a bamboo stick support for the vine to climb."},
       4: {est:true, date:"Oct 16", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"Vine wrapped around the support; new leaves every few days.", issue:"Small chewed holes on two leaves; found a caterpillar and removed it by hand."},
-      5: {est:true, date:"Oct 23", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"Fast vine growth; side shoots forming.", issue:"pH creeping up from 7.69 but still within tolerance; kept monitoring."},
+      5: {est:true, date:"Oct 23", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"Fast vine growth; side shoots forming.", issue:"None; kept monitoring (pH is checked monthly)."},
       6: {est:true, date:"Oct 30", light:"5–7", temp:"23–30 °C", water:"Every other day (rainy week)", ph:"", obs:"Vine about 60 cm up the support; leaves deep green.", issue:"Several rainy days, so we skipped watering to avoid waterlogging."},
       7: {est:true, date:"Nov 6", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"First flower buds showing in the leaf axils.", issue:"One leaf with small brown spots; removed it and cleared fallen leaves."},
       8: {est:true, date:"Nov 13", light:"6–8", temp:"24–31 °C", water:"Daily; keep moist", ph:"", obs:"First blue flowers opened.", issue:"None. Checked under the leaves for pests."},
@@ -1042,7 +1042,7 @@ const PLANTS = {
       fert: "It fixes its own nitrogen, so it needs little or none. Use compost or a phosphorus-rich fertilizer on poor soil."
     },
     phGauge: {tol:[5.0,8.5], opt:[6.0,7.5], readings:[["Sep 25",7.60],["Nov 25",7.83]]},
-    phNote: "Our November reading of 7.83 is a bit above the best-growth range, but comfortably within what ipil-ipil tolerates.",
+    phNote: "pH went up slightly from 7.60 in September to 7.83 in November. That's a bit above the 6.0–7.5 best-growth range, but comfortably within what ipil-ipil tolerates.",
     phScrawl: "slightly alkaline, still ok ✓",
     tempGauge: {opt:[25,30], logs:[["Week 9",25,30]]},
     // est:true marks weeks filled in with estimates (from research and our other readings), not direct measurements
@@ -1051,7 +1051,7 @@ const PLANTS = {
       2: {est:true, date:"Oct 2", light:"6–8", temp:"25–30 °C", water:"Every 2 days; keep evenly moist", ph:"", obs:"More bipinnate leaves; stem firming up.", issue:"None."},
       3: {est:true, date:"Oct 9", light:"6–8", temp:"25–31 °C", water:"Every 2 days; keep evenly moist", ph:"", obs:"About 20 cm tall; several new leaves at the tip.", issue:"Checked shoot tips for psyllids; none seen."},
       4: {est:true, date:"Oct 16", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"Stem turning woody at the base.", issue:"None."},
-      5: {est:true, date:"Oct 23", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"First side branches forming.", issue:"pH within the plant's tolerance."},
+      5: {est:true, date:"Oct 23", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"First side branches forming.", issue:"None; kept monitoring (pH is checked monthly)."},
       6: {est:true, date:"Oct 30", light:"5–7", temp:"24–29 °C", water:"Skipped most days (rainy week)", ph:"", obs:"About 40 cm tall; side branches getting longer.", issue:"Rainy week, so we cut back watering to avoid waterlogging."},
       7: {est:true, date:"Nov 6", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"New shoots at the branch tips; healthy green foliage.", issue:"Checked shoot tips for psyllids; none seen."},
       8: {est:true, date:"Nov 13", light:"6–8", temp:"25–30 °C", water:"Every 2–3 days; water deeply", ph:"", obs:"Lowest leaves starting to look older and paler.", issue:"Kept an eye on the lower leaves; no pests found."},
@@ -1217,7 +1217,7 @@ function gauge(min, max, bands, marks){
   </div>`;
 }
 
-/* soil pH as a small line chart over the weeks, with the plant's best range shaded */
+/* soil pH (checked monthly) as a small line chart, with the plant's best range shaded */
 function phChart(p){
   const r = phReadings(p);
   if (!r.length) return "";
@@ -1238,7 +1238,7 @@ function phChart(p){
   const area = line + ` L${pts[pts.length-1][0]} ${f(base)} L${pts[0][0]} ${f(base)}Z`;
   const first = r[0], last = r[r.length - 1];
   const bandTop = y(Math.min(p.phGauge.opt[1], hi)), bandBot = y(Math.max(p.phGauge.opt[0], lo));
-  return `<div class="phchart"><svg viewBox="0 0 ${W} ${H}" role="group" aria-label="Soil pH by week, from ${first.txt} in week ${first.week} to ${last.txt} in week ${last.week}. Hover or tap a point to see its value.">
+  return `<div class="phchart"><svg viewBox="0 0 ${W} ${H}" role="group" aria-label="Soil pH, checked monthly: ${first.txt} on ${first.label} and ${last.txt} on ${last.label}. Hover or tap a point to see its value.">
     <rect x="${L}" y="${f(bandTop)}" width="${W - L - R}" height="${f(bandBot - bandTop)}" class="band"/>
     ${grid.join("")}
     ${pts.map(q => `<line x1="${q[0]}" x2="${q[0]}" y1="${q[1]}" y2="${f(base)}" class="pin"/>`).join("")}
