@@ -436,7 +436,10 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .pest{background:#fff;border:1.5px solid var(--line);border-radius:var(--hand);padding:14px 16px;transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
 .pest:nth-child(odd){transform:rotate(-.5deg)}.pest:nth-child(even){transform:rotate(.5deg)}
 .pest:hover{transform:rotate(0) translateY(-3px)}
-.pest h4{font-size:16.5px;margin-bottom:6px}
+.pest h4{font-size:16.5px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.pest .pi{flex:none;width:50px;height:50px;border-radius:16px;display:grid;place-items:center;background:var(--cream);border:1.5px solid var(--line);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.pest .pi svg{width:40px;height:40px;overflow:visible}
+.pest:hover .pi{transform:rotate(-8deg) scale(1.08)}
 .pest dl{margin:0;font-size:14.5px}
 .pest dt{font-family:"Caveat",cursive;font-weight:700;font-size:19px;color:var(--warn);margin-top:6px;line-height:1.1}
 .pest dt:first-child{margin-top:0}
@@ -1025,6 +1028,92 @@ const LICENSES = {
   "CC0":"https://creativecommons.org/publicdomain/zero/1.0/",
   "Public domain":"https://commons.wikimedia.org/wiki/Help:Public_domain"
 };
+/* little drawings for each pest / problem card (original drawings) */
+const PEST_SVG = {
+  caterpillar: `<svg viewBox="0 0 48 48">
+    <path d="M6 40 C6 20 22 8 42 8 C42 28 28 42 6 40Z" fill="#b9dfbf" stroke="#5e9a6b" stroke-width="1.8"/>
+    <path d="M9 37 L38 11" stroke="#5e9a6b" stroke-width="1.4"/>
+    <circle cx="32" cy="9" r="4.5" fill="#fffdf8"/><circle cx="40" cy="17" r="3.5" fill="#fffdf8"/>
+    <g fill="#a8d16a" stroke="#5f8a2e" stroke-width="1.5">
+      <circle cx="12" cy="31" r="4.6"/><circle cx="18" cy="27.5" r="4.8"/><circle cx="24.5" cy="25.5" r="4.8"/><circle cx="31" cy="26.5" r="5.4"/>
+    </g>
+    <circle cx="32.6" cy="25.6" r="1.1" fill="#3b2f28"/><path d="M30.5 21.5 L29 17.5 M33.5 21.5 L35 17.8" stroke="#5f8a2e" stroke-width="1.4" stroke-linecap="round"/>
+  </svg>`,
+  grasshopper: `<svg viewBox="0 0 48 48">
+    <path d="M8 38 L14 30 M18 30 L16 39" stroke="#4f8a3a" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="22" cy="27" rx="14" ry="5.5" fill="#9fd06a" stroke="#4f8a3a" stroke-width="1.8" transform="rotate(-12 22 27)"/>
+    <path d="M14 26 L26 15 L32 30" fill="none" stroke="#4f8a3a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="36.5" cy="22" r="5.2" fill="#b4dc7e" stroke="#4f8a3a" stroke-width="1.8"/>
+    <circle cx="38" cy="21" r="1.4" fill="#3b2f28"/>
+    <path d="M38 17 C40 10 44 8 46 8 M35 17 C35 10 37 6 40 4" fill="none" stroke="#4f8a3a" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M30 31 L33 39" stroke="#4f8a3a" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>`,
+  leafspot: `<svg viewBox="0 0 48 48">
+    <path d="M6 42 C6 20 20 6 42 6 C42 28 28 42 6 42Z" fill="#c7e3a8" stroke="#6f9a4a" stroke-width="1.8"/>
+    <path d="M9 39 L37 11" stroke="#6f9a4a" stroke-width="1.4"/>
+    <g fill="#f4d77a"><circle cx="18" cy="22" r="5"/><circle cx="30" cy="26" r="4.4"/><circle cx="22" cy="33" r="3.6"/><circle cx="31" cy="15" r="3.2"/></g>
+    <g fill="#9a6a3e"><circle cx="18" cy="22" r="2.8"/><circle cx="30" cy="26" r="2.4"/><circle cx="22" cy="33" r="2"/><circle cx="31" cy="15" r="1.8"/></g>
+  </svg>`,
+  damping: `<svg viewBox="0 0 48 48">
+    <rect x="3" y="34" width="42" height="11" rx="3" fill="#c9a07a" stroke="#8a6440" stroke-width="1.6"/>
+    <g fill="#a8835e"><circle cx="12" cy="40" r="1.2"/><circle cx="26" cy="41" r="1.2"/><circle cx="37" cy="39" r="1.2"/></g>
+    <path d="M22 34 C22 27 21 22 25 18 C29 14 34 16 35 22" fill="none" stroke="#9fbf6a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M21.6 34 C21.2 31 22.4 30 22.6 33" fill="none" stroke="#8a6440" stroke-width="2.4" stroke-linecap="round"/>
+    <ellipse cx="33" cy="27" rx="4.5" ry="2.6" fill="#d4d98c" stroke="#8f9a4a" stroke-width="1.4" transform="rotate(70 33 27)"/>
+    <ellipse cx="37.5" cy="26" rx="4.5" ry="2.6" fill="#c5cf7a" stroke="#8f9a4a" stroke-width="1.4" transform="rotate(110 37.5 26)"/>
+    <path d="M10 16 q2 -3 4 0 M13 10 q2 -3 4 0" fill="none" stroke="#8cc4f2" stroke-width="1.6" stroke-linecap="round"/>
+  </svg>`,
+  water: `<svg viewBox="0 0 48 48">
+    <path d="M7 22 H41 L38 44 H10Z" fill="#c9a07a" stroke="#8a6440" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M7 22 H41 L40.3 27 C35 29 31 25 25 27 C19 29 14 25 7.8 27Z" fill="#8cc4f2" stroke="#4f8fc4" stroke-width="1.4"/>
+    <path d="M24 22 C24 16 24 13 24 10" stroke="#a8b46a" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M24 13 C19 13 16 16 16 20" fill="none" stroke="#c4c06a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M24 12 C29 12 32 15 32 19" fill="none" stroke="#d4c86a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M24 30 v6 M24 34 l-4 4 M24 34 l4 4" stroke="#8a6440" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M38 5 c2 3 3 5 3 6 a3 3 0 0 1 -6 0 c0 -1 1 -3 3 -6z" fill="#8cc4f2" stroke="#4f8fc4" stroke-width="1.2"/>
+    <path d="M10 9 c1.6 2.4 2.4 4 2.4 4.8 a2.4 2.4 0 0 1 -4.8 0 c0 -.8 .8 -2.4 2.4 -4.8z" fill="#8cc4f2" stroke="#4f8fc4" stroke-width="1.2"/>
+  </svg>`,
+  psyllid: `<svg viewBox="0 0 48 48">
+    <path d="M10 46 C12 34 16 26 24 20 C30 16 34 10 32 5" fill="none" stroke="#7a9a4a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M30 8 c-6 0 -8 4 -6 7 c4 0 6 -3 6 -7z" fill="#d8d97a" stroke="#8f9a4a" stroke-width="1.3"/>
+    <ellipse cx="19" cy="30" rx="10" ry="4" fill="rgba(210,232,250,.85)" stroke="#7aa6c9" stroke-width="1.2" transform="rotate(-30 19 30)"/>
+    <ellipse cx="17" cy="26" rx="9" ry="3.6" fill="rgba(225,240,252,.9)" stroke="#7aa6c9" stroke-width="1.2" transform="rotate(-55 17 26)"/>
+    <ellipse cx="24" cy="31" rx="5" ry="3.2" fill="#c6db86" stroke="#6f8a3a" stroke-width="1.5" transform="rotate(-35 24 31)"/>
+    <circle cx="28" cy="28.4" r="2.4" fill="#c6db86" stroke="#6f8a3a" stroke-width="1.4"/>
+    <circle cx="28.8" cy="27.8" r=".8" fill="#b4513a"/>
+    <circle cx="34" cy="38" r="2.4" fill="#f2d98a" opacity=".9"/><circle cx="38.5" cy="33" r="1.6" fill="#f2d98a" opacity=".9"/>
+  </svg>`,
+  beetle: `<svg viewBox="0 0 48 48">
+    <path d="M4 14 C14 8 30 8 44 12 C42 18 30 20 16 20 C10 20 6 18 4 14Z" fill="#d9b986" stroke="#8a6440" stroke-width="1.6"/>
+    <g fill="#5a3e28"><circle cx="15" cy="14.5" r="1.4"/><circle cx="25" cy="14" r="1.4"/><circle cx="34" cy="14.2" r="1.4"/></g>
+    <g stroke="#4a3326" stroke-width="1.6" stroke-linecap="round"><path d="M17 31 L11 28 M17 36 L10 37 M18 40 L13 44 M31 31 L37 28 M31 36 L38 37 M30 40 L35 44"/></g>
+    <ellipse cx="24" cy="36" rx="8" ry="9" fill="#8a5a36" stroke="#4a3326" stroke-width="1.6"/>
+    <path d="M24 28 V45" stroke="#4a3326" stroke-width="1.3"/>
+    <circle cx="24" cy="26" r="3.6" fill="#6e4528" stroke="#4a3326" stroke-width="1.5"/>
+    <path d="M22.5 23 L20 19.5 M25.5 23 L28 19.5" stroke="#4a3326" stroke-width="1.3" stroke-linecap="round"/>
+    <ellipse cx="21" cy="33" rx="1.6" ry="2.6" fill="#b4825a" opacity=".7"/>
+  </svg>`,
+  acid: `<svg viewBox="0 0 48 48">
+    <path d="M18 4 H30 M20 4 V18 L8 38 C6 42 8 45 12 45 H36 C40 45 42 42 40 38 L28 18 V4" fill="#fff" stroke="#6d5f56" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M13.5 29 H34.5 L40 38 C42 42 40 45 36 45 H12 C8 45 6 42 8 38Z" fill="#f2a07a" stroke="#6d5f56" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="19" cy="37" r="1.6" fill="#fff" opacity=".8"/><circle cx="27" cy="34" r="1.2" fill="#fff" opacity=".8"/>
+    <text x="24" y="25.5" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="8" font-weight="600" fill="#b4513a">pH</text>
+    <path d="M42 8 V20 M38.5 16.5 L42 20 L45.5 16.5" fill="none" stroke="#b4513a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`
+};
+function pestIcon(name){
+  const n = name.toLowerCase();
+  const key = n.includes("caterpillar") ? "caterpillar"
+    : n.includes("grasshopper") ? "grasshopper"
+    : n.includes("leaf spot") || n.includes("cercospora") ? "leafspot"
+    : n.includes("psyllid") ? "psyllid"
+    : n.includes("beetle") ? "beetle"
+    : n.includes("acid") ? "acid"
+    : n.includes("damping") ? "damping"
+    : n.includes("water") ? "water" : null;
+  return key ? `<span class="pi" aria-hidden="true">${PEST_SVG[key]}</span>` : "";
+}
+
 const ICONS = {
   soil:'<svg viewBox="0 0 24 24"><path d="M3 15h18"/><path d="M5 19h14"/><path d="M12 15V9"/><path d="M12 11c-3 0-5-2-5-5 3 0 5 2 5 5z"/><path d="M12 9c0-3 2-5 5-5 0 3-2 5-5 5z"/></svg>',
   ph:'<svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>',
@@ -1222,7 +1311,7 @@ function renderPlant(key){
 
     <div class="panel" role="tabpanel" id="${key}-panel-pests" aria-labelledby="${key}-tab-pests">
       <div class="pests">
-        ${p.pests.map(x => `<div class="pest"><h4>${x[0]}</h4><dl><dt>what you'll notice</dt><dd>${x[1]}</dd><dt class="fix">what to do</dt><dd>${x[2]}</dd></dl></div>`).join("")}
+        ${p.pests.map(x => `<div class="pest"><h4>${pestIcon(x[0])}<span>${x[0]}</span></h4><dl><dt>what you'll notice</dt><dd>${x[1]}</dd><dt class="fix">what to do</dt><dd>${x[2]}</dd></dl></div>`).join("")}
       </div>
     </div>
 
