@@ -135,6 +135,9 @@ button{font:inherit;color:inherit}
 }
 .title .scribble{display:block;margin-top:6px;font-size:22px;color:var(--leaf-deep);transform:rotate(-2deg)}
 .title .scribble b{color:var(--pea-deep);font-weight:700}
+.title .meta{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:8px}
+.title .meta span{padding:2px 11px;border-radius:999px;background:rgba(255,255,255,.85);border:1px solid var(--line);font-family:"Fredoka",sans-serif;font-size:13px;color:var(--muted)}
+.title .meta span:first-child{background:var(--pea);border-color:var(--pea);color:#fff}
 
 /* falling petals & puffs */
 .fall{position:absolute;inset:0;pointer-events:none;z-index:1}
@@ -613,6 +616,7 @@ footer .hand{font-size:21px;color:var(--ink)}
         <div class="script">Plant Journal</div>
         <div class="sub">Philippine Native Plant Conservation Initiative</div>
         <span class="scribble hand"><b>blue ternate</b> &amp; ipil-ipil ✿</span>
+        <div class="meta"><span>Group 5</span><span>Botany Lec</span><span>8:30</span></div>
       </div>
 
       <!-- right: ipil-ipil branch with feathery leaves, flower heads and pods (original drawing) -->
@@ -718,7 +722,7 @@ footer .hand{font-size:21px;color:var(--ink)}
 
         <div class="row rise">
           <div class="box blush">
-            <div class="box-title"><span class="fl">✿</span>the group</div>
+            <div class="box-title"><span class="fl">✿</span>the group<span class="tag">group 5 · botany lec 8:30</span></div>
             <div class="box-body">
               <ul class="members" id="members"></ul>
             </div>
