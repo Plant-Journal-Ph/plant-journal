@@ -350,13 +350,19 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .panel.active .gauge .mark{animation:drop .6s cubic-bezier(.3,1.6,.5,1) both}
 .panel.active .gauge .mark:nth-of-type(4){animation-delay:.15s}
 @keyframes drop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
-.gauge .mlabels{position:relative;height:40px;margin-top:6px}
-.gauge .mlabel{position:absolute;transform:translateX(-50%);text-align:center;font-size:12.5px;line-height:1.2;white-space:nowrap}
-.gauge .mlabel b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;display:block}
+.gauge .mark.est{background:#fff;border:1.5px dashed var(--ink);width:7px;margin-left:-3.5px}
+.readings{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.reading{display:flex;align-items:baseline;gap:6px;padding:4px 10px;border-radius:12px;background:#fff;border:1.5px solid var(--ink);font-size:13px}
+.reading.est{border-style:dashed;border-color:var(--line);color:#6d5f56}
+.reading small{color:var(--muted);font-size:12px}
+.reading b{font-family:"Fredoka",sans-serif;font-weight:500;font-size:15px;color:var(--accent-deep)}
+.reading .est-tag{margin-left:0}
+.tbar.est .t div{background:var(--accent-soft);outline:1.5px dashed var(--accent);outline-offset:-1.5px}
+.tbar .est-tag{font-size:13px;padding:0 5px;margin-left:2px}
 .scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:2px}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin-top:8px}
 .legend i{display:inline-block;width:14px;height:10px;border-radius:4px;margin-right:6px;vertical-align:-1px}
-.tbar{display:grid;grid-template-columns:76px 1fr 72px;gap:10px;align-items:center;margin:8px 0;font-size:13.5px}
+.tbar{display:grid;grid-template-columns:86px 1fr 72px;gap:10px;align-items:center;margin:8px 0;font-size:13.5px}
 .tbar .t{position:relative;height:12px;border-radius:999px;background:#f2ece5;border:1px solid var(--line)}
 .tbar .t div{position:absolute;top:0;bottom:0;border-radius:999px;background:var(--accent);transform-origin:left;}
 .panel.active .tbar .t div{animation:grow .8s cubic-bezier(.2,.9,.3,1) both}
@@ -980,22 +986,45 @@ function gauge(min, max, bands, marks){
   return `<div class="gauge">
     <div class="track">
       ${bands.map(b => `<div class="band ${b.cls}" style="left:${pct(b.from)};width:calc(${pct(b.to)} - ${pct(b.from)})"></div>`).join("")}
-      ${marks.map(m => `<div class="mark" style="left:${pct(m.v)}"></div>`).join("")}
+      ${marks.map(m => `<div class="mark${m.est ? " est" : ""}" style="left:${pct(m.v)}" title="Week ${m.week}: ${m.v}"></div>`).join("")}
     </div>
-    <div class="mlabels">${marks.map(m => `<div class="mlabel" style="left:${pct(m.v)}"><b>${m.v}</b>${m.label}</div>`).join("")}</div>
-    <div class="scale">${ticks.join("")}</div>
+    <div class="scale" style="margin-top:6px">${ticks.join("")}</div>
+    <div class="readings">${marks.map(m => `<span class="reading${m.est ? " est" : ""}"><small>wk ${m.week} · ${m.label}</small><b>${m.v}</b>${m.est ? `<span class="est-tag">est.</span>` : ""}</span>`).join("")}</div>
   </div>`;
 }
 
-function tempBars(t){
+/* pull pH readings and temperatures straight out of the weekly log */
+function phReadings(p){
+  return Object.entries(p.log)
+    .filter(([, e]) => e.ph && !isNaN(parseFloat(e.ph)))
+    .map(([w, e]) => ({v: parseFloat(e.ph), label: e.date, week: w, est: !!e.est}));
+}
+function tempWeeks(p){
+  return Object.entries(p.log).map(([w, e]) => {
+    const m = (e.temp || "").match(/(\d+)\D+(\d+)/);
+    return m ? {week: w, lo: +m[1], hi: +m[2], est: !!e.est} : null;
+  }).filter(Boolean);
+}
+
+function tempBars(opt, weeks){
   const min = 18, max = 36;
   const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
-  const row = (label, a, b, cls) => `<div class="tbar"><span style="color:var(--muted)">${label}</span>
+  const row = (label, a, b, cls, est) => `<div class="tbar${est ? " est" : ""}"><span style="color:var(--muted)">${label}</span>
       <div class="t"><div class="${cls}" style="left:${pct(a)};width:calc(${pct(b)} - ${pct(a)})"></div></div>
       <b>${a}–${b} °C</b></div>`;
-  return row("ideal", t.opt[0], t.opt[1], "opt") +
-    t.logs.map(l => row(l[0].toLowerCase(), l[1], l[2], "")).join("") +
-    `<div class="scale" style="margin-left:86px;margin-right:82px"><span>${min} °C</span><span>${(min+max)/2} °C</span><span>${max} °C</span></div>`;
+  return row("ideal", opt[0], opt[1], "opt") +
+    weeks.map(w => row(`week ${w.week}${w.est ? ` <span class="est-tag">est.</span>` : ""}`, w.lo, w.hi, "", w.est)).join("") +
+    `<div class="scale" style="margin-left:96px;margin-right:82px"><span>${min} °C</span><span>${(min+max)/2} °C</span><span>${max} °C</span></div>`;
+}
+function tempNote(opt, weeks){
+  const off = weeks.filter(w => w.lo < opt[0] || w.hi > opt[1]);
+  if (!off.length) return {note:"Every week's lows and highs stayed inside the ideal range.", scrawl:"right where it likes it ✓"};
+  const names = off.map(w => "week " + w.week).join(" and ");
+  const cold = off.every(w => w.lo < opt[0]);
+  return {
+    note: `Almost every week stayed inside the ideal range. ${names[0].toUpperCase() + names.slice(1)} ${cold ? "dipped a little below it during the rainy days" : "went slightly outside it"}, which the plant handled fine.`,
+    scrawl: cold ? "a bit chilly in the rain, but ok ✓" : "mostly right where it likes it ✓"
+  };
 }
 
 /* ---------------- plant page renderer ---------------- */
@@ -1087,8 +1116,8 @@ function renderPlant(key){
           <div class="box-body">
             ${gauge(4.5, 9.5,
               [{cls:"tol",from:p.phGauge.tol[0],to:p.phGauge.tol[1]},{cls:"opt",from:p.phGauge.opt[0],to:p.phGauge.opt[1]}],
-              p.phGauge.readings.map(r => ({v:r[1],label:r[0]})))}
-            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>tolerates ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.5"></i>best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:5px"></i>our readings</span></div>
+              phReadings(p))}
+            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>tolerates ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.5"></i>best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:5px"></i>measured</span><span><i style="background:#fff;border:1.5px dashed var(--ink);width:7px"></i>estimated</span></div>
             <p class="small" style="margin-top:12px">${p.phNote}</p>
             <div class="scrawl">${p.phScrawl}</div>
           </div>
@@ -1096,9 +1125,9 @@ function renderPlant(key){
         <div class="box">
           <div class="box-title"><span class="fl">✿</span>temperature check</div>
           <div class="box-body">
-            ${tempBars(p.tempGauge)}
-            <p class="small" style="margin-top:12px">The daily lows and highs we logged stayed inside the ideal range.</p>
-            <div class="scrawl">right where it likes it ✓</div>
+            ${tempBars(p.tempGauge.opt, tempWeeks(p))}
+            <p class="small" style="margin-top:12px">${tempNote(p.tempGauge.opt, tempWeeks(p)).note}</p>
+            <div class="scrawl">${tempNote(p.tempGauge.opt, tempWeeks(p)).scrawl}</div>
           </div>
         </div>
       </div>
