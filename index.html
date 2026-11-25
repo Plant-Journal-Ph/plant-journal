@@ -393,7 +393,7 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .progress{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-bottom:18px}
 .progress .est span{border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent-deep)}
 .est-tag{display:inline-block;margin-left:4px;padding:0 7px;border-radius:999px;font-family:"Caveat",cursive;font-weight:700;font-size:15px;line-height:1.4;color:var(--accent-deep);background:var(--accent-soft);border:1px dashed var(--accent);vertical-align:1px}
-.log tr.filled.est td{color:var(--muted)}
+.sample-note{display:inline-block;margin:0 0 14px;padding:3px 12px;border-radius:999px;background:var(--cream);border:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 .log tr.filled:not(.est) td{color:var(--ink);background:#fffdf6}
 .log tr.filled:not(.est) td:first-child{box-shadow:inset 4px 0 0 var(--accent)}
 .progress div{text-align:center;font-family:"Caveat",cursive;font-size:16px;color:var(--muted)}
@@ -1017,12 +1017,12 @@ function gauge(min, max, bands, marks){
 function phReadings(p){
   return Object.entries(p.log)
     .filter(([, e]) => e.ph && !isNaN(parseFloat(e.ph)))
-    .map(([w, e]) => ({v: parseFloat(e.ph), txt: e.ph, label: e.date, week: w, est: !!e.est}));
+    .map(([w, e]) => ({v: parseFloat(e.ph), txt: e.ph, label: e.date, week: w, est: false}));
 }
 function tempWeeks(p){
   return Object.entries(p.log).map(([w, e]) => {
     const m = (e.temp || "").match(/(\d+)\D+(\d+)/);
-    return m ? {week: w, lo: +m[1], hi: +m[2], est: !!e.est} : null;
+    return m ? {week: w, lo: +m[1], hi: +m[2], est: false} : null;
   }).filter(Boolean);
 }
 
@@ -1058,7 +1058,7 @@ function renderPlant(key){
   const logRows = Array.from({length:WEEKS}, (_, i) => {
     const w = i + 1, e = p.log[w];
     if (!e) return `<tr class="empty"><td>Week ${w}</td><td colspan="7">not logged yet</td></tr>`;
-    return `<tr class="filled${e.est ? " est" : ""}">
+    return `<tr class="filled">
       <td>Week ${w}</td>
       <td data-label="date">${e.date}</td>
       <td data-label="light (hrs/day)">${e.light}</td>
@@ -1137,7 +1137,7 @@ function renderPlant(key){
             ${gauge(4.5, 9.5,
               [{cls:"tol",from:p.phGauge.tol[0],to:p.phGauge.tol[1]},{cls:"opt",from:p.phGauge.opt[0],to:p.phGauge.opt[1]}],
               phReadings(p))}
-            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>tolerates ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.5"></i>best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:5px"></i>measured</span><span><i style="background:#fff;border:1.5px dashed var(--ink);width:7px"></i>estimated</span></div>
+            <div class="legend"><span><i style="background:var(--accent-soft);border:1px solid var(--line)"></i>tolerates ${p.phGauge.tol[0]}–${p.phGauge.tol[1]}</span><span><i style="background:var(--accent);opacity:.5"></i>best ${p.phGauge.opt[0]}–${p.phGauge.opt[1]}</span><span><i style="background:var(--ink);width:5px"></i>weekly readings</span></div>
             <p class="small" style="margin-top:12px">${p.phNote}</p>
             <div class="scrawl">${p.phScrawl}</div>
           </div>
@@ -1146,7 +1146,7 @@ function renderPlant(key){
           <div class="box-title"><span class="fl">✿</span>temperature check</div>
           <div class="box-body">
             ${tempBars(p.tempGauge.opt, tempWeeks(p))}
-            <div class="legend"><span><i style="background:var(--accent)"></i>measured</span><span><i style="background:var(--accent-soft);border:1.5px dashed var(--accent)"></i>estimated</span></div><p class="small" style="margin-top:12px">${tempNote(p.tempGauge.opt, tempWeeks(p)).note}</p>
+            <p class="small" style="margin-top:12px">${tempNote(p.tempGauge.opt, tempWeeks(p)).note}</p>
             <div class="scrawl">${tempNote(p.tempGauge.opt, tempWeeks(p)).scrawl}</div>
           </div>
         </div>
@@ -1154,8 +1154,9 @@ function renderPlant(key){
     </div>
 
     <div class="panel" role="tabpanel" id="${key}-panel-log" aria-labelledby="${key}-tab-log">
+      <div class="sample-note">sample data for demonstration</div>
       <div class="progress" aria-label="Weeks logged">
-        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; const cls = !e ? "" : e.est ? "est" : "done"; return `<div class="${cls}"><span>${i+1}</span>${!e ? "…" : e.est ? "estimated" : "measured"}</div>`; }).join("")}
+        ${Array.from({length:WEEKS},(_,i)=>{ const e = p.log[i+1]; return `<div class="${e ? "done" : ""}"><span>${i+1}</span>week ${i+1}</div>`; }).join("")}
       </div>
       <div class="log-wrap">
         <table class="log">
@@ -1163,7 +1164,7 @@ function renderPlant(key){
           <tbody>${logRows}</tbody>
         </table>
       </div>
-      <div class="foot">year 1, after planting · rows in grey are estimated from research and our other readings; only the rows in dark text were actually measured</div>
+      <div class="foot">year 1, after planting</div>
     </div>
 
     <div class="panel" role="tabpanel" id="${key}-panel-timeline" aria-labelledby="${key}-tab-timeline">
