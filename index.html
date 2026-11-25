@@ -388,6 +388,26 @@ th{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--m
 .phchart .val{font-family:"Fredoka",sans-serif;font-size:12px;font-weight:500;fill:var(--accent-deep)}
 .panel.active .phchart .ln{animation:drawln 1.1s cubic-bezier(.4,0,.2,1) both}
 .panel.active .phchart .dot{animation:dotpop .4s cubic-bezier(.3,1.6,.5,1) both}
+.phchart{position:relative}
+.phchart .pin{stroke:var(--accent);stroke-width:1;stroke-dasharray:1.5 2.5;opacity:.35}
+.phchart .axis{stroke:var(--frame);stroke-width:1.2;opacity:.45}
+.phchart .tick{stroke:var(--frame);stroke-width:1.2;opacity:.45}
+.phchart .ln,.phchart .dot,.phchart .val{pointer-events:none}
+.phchart .hit{fill:transparent;cursor:pointer;outline:none}
+.phchart .cross{stroke:var(--accent-deep);stroke-width:1.2;stroke-dasharray:3 3;opacity:0;transition:opacity .2s ease}
+.phchart .hl{fill:var(--accent-deep);stroke:#fff;stroke-width:2.5;opacity:0;pointer-events:none;transition:opacity .15s ease}
+.phchart .val{transition:opacity .2s ease}
+.phchart .wk{transition:fill .2s ease}
+.phchart.on .cross,.phchart.on .hl{opacity:1}
+.phchart.on .val{opacity:0}
+.phchart .wk.cur{fill:var(--accent-deep);font-weight:600}
+.phchart .phtip{position:absolute;left:0;top:0;z-index:2;pointer-events:none;white-space:nowrap;
+  padding:5px 11px 6px;border-radius:12px;background:var(--accent-deep);color:#fff;font-family:"Fredoka",sans-serif;font-size:14px;line-height:1.15;text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.12);opacity:0;transform:translate(-50%,calc(-100% - 12px)) scale(.85);transform-origin:50% 100%;
+  transition:opacity .15s ease,transform .2s cubic-bezier(.3,1.6,.5,1),left .18s cubic-bezier(.2,.9,.3,1),top .18s cubic-bezier(.2,.9,.3,1)}
+.phchart .phtip small{display:block;font-family:"Caveat",cursive;font-size:16px;opacity:.85}
+.phchart .phtip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-5px;width:10px;height:10px;margin-left:-5px;background:inherit;transform:rotate(45deg);border-radius:0 0 3px 0}
+.phchart.on .phtip{opacity:1;transform:translate(var(--tx,-50%),calc(-100% - 12px)) scale(1)}
 @keyframes drawln{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes dotpop{from{transform:scale(0)}to{transform:scale(1)}}
 .phstats{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px}
@@ -1199,29 +1219,39 @@ function gauge(min, max, bands, marks){
 function phChart(p){
   const r = phReadings(p);
   if (!r.length) return "";
-  const W = 340, H = 168, L = 30, R = 14, T = 22, B = 24;
+  const W = 340, H = 172, L = 30, R = 10, T = 24, B = 24;
+  const PAD = 14;                                   // keep the first/last points inside the plot, not hanging off its edges
   const vals = r.map(d => d.v);
   const lo = Math.floor((Math.min(p.phGauge.opt[0], ...vals) - .15) * 2) / 2;
   const hi = Math.ceil((Math.max(p.phGauge.opt[1], ...vals) + .15) * 2) / 2;
-  const x = i => L + (W - L - R) * (r.length > 1 ? i / (r.length - 1) : .5);
+  const x = i => L + PAD + (W - L - R - 2 * PAD) * (r.length > 1 ? i / (r.length - 1) : .5);
   const y = v => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  const base = y(lo), f = n => +n.toFixed(2);
   const grid = [];
   for (let v = lo; v <= hi + 1e-9; v += .5) {
-    grid.push(`<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${L - 6}" y="${y(v) + 3}" text-anchor="end" class="ax">${v.toFixed(1)}</text>`);
+    grid.push(`<line x1="${L}" x2="${W - R}" y1="${f(y(v))}" y2="${f(y(v))}" class="g"/><text x="${L - 6}" y="${f(y(v) + 3)}" text-anchor="end" class="ax">${v.toFixed(1)}</text>`);
   }
-  const pts = r.map((d, i) => [x(i), y(d.v)]);
-  const line = "M" + pts.map(q => q[0].toFixed(1) + " " + q[1].toFixed(1)).join(" L");
-  const area = line + ` L${pts[pts.length-1][0].toFixed(1)} ${H - B} L${pts[0][0].toFixed(1)} ${H - B}Z`;
+  const pts = r.map((d, i) => [f(x(i)), f(y(d.v))]);
+  const line = "M" + pts.map(q => q[0] + " " + q[1]).join(" L");
+  const area = line + ` L${pts[pts.length-1][0]} ${f(base)} L${pts[0][0]} ${f(base)}Z`;
   const first = r[0], last = r[r.length - 1];
-  return `<div class="phchart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Soil pH by week, from ${first.txt} in week ${first.week} to ${last.txt} in week ${last.week}">
-    <rect x="${L}" y="${y(p.phGauge.opt[1])}" width="${W - L - R}" height="${y(p.phGauge.opt[0]) - y(p.phGauge.opt[1])}" class="band" rx="4"/>
+  const bandTop = y(Math.min(p.phGauge.opt[1], hi)), bandBot = y(Math.max(p.phGauge.opt[0], lo));
+  return `<div class="phchart"><svg viewBox="0 0 ${W} ${H}" role="group" aria-label="Soil pH by week, from ${first.txt} in week ${first.week} to ${last.txt} in week ${last.week}. Hover or tap a point to see its value.">
+    <rect x="${L}" y="${f(bandTop)}" width="${W - L - R}" height="${f(bandBot - bandTop)}" class="band"/>
     ${grid.join("")}
+    ${pts.map(q => `<line x1="${q[0]}" x2="${q[0]}" y1="${q[1]}" y2="${f(base)}" class="pin"/>`).join("")}
+    <line x1="${L}" x2="${W - R}" y1="${f(base)}" y2="${f(base)}" class="axis"/>
+    ${pts.map(q => `<line x1="${q[0]}" x2="${q[0]}" y1="${f(base)}" y2="${f(base + 4)}" class="tick"/>`).join("")}
+    <path d="${area}" class="area"/>
     <path d="${line}" class="ln" pathLength="1"/>
-    ${pts.map((q, i) => `<circle cx="${q[0]}" cy="${q[1]}" r="${i === 0 || i === pts.length - 1 ? 4.6 : 3.4}" class="dot" style="animation-delay:${.15 + i * .07}s"><title>Week ${r[i].week} (${r[i].label}): pH ${r[i].txt}</title></circle>`).join("")}
-    <text x="${pts[0][0]}" y="${pts[0][1] - 10}" text-anchor="start" class="val">${first.txt}</text>
-    <text x="${pts[pts.length-1][0]}" y="${pts[pts.length-1][1] - 10}" text-anchor="end" class="val">${last.txt}</text>
-    ${r.map((d, i) => `<text x="${x(i)}" y="${H - 6}" text-anchor="middle" class="ax">wk${d.week}</text>`).join("")}
-  </svg></div>
+    <line class="cross" x1="0" x2="0" y1="${T - 6}" y2="${f(base)}"/>
+    ${pts.map((q, i) => `<circle cx="${q[0]}" cy="${q[1]}" r="${i === 0 || i === pts.length - 1 ? 4.6 : 3.6}" class="dot" style="animation-delay:${.15 + i * .07}s"/>`).join("")}
+    <circle class="hl" cx="0" cy="0" r="6"/>
+    <text x="${pts[0][0] - 4}" y="${pts[0][1] - 11}" text-anchor="start" class="val">${first.txt}</text>
+    <text x="${pts[pts.length-1][0] + 4}" y="${pts[pts.length-1][1] - 11}" text-anchor="end" class="val">${last.txt}</text>
+    ${r.map((d, i) => `<text x="${pts[i][0]}" y="${H - 6}" text-anchor="middle" class="ax wk" data-i="${i}">wk${d.week}</text>`).join("")}
+    ${pts.map((q, i) => `<circle cx="${q[0]}" cy="${q[1]}" r="13" class="hit" tabindex="0" role="button" data-i="${i}" data-x="${q[0]}" data-y="${q[1]}" data-week="${r[i].week}" data-date="${r[i].label}" data-ph="${r[i].txt}" aria-label="Week ${r[i].week}, ${r[i].label}: pH ${r[i].txt}"/>`).join("")}
+  </svg><div class="phtip" aria-hidden="true"></div></div>
   <div class="phstats">
     <span><small>${first.label}</small><b>${first.txt}</b></span>
     <i>→</i>
@@ -1574,6 +1604,72 @@ document.addEventListener("click", e => {
   else if ((el = t.closest(".chip, .members li, .gallery figure, .param, .pest, .timeline li, .fact, .progress div:not([role]), .polaroid, .swap, .sticky"))) kind = "tick";
   if (!kind) return;
   play(kind);
+});
+
+/* ---------------- soil pH chart: hover or tap near a point to see its value ---------------- */
+function phPoint(chart, hit){
+  const svg = chart.querySelector("svg"), tip = chart.querySelector(".phtip");
+  const k = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;
+  const cx = +hit.dataset.x * k, cy = +hit.dataset.y * k;
+  tip.innerHTML = `<small>week ${hit.dataset.week} · ${hit.dataset.date}</small>pH ${hit.dataset.ph}`;
+  // keep the bubble inside the chart near the left/right edges; the little arrow still points at the dot
+  const tw = tip.offsetWidth, cw = chart.clientWidth;
+  const tx = Math.min(Math.max(-tw / 2, -cx), cw - cx - tw);
+  tip.style.left = cx + "px"; tip.style.top = cy + "px";
+  tip.style.setProperty("--tx", tx + "px");
+  tip.style.setProperty("--ax", (-tx) + "px");
+  const hl = svg.querySelector(".hl"), cross = svg.querySelector(".cross");
+  hl.setAttribute("cx", hit.dataset.x); hl.setAttribute("cy", hit.dataset.y);
+  cross.setAttribute("x1", hit.dataset.x); cross.setAttribute("x2", hit.dataset.x);
+  svg.querySelectorAll(".wk").forEach(t => t.classList.toggle("cur", t.dataset.i === hit.dataset.i));
+  chart.classList.add("on");
+  chart._cur = hit;
+}
+function phHide(chart){
+  chart.classList.remove("on");
+  chart.querySelectorAll(".wk.cur").forEach(t => t.classList.remove("cur"));
+  chart._cur = null; chart._pinned = null;
+}
+function phNearest(chart, clientX){
+  const hits = [...chart.querySelectorAll(".hit")];
+  let best = null, bd = Infinity;
+  hits.forEach(h => { const r = h.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - clientX); if (d < bd){ bd = d; best = h; } });
+  return best;
+}
+document.addEventListener("pointermove", e => {
+  if (e.pointerType === "touch") return;
+  const chart = e.target.closest && e.target.closest(".phchart");
+  if (!chart || chart._pinned) return;
+  const h = phNearest(chart, e.clientX);
+  if (h && h !== chart._cur) phPoint(chart, h);
+});
+document.addEventListener("pointerout", e => {
+  const chart = e.target.closest && e.target.closest(".phchart");
+  if (chart && !chart._pinned && !chart.contains(e.relatedTarget)) phHide(chart);
+});
+document.addEventListener("click", e => {
+  const chart = e.target.closest(".phchart");
+  document.querySelectorAll(".phchart.on").forEach(c => { if (c !== chart && c._pinned) phHide(c); });
+  if (!chart) return;
+  const h = e.target.closest(".hit") || phNearest(chart, e.clientX);
+  if (!h) return;
+  if (chart._pinned === h){ phHide(chart); return; }   // tap the same point again to let go
+  phPoint(chart, h);
+  chart._pinned = h;
+  play("tick");
+});
+document.addEventListener("focusin", e => {
+  const h = e.target.closest && e.target.closest(".phchart .hit");
+  if (h) phPoint(h.closest(".phchart"), h);
+});
+document.addEventListener("focusout", e => {
+  const h = e.target.closest && e.target.closest(".phchart .hit");
+  if (!h) return;
+  const chart = h.closest(".phchart");
+  if (!chart.contains(e.relatedTarget) && !chart._pinned) phHide(chart);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") document.querySelectorAll(".phchart.on").forEach(phHide);
 });
 
 /* ---------------- weekly log: click a week circle to slide its details open ---------------- */
